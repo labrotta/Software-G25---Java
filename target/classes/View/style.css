@@ -1,0 +1,17 @@
+.head{
+	fx-font-size: 20px;
+}
+
+.img{
+    -fx-alignment: center-center
+}
+.input{
+    -fx-alignment: center-left
+}
+.text{
+    -fx-fill: black;
+    -fx-background-color: white;
+}
+.text-background{
+    -fx-background-color: white;
+}
