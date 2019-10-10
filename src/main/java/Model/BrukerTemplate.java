@@ -1,8 +1,8 @@
 package Model;
 
 public class BrukerTemplate {
-    String forNavn;
-    String etterNavn;
+    private String forNavn;
+    private String etterNavn;
 
     public void setEtternavn(String etternavn) {
         this.etterNavn = etternavn;
