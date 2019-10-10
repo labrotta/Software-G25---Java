@@ -29,5 +29,6 @@ public class BrukerTemplate {
     public String toString() {
         return (this.forNavn + " " + this.etterNavn);
     }
+
 }
 
