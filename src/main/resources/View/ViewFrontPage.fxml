@@ -22,8 +22,8 @@
          </font>
       </Text>
       <Separator layoutX="11.0" layoutY="47.0" prefHeight="3.0" prefWidth="562.0" />
-      <Button fx:id="btnOversiktSki" layoutX="12.0" layoutY="240.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Oversikt - Skiren" />
-      <Button fx:id="btnOversiktSykkel" layoutX="201.0" layoutY="240.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Oversikt - Sykkelritt" />
-      <Button fx:id="btnOversiktLop" layoutX="393.0" layoutY="240.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Oversikt - Løp" />
+      <Button fx:id="skirennButton"  layoutX="12.0" layoutY="240.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Oversikt - Skiren" />
+      <Button fx:id="sykkelrittButton"  layoutX="201.0" layoutY="240.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Oversikt - Sykkelritt" />
+      <Button fx:id="lopButton" layoutX="393.0" layoutY="240.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Oversikt - Løp" />
    </children>
 </AnchorPane>

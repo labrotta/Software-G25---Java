@@ -3,16 +3,19 @@ package Controller;
 import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import main.Main;
 
 public class brukerController {
     @FXML private ComboBox<BrukerType> brukerListe;
-    @FXML private Button brukerLoggInn;
+    @FXML private Button brukerLoggInn, skirennButton, lopButton, sykkelrittButton;
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
 
@@ -28,6 +31,16 @@ public class brukerController {
             String Navn = brukerListe.getSelectionModel().getSelectedItem().toString();
             valgtBrukerNavnLabel.setText(Navn);
         });
+
+        skirennButton.setOnAction(getActionEventEventHandler());
+        sykkelrittButton.setOnAction(getActionEventEventHandler());
+        lopButton.setOnAction(getActionEventEventHandler());
+    }
+
+    private EventHandler<ActionEvent> getActionEventEventHandler() {
+        return actionEvent -> {
+            Main.getInstance().changeScene("../View/ArrangementOversiktView.fxml");
+        };
     }
 
     private void imgForhand(){
