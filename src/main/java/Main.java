@@ -1,5 +1,3 @@
-import Model.BrukerTemplate;
-import Model.ModelBruker;
 import javafx.application.Application;
 //import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXMLLoader;

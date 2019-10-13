@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.BrukerTemplate;
+import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,12 +11,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class brukerController {
-    @FXML private ComboBox<BrukerTemplate> brukerListe;
+    @FXML private ComboBox<BrukerType> brukerListe;
     @FXML private Button brukerLoggInn;
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
 
-    private ObservableList<BrukerTemplate> listeBrukere = ModelBruker.listeBruker();
+    private ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
 
     public void initialize() throws Exception {
         imgForhand();

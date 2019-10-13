@@ -1,6 +1,6 @@
 package Model;
 
-public class BrukerTemplate {
+public class BrukerType {
     private String forNavn;
     private String etterNavn;
 
@@ -8,7 +8,7 @@ public class BrukerTemplate {
         this.etterNavn = etternavn;
     }
 
-    public BrukerTemplate(String forNavn, String etternavn) {
+    public BrukerType(String forNavn, String etternavn) {
         this.forNavn = forNavn;
         this.etterNavn = etternavn;
     }

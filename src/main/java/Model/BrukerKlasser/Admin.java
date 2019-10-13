@@ -1,8 +1,8 @@
 package Model.BrukerKlasser;
 
-import Model.BrukerTemplate;
+import Model.BrukerType;
 
-public class Admin extends BrukerTemplate {
+public class Admin extends BrukerType {
     public Admin(String forNavn, String etternavn) {
         super(forNavn, etternavn);
     }
