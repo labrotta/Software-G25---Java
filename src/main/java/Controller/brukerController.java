@@ -32,13 +32,26 @@ public class brukerController {
             valgtBrukerNavnLabel.setText(Navn);
         });
 
-        skirennButton.setOnAction(getActionEventEventHandler());
-        sykkelrittButton.setOnAction(getActionEventEventHandler());
-        lopButton.setOnAction(getActionEventEventHandler());
+        skirennButton.setOnAction(getActionEventEventHandler("renn"));
+        sykkelrittButton.setOnAction(getActionEventEventHandler("ritt"));
+        lopButton.setOnAction(getActionEventEventHandler("lop"));
     }
 
-    private EventHandler<ActionEvent> getActionEventEventHandler() {
+    private EventHandler<ActionEvent> getActionEventEventHandler(String arrangementType) {
         return actionEvent -> {
+            switch (arrangementType){
+                case "renn":
+                    ArrangementOversiktController.arrangementType = "Skirenn";
+                    break;
+                case "ritt":
+                    ArrangementOversiktController.arrangementType = "Sykkelritt";
+                    break;
+                case "lop":
+                    ArrangementOversiktController.arrangementType = "Løp";
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + arrangementType);
+            }
             Main.getInstance().changeScene("../View/ArrangementOversiktView.fxml");
         };
     }
