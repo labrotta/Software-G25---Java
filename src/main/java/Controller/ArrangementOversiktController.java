@@ -8,10 +8,11 @@ import data.DataHandler;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import main.Main;
 
 public class ArrangementOversiktController {
 
@@ -25,6 +26,9 @@ public class ArrangementOversiktController {
 
     @FXML
     private Text arrangementTypeTextField;
+
+    @FXML
+    private Button tilbakeButton;
 
     public void initialize(){
         ObservableList<Arrangement> arrangementList = DataHandler.getArrangementer();
@@ -53,6 +57,10 @@ public class ArrangementOversiktController {
 
         stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSted()));
         navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNavn()));
+
+        tilbakeButton.setOnAction(actionEvent -> {
+            Main.getInstance().changeScene("../View/ViewFrontPage.fxml");
+        });
     }
 
 }
