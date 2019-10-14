@@ -6,7 +6,6 @@ import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

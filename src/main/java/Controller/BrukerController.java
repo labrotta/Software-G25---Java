@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
 
-public class brukerController {
+public class BrukerController {
     @FXML private ComboBox<BrukerType> brukerListe;
     @FXML private Button brukerLoggInn, skirennButton, lopButton, sykkelrittButton;
     @FXML private Label valgtBrukerNavnLabel;
