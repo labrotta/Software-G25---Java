@@ -31,6 +31,8 @@ public class ArrangementOversiktController {
     private Button tilbakeButton;
 
     public void initialize(){
+
+
         ObservableList<Arrangement> arrangementList = DataHandler.getArrangementer();
 
         arrangementTypeTextField.setText(arrangementType);
@@ -60,5 +62,4 @@ public class ArrangementOversiktController {
 
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
     }
-
 }
