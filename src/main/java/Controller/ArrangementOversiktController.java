@@ -58,9 +58,7 @@ public class ArrangementOversiktController {
         stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSted()));
         navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNavn()));
 
-        tilbakeButton.setOnAction(actionEvent -> {
-            Main.getInstance().changeScene("../View/ViewFrontPage.fxml");
-        });
+        tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
     }
 
 }
