@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ArrangementOversiktController">
+   <children>
+      <TableView fx:id="arrangementTableView" layoutX="78.0" layoutY="70.0" prefHeight="262.0" prefWidth="437.0">
+        <columns>
+          <TableColumn fx:id="navnTableColumn" prefWidth="246.0" text="Navn" />
+          <TableColumn fx:id="stedTableColumn" prefWidth="119.0" text="Sted" />
+            <TableColumn fx:id="datoTableColumn" prefWidth="71.0" text="Dato" />
+        </columns>
+      </TableView>
+      <Text fx:id="arrangementTypeTextField" layoutX="122.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+      <Button fx:id="tilbakeButton" layoutX="14.0" layoutY="30.0" mnemonicParsing="false" text="Tilbake" />
+   </children>
+</AnchorPane>
