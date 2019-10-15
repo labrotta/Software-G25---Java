@@ -8,4 +8,5 @@ public class Lop extends Arrangement {
     public Lop(String navn, String sted, LocalDateTime datoOgTid) {
         super(navn, sted, datoOgTid);
     }
+
 }

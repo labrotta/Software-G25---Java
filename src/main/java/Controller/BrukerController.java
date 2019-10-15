@@ -21,7 +21,7 @@ public class BrukerController {
 
     private ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
 
-    public void initialize() throws Exception {
+    public void initialize() {
         imgForhand();
         valgtBrukerNavnLabel.setText("Ukjent");
         brukerListe.setItems(listeBrukere);

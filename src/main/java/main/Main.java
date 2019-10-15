@@ -15,7 +15,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         //Setter den globale variabelen primarystage til å være dette staget
         this.primaryStage = primaryStage;
 

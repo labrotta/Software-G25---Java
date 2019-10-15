@@ -1,6 +1,8 @@
 package Model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Arrangement {
     private String navn, sted;
