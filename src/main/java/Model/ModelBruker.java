@@ -1,22 +1,24 @@
 package Model;
 
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
+import Model.BrukerKlasser.Bruker;
+import Model.BrukerKlasser.Medlem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ModelBruker {
-    private final static ObservableList<BrukerTemplate> bruker = FXCollections.observableArrayList();
+    private final static ObservableList<BrukerType> brukere = FXCollections.observableArrayList();
 
-    public static ObservableList<BrukerTemplate> listeBruker() {
-        BrukerTemplate user1 = new BrukerTemplate("Rune","");
-        BrukerTemplate user2 = new BrukerTemplate("Trond","");
-        BrukerTemplate user3 = new BrukerTemplate("Alex","");
-        BrukerTemplate user4 = new BrukerTemplate("Terje","");
-        BrukerTemplate user5 = new BrukerTemplate("Jan Thomas","");
-        bruker.add(user1);
-        bruker.add(user2);
-        bruker.add(user3);
-        bruker.add(user4);
-        bruker.add(user5);
-        return bruker;
+    public static ObservableList<BrukerType> listeBruker() {
+        BrukerType admin = new Admin("Admin","");
+        BrukerType arrangementAnsvarlig = new ArrangementAnsvarlig("ArrangementAnsvarlig","");
+        BrukerType bruker = new Bruker("Bruker","");
+        BrukerType medlem = new Medlem("Medlem","");
+        brukere.add(admin);
+        brukere.add(arrangementAnsvarlig);
+        brukere.add(bruker);
+        brukere.add(medlem);
+        return brukere;
     }
 }
