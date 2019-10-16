@@ -1,5 +1,6 @@
 package Controller;
 
+import data.BrukerSessionModel;
 import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
@@ -14,22 +15,29 @@ import javafx.scene.image.ImageView;
 import main.Main;
 
 public class BrukerController {
+
     @FXML private ComboBox<BrukerType> brukerListe;
     @FXML private Button brukerLoggInn, skirennButton, lopButton, sykkelrittButton;
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
 
     private ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
+    private ObservableList<String>brukerSession = BrukerSessionModel.getBrukerSessions();
 
     public void initialize() {
+
         imgForhand();
-        valgtBrukerNavnLabel.setText("Ukjent");
+        //sjekker om brukerSession listen er tom eller ikke.
+        BrukerSessionModel.sjekkBruker(brukerSession);
+        valgtBrukerNavnLabel.setText(brukerSession.get(0));
+
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
             String Navn = brukerListe.getSelectionModel().getSelectedItem().toString();
             valgtBrukerNavnLabel.setText(Navn);
+            BrukerSessionModel.genBrukerSession(Navn);
         });
 
         skirennButton.setOnAction(getActionEventEventHandler("renn"));
