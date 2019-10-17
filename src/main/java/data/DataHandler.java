@@ -28,7 +28,6 @@ public class DataHandler {
     public static ObservableList<Arrangement> getArrangementer() {
         //Tømmer listen slik at det ikke er igjen gamle arrangementer siden forrige gang listen ble fylt.
         arrangementListe.clear();
-
         genererArrangementer();
         return arrangementListe;
     }

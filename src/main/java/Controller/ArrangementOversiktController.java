@@ -6,6 +6,7 @@ import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
 import Model.BrukerType;
 import Model.ModelBruker;
+import data.DataHandlerSQL;
 import data.InnloggetBruker;
 import data.DataHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -19,25 +20,37 @@ import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import main.Main;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class ArrangementOversiktController {
 
     static String arrangementType;
     private BrukerType innloggetBruker = BrukerController.getInnloggetBruker().getInnloggetBruker();
-    @FXML private TableView<Arrangement> arrangementTableView;
-    @FXML private TableColumn<Arrangement, String> stedTableColumn, navnTableColumn, datoTableColumn;
-    @FXML private Text arrangementTypeTextField;
-    @FXML private Button tilbakeButton;
-    @FXML private Label brukerID;
+
+    //@FXML private TableView<String> arrangementTableView;
+    //@FXML private TableColumn<String, String> stedTableColumn, navnTableColumn, datoTableColumn;
+    @FXML
+    private TableView<Arrangement> arrangementTableView;
+    @FXML
+    private TableColumn<Arrangement, String> stedTableColumn, navnTableColumn, datoTableColumn;
+    @FXML
+    private Text arrangementTypeTextField;
+    @FXML
+    private Button tilbakeButton;
+    @FXML
+    private Label brukerID;
 
     public void initialize() {
-
+        ObservableList<String> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
+        System.out.println(sqlList);
         brukerID.setText(innloggetBruker.getForNavn());
 
         ObservableList<Arrangement> arrangementList = DataHandler.getArrangementer();
         arrangementTypeTextField.setText(arrangementType);
 
         //Refatoreiet kode
-        for (Arrangement arrangement : arrangementList)
+        for (Arrangement arrangement : arrangementList) {
             switch (arrangementType) {
                 case "Skirenn":
                     if (arrangement instanceof Renn) {
@@ -55,10 +68,10 @@ public class ArrangementOversiktController {
                     }
                     break;
             }
-        stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSted()));
-        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNavn()));
-        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getDatoOgTid()));
-        tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
+            stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSted()));
+            navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNavn()));
+            datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getDatoOgTid()));
+            tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
+        }
     }
-
 }
