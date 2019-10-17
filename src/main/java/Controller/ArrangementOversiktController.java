@@ -4,8 +4,9 @@ import Model.Arrangement;
 import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
+import Model.BrukerType;
 import Model.ModelBruker;
-import data.BrukerSessionModel;
+import data.InnloggetBruker;
 import data.DataHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -21,6 +22,7 @@ import main.Main;
 public class ArrangementOversiktController {
 
     static String arrangementType;
+    private BrukerType innloggetBruker = BrukerController.getInnloggetBruker().getInnloggetBruker();
     @FXML private TableView<Arrangement> arrangementTableView;
     @FXML private TableColumn<Arrangement, String> stedTableColumn, navnTableColumn, datoTableColumn;
     @FXML private Text arrangementTypeTextField;
@@ -29,11 +31,8 @@ public class ArrangementOversiktController {
 
 
     public void initialize() {
-        ModelBruker.listeBruker().clear();
-        ObservableList<String>brukerSession = BrukerSessionModel.getBrukerSessions();
 
-        BrukerSessionModel.sjekkBruker(brukerSession);
-        brukerID.setText(brukerSession.get(0));
+        brukerID.setText(innloggetBruker.getForNavn());
 
         ObservableList<Arrangement> arrangementList = DataHandler.getArrangementer();
         arrangementTypeTextField.setText(arrangementType);

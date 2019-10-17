@@ -1,6 +1,6 @@
 package Controller;
 
-import data.BrukerSessionModel;
+import data.InnloggetBruker;
 import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
@@ -22,22 +22,28 @@ public class BrukerController {
     @FXML private ImageView imgSki,imgSykkel,imgLop;
 
     private ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
-    private ObservableList<String>brukerSession = BrukerSessionModel.getBrukerSessions();
+
+    public static InnloggetBruker getInnloggetBruker() {
+        return innloggetBruker;
+    }
+
+    private static InnloggetBruker innloggetBruker;
 
     public void initialize() {
 
         imgForhand();
-        //sjekker om brukerSession listen er tom eller ikke.
-        BrukerSessionModel.sjekkBruker(brukerSession);
-        valgtBrukerNavnLabel.setText(brukerSession.get(0));
+
+
+        if (innloggetBruker != null){
+            valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
+        }
 
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            String Navn = brukerListe.getSelectionModel().getSelectedItem().toString();
-            valgtBrukerNavnLabel.setText(Navn);
-            BrukerSessionModel.genBrukerSession(Navn);
+            innloggetBruker = new InnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
+            valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         });
 
         skirennButton.setOnAction(getActionEventEventHandler("renn"));

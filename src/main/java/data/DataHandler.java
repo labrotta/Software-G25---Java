@@ -32,7 +32,8 @@ public class DataHandler {
         genererArrangementer();
         return arrangementListe;
     }
-    private static LocalDateTime datoConvert(String datoS, String tidS){
+
+    private static LocalDateTime datoConvert(String datoS, String tidS) {
         LocalDate dato = LocalDate.parse(datoS);
         LocalTime tid = LocalTime.parse(tidS);
         return LocalDateTime.of(dato, tid);
@@ -59,13 +60,5 @@ public class DataHandler {
         } catch (IOException e) {
             System.out.println(e);
         }
-/*
-        LocalDate dato = LocalDate.of(2009, 12,12);
-        LocalTime tid = LocalTime.of(14,0);
-        LocalDateTime tidspunkt = LocalDateTime.of(dato, tid);
-        arrangementListe.add(new Ritt("Birken", "Lillehammer", tidspunkt));
-        arrangementListe.add(new Ritt("Styrkeprøven", "Trondheim", tidspunkt));
-        arrangementListe.add(new Lop("Oslo Marathon", "Oslo", tidspunkt));
-        arrangementListe.add(new Renn("Birken", "Lillehammer", tidspunkt));*/
     }
 }
