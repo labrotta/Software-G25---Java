@@ -40,9 +40,11 @@ public class BrukerController {
 
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
+        //Hvis brukeren går inn på arrangementpversikt blir brukeren satt til å være "bruker"
+        innloggetBruker = new InnloggetBruker(listeBrukere.get(2));
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            innloggetBruker = new InnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
+            innloggetBruker.setInnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
             valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         });
 
