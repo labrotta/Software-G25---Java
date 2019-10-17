@@ -29,7 +29,6 @@ public class ArrangementOversiktController {
     @FXML private Button tilbakeButton;
     @FXML private Label brukerID;
 
-
     public void initialize() {
 
         brukerID.setText(innloggetBruker.getForNavn());
