@@ -45,7 +45,6 @@ public class BrukerController {
             innloggetBruker = new InnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
             valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         });
-
         skirennButton.setOnAction(getActionEventEventHandler("renn"));
         sykkelrittButton.setOnAction(getActionEventEventHandler("ritt"));
         lopButton.setOnAction(getActionEventEventHandler("lop"));

@@ -26,7 +26,7 @@ public class Main extends Application {
         instance = this;
 
         Parent root = FXMLLoader.load(getClass().getResource("../View/ViewFrontPage.fxml"));
-        primaryStage.setTitle("App v0.2a");
+        primaryStage.setTitle("App v0.3.1a");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }

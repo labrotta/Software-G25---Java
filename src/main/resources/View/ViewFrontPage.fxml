@@ -24,7 +24,7 @@
       <ImageView fx:id="imgSki" fitHeight="135.0" fitWidth="217.0" layoutX="28.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="imgSykkel" fitHeight="135.0" fitWidth="235.0" layoutX="540.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="imgLop" fitHeight="135.0" fitWidth="228.0" layoutX="278.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="12.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrangement App v0.3a" textAlignment="CENTER" wrappingWidth="763.13671875">
+      <Text layoutX="12.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrangement App v0.3.2a" textAlignment="CENTER" wrappingWidth="763.13671875">
          <font>
             <Font size="24.0" />
          </font>

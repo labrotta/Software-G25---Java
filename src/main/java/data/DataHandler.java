@@ -39,7 +39,7 @@ public class DataHandler {
     }
 
     private static void genererArrangementer() {
-        //leser fra CSV
+     /*   //leser fra CSV
         try (BufferedReader br = new BufferedReader(new FileReader(fil1))) {
             String linje;
             while ((linje = br.readLine()) != null) {
@@ -58,6 +58,6 @@ public class DataHandler {
             }
         } catch (IOException e) {
             System.out.println(e);
-        }
+        }*/
     }
 }

@@ -1,12 +1,26 @@
 package data;
 
+import Model.Arrangement;
+import Model.ArrangementKlasser.Lop;
+import Model.ArrangementKlasser.StdArrangement;
+import Model.ArrangementVisBruker;
+import Model.ModelBruker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class DataHandlerSQL {
+    private static LocalDateTime datoConvert(String datoS, String tidS) {
+        LocalDate dato = LocalDate.parse(datoS);
+        LocalTime tid = LocalTime.parse(tidS);
+        return LocalDateTime.of(dato, tid);
+    }
 
     public static Connection SQLConnect() {
         Connection conn = null;
@@ -20,44 +34,51 @@ public class DataHandlerSQL {
         return conn;
     }
 
-    public static ObservableList<String> sjekkSQLType(String arrangementType) {
-        ObservableList<String> arrangementer = FXCollections.observableArrayList();
-        if ("Løp".equals(arrangementType)) {
-            arrangementer.add(genererArrangementer(arrangementType));
-            return arrangementer;
-        } else if ("Sykkelritt".equals(arrangementType)) {
-            arrangementer.add(genererArrangementer(arrangementType));
-            return arrangementer;
-        } else if ("Skirenn".equals(arrangementType)) {
-            arrangementer.add(genererArrangementer(arrangementType));
-            return arrangementer;
-        }
-        return arrangementer;
-    }
-    public static String genererArrangementer(String x) {
-        String sql = "SELECT * FROM Tider NATURAL JOIN Arrangementer";
-       ArrayList<String> Placeholder = new ArrayList<>();
+
+    public static  ObservableList<ArrangementVisBruker> VisBrukerePrArrangement(){
+
+        ObservableList<ArrangementVisBruker>VisbrukerArragement = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM Tider NATURAL JOIN Arrangementer WHERE ArrangementerNavn = 'Løp 3'";
+
         try (Connection conn = DataHandlerSQL.SQLConnect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                String TypeArrnengement = rs.getString(5);
-                String NavnArrangement = rs.getString(4);
-                String StartTid = rs.getString(3);
-                String StoppTid = rs.getString(4);
+                Time tidStart = Time.valueOf(rs.getString(1));
+                Time tidStopp = Time.valueOf(rs.getString(1));
+                String brukerUnikID = rs.getString(4);
 
-                if(TypeArrnengement.equals(x)) {
-                    Placeholder.add(NavnArrangement);
-                }
+                VisbrukerArragement.add(new ArrangementVisBruker(brukerUnikID, tidStart, tidStopp));
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return String.valueOf(Placeholder);
+        return VisbrukerArragement;
     }
 
-    /*public static ObservableList<Arrangement> getArrangementer() {
-        return arrangementTestListe;
-    }*/
+    //Henter alle arrenmangt og viser disse i Observlist
+    public static ObservableList<Arrangement> sjekkSQLType(String arrangementType) {
+        ObservableList<Arrangement>arrangementer = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM Arrangementer";
+        try (Connection conn = DataHandlerSQL.SQLConnect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String TypeArrnengement = rs.getString(3);
+                String NavnArrangement = rs.getString(2);
+                String Dato = rs.getString(4);
+                String Tid = rs.getString(5);
+                String Sted = rs.getString(6);
+                if(TypeArrnengement.equals(arrangementType))
+                    arrangementer.add(new StdArrangement(NavnArrangement, Sted, datoConvert(Dato, Tid)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return arrangementer;
+    }
 }

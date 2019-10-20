@@ -1,8 +1,13 @@
 package Model;
 
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 
 public class Arrangement {
     private String navn, sted;
@@ -37,4 +42,5 @@ public class Arrangement {
     public void setDatoOgTid(LocalDateTime datoOgTid) {
         this.datoOgTid = datoOgTid;
     }
+
 }
