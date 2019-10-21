@@ -5,8 +5,9 @@ import javafx.scene.control.Button;
 
 import java.time.LocalDateTime;
 
-public class Lop extends Arrangement {
-    public Lop(String navn, String sted, LocalDateTime datoOgTid) {
+public class StdArrangement extends Arrangement {
+    public StdArrangement(String navn, String sted, LocalDateTime datoOgTid) {
         super(navn, sted, datoOgTid);
     }
+
 }

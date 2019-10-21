@@ -28,18 +28,18 @@ public class DataHandler {
     public static ObservableList<Arrangement> getArrangementer() {
         //Tømmer listen slik at det ikke er igjen gamle arrangementer siden forrige gang listen ble fylt.
         arrangementListe.clear();
-
         genererArrangementer();
         return arrangementListe;
     }
-    private static LocalDateTime datoConvert(String datoS, String tidS){
+
+    private static LocalDateTime datoConvert(String datoS, String tidS) {
         LocalDate dato = LocalDate.parse(datoS);
         LocalTime tid = LocalTime.parse(tidS);
         return LocalDateTime.of(dato, tid);
     }
 
     private static void genererArrangementer() {
-        //leser fra CSV
+     /*   //leser fra CSV
         try (BufferedReader br = new BufferedReader(new FileReader(fil1))) {
             String linje;
             while ((linje = br.readLine()) != null) {
@@ -57,15 +57,7 @@ public class DataHandler {
                 }
             }
         } catch (IOException e) {
-
-        }
-/*
-        LocalDate dato = LocalDate.of(2009, 12,12);
-        LocalTime tid = LocalTime.of(14,0);
-        LocalDateTime tidspunkt = LocalDateTime.of(dato, tid);
-        arrangementListe.add(new Ritt("Birken", "Lillehammer", tidspunkt));
-        arrangementListe.add(new Ritt("Styrkeprøven", "Trondheim", tidspunkt));
-        arrangementListe.add(new Lop("Oslo Marathon", "Oslo", tidspunkt));
-        arrangementListe.add(new Renn("Birken", "Lillehammer", tidspunkt));*/
+            System.out.println(e);
+        }*/
     }
 }

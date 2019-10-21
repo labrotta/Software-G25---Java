@@ -11,6 +11,7 @@ public class ModelBruker {
     private final static ObservableList<BrukerType> brukere = FXCollections.observableArrayList();
 
     public static ObservableList<BrukerType> listeBruker() {
+        brukere.clear();
         BrukerType admin = new Admin("Admin","");
         BrukerType arrangementAnsvarlig = new ArrangementAnsvarlig("ArrangementAnsvarlig","");
         BrukerType bruker = new Bruker("Bruker","");

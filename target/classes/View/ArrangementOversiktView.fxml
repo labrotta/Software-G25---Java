@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
+<<<<<<< HEAD
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ArrangementOversiktController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ArrangementOversiktController">
    <children>
-      <TableView fx:id="arrangementTableView" layoutX="13.0" layoutY="130.0" prefHeight="217.0" prefWidth="763.0">
+      <TableView fx:id="arrangementTableView" layoutX="78.0" layoutY="70.0" prefHeight="262.0" prefWidth="437.0">
         <columns>
-          <TableColumn fx:id="navnTableColumn" prefWidth="164.0" text="Navn" />
-          <TableColumn fx:id="stedTableColumn" prefWidth="155.0" text="Sted" />
-            <TableColumn fx:id="datoTableColumn" prefWidth="168.0" text="Dato" />
+          <TableColumn fx:id="navnTableColumn" prefWidth="246.0" text="Navn" />
+          <TableColumn fx:id="stedTableColumn" prefWidth="119.0" text="Sted" />
+            <TableColumn fx:id="datoTableColumn" prefWidth="71.0" text="Dato" />
+=======
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ArrangementOversiktController">
+   <children>
+      <TableView fx:id="arrangementTableView" layoutX="78.0" layoutY="70.0" prefHeight="262.0" prefWidth="437.0">
+        <columns>
+          <TableColumn fx:id="stedTableColumn" prefWidth="75.0" text="Sted" />
+          <TableColumn fx:id="navnTableColumn" prefWidth="75.0" text="Navn" />
+>>>>>>> 3025f06c090277d4b4aa73bb0568a715eb207f53
         </columns>
       </TableView>
-      <Text fx:id="arrangementTypeTextField" layoutX="12.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrangement oversikt" wrappingWidth="775.0">
+      <Text fx:id="arrangementTypeTextField" layoutX="122.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font size="24.0" />
          </font></Text>
-      <Button fx:id="tilbakeButton" layoutX="13.0" layoutY="76.0" mnemonicParsing="false" text="Tilbake" />
-      <Label layoutX="15.0" layoutY="108.0" text="Tilgjennelige konkurranser:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="15.0" layoutY="349.0" text="Utgåtte konkuransse:r">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TableView fx:id="arrangementTableView1" layoutX="15.0" layoutY="371.0" prefHeight="217.0" prefWidth="763.0">
-         <columns>
-            <TableColumn fx:id="navnTableColumn1" prefWidth="246.0" text="Navn" />
-            <TableColumn fx:id="stedTableColumn1" prefWidth="119.0" text="Sted" />
-            <TableColumn fx:id="datoTableColumn1" prefWidth="165.0" text="Dato" />
-         </columns>
-      </TableView>
-      <Label fx:id="brukerID" layoutX="83.0" layoutY="51.0" prefHeight="17.0" prefWidth="347.0" />
-      <Separator layoutX="11.0" layoutY="38.0" prefHeight="17.0" prefWidth="763.0" />
-      <Button fx:id="eksArrangementInfo" layoutX="76.0" layoutY="76.0" mnemonicParsing="false" text="Oversikt Lop - Løp 3" />
-      <Label layoutX="14.0" layoutY="51.0" text="Velkommen:" />
+      <Button fx:id="tilbakeButton" layoutX="14.0" layoutY="30.0" mnemonicParsing="false" text="Tilbake" />
    </children>
 </AnchorPane>
