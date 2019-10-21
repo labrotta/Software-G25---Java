@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Arrangement;
 import Model.ArrangementVisBruker;
 import Model.BrukerType;
 import data.DataHandlerSQL;
@@ -18,7 +17,7 @@ import main.Main;
 
 public class ArrangementOversiktInfoController {
     static String arrangementType;
-    private BrukerType innloggetBruker = BrukerController.getInnloggetBruker().getInnloggetBruker();
+    private BrukerType innloggetBruker = ForsideController.getInnloggetBruker().getInnloggetBruker();
 
     static String arrangementInfo = "lop";
     @FXML

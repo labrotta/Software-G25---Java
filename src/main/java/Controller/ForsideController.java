@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
 
-public class BrukerController {
+public class ForsideController {
 
     @FXML private ComboBox<BrukerType> brukerListe;
     @FXML private Button brukerLoggInn, skirennButton, lopButton, sykkelrittButton;
@@ -40,22 +40,11 @@ public class BrukerController {
 
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
-<<<<<<< HEAD
 
         brukerLoggInn.setOnAction(actionEvent -> {
             innloggetBruker = new InnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
             valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         });
-=======
-        //Hvis brukeren går inn på arrangementpversikt blir brukeren satt til å være "bruker"
-        innloggetBruker = new InnloggetBruker(listeBrukere.get(2));
-
-        brukerLoggInn.setOnAction(actionEvent -> {
-            innloggetBruker.setInnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
-            valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
-        });
-
->>>>>>> remotes/origin/MVP-Rune
         skirennButton.setOnAction(getActionEventEventHandler("renn"));
         sykkelrittButton.setOnAction(getActionEventEventHandler("ritt"));
         lopButton.setOnAction(getActionEventEventHandler("lop"));

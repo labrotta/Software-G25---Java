@@ -22,7 +22,7 @@ public class DataHandlerSQL {
         return LocalDateTime.of(dato, tid);
     }
 
-    private static Connection SQLConnect() {
+    public static Connection SQLConnect() {
         Connection conn = null;
         try {
             String URL = "jdbc:sqlite:src/main/resources/Data/arrangementer.db";
@@ -46,7 +46,7 @@ public class DataHandlerSQL {
 
             while (rs.next()) {
                 Time tidStart = Time.valueOf(rs.getString(1));
-                Time tidStopp = Time.valueOf(rs.getString(2));
+                Time tidStopp = Time.valueOf(rs.getString(1));
                 String brukerUnikID = rs.getString(4);
 
                 VisbrukerArragement.add(new ArrangementVisBruker(brukerUnikID, tidStart, tidStopp));
