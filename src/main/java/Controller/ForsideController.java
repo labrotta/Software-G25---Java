@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
 
-public class BrukerController {
+public class ForsideController {
 
     @FXML private ComboBox<BrukerType> brukerListe;
     @FXML private Button brukerLoggInn, KontrollPanelButton, skirennButton, lopButton, sykkelrittButton;
