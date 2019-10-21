@@ -1,5 +1,6 @@
 package Controller;
 
+import data.InnloggetBruker;
 import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import main.Main;
 
 public class BrukerController {
+
     @FXML private ComboBox<BrukerType> brukerListe;
     @FXML private Button brukerLoggInn, skirennButton, lopButton, sykkelrittButton;
     @FXML private Label valgtBrukerNavnLabel;
@@ -21,17 +23,28 @@ public class BrukerController {
 
     private ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
 
-    public void initialize() throws Exception {
+    public static InnloggetBruker getInnloggetBruker() {
+        return innloggetBruker;
+    }
+
+    private static InnloggetBruker innloggetBruker;
+
+    public void initialize() {
+
         imgForhand();
-        valgtBrukerNavnLabel.setText("Ukjent");
+
+
+        if (innloggetBruker != null){
+            valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
+        }
+
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            String Navn = brukerListe.getSelectionModel().getSelectedItem().toString();
-            valgtBrukerNavnLabel.setText(Navn);
+            innloggetBruker = new InnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
+            valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         });
-
         skirennButton.setOnAction(getActionEventEventHandler("renn"));
         sykkelrittButton.setOnAction(getActionEventEventHandler("ritt"));
         lopButton.setOnAction(getActionEventEventHandler("lop"));

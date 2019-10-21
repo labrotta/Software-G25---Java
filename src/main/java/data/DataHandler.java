@@ -7,30 +7,57 @@ import Model.ArrangementKlasser.Ritt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
+
+import static java.lang.Integer.parseInt;
 
 public class DataHandler {
 
     private final static ObservableList<Arrangement> arrangementListe = FXCollections.observableArrayList();
+    private static String fil1 = "src/main/resources/Data/arrangementer.csv";
 
     public static ObservableList<Arrangement> getArrangementer() {
-
         //Tømmer listen slik at det ikke er igjen gamle arrangementer siden forrige gang listen ble fylt.
         arrangementListe.clear();
-
         genererArrangementer();
         return arrangementListe;
     }
 
-    private static void genererArrangementer(){
-        LocalDate dato = LocalDate.of(2009, 12,12);
-        LocalTime tid = LocalTime.of(14,0);
-        LocalDateTime tidspunkt = LocalDateTime.of(dato, tid);
-        arrangementListe.add(new Ritt("Birken", "Lillehammer", tidspunkt));
-        arrangementListe.add(new Ritt("Styrkeprøven", "Trondheim", tidspunkt));
-        arrangementListe.add(new Lop("Oslo Marathon", "Oslo", tidspunkt));
-        arrangementListe.add(new Renn("Birken", "Lillehammer", tidspunkt));
+    private static LocalDateTime datoConvert(String datoS, String tidS) {
+        LocalDate dato = LocalDate.parse(datoS);
+        LocalTime tid = LocalTime.parse(tidS);
+        return LocalDateTime.of(dato, tid);
+    }
+
+    private static void genererArrangementer() {
+     /*   //leser fra CSV
+        try (BufferedReader br = new BufferedReader(new FileReader(fil1))) {
+            String linje;
+            while ((linje = br.readLine()) != null) {
+                String[] verdi = linje.split(";");
+                switch (verdi[0]) {
+                    case "Ritt":
+                        arrangementListe.add(new Ritt(verdi[1], verdi[2], datoConvert(verdi[3], verdi[4])));
+                        break;
+                    case "Renn":
+                        arrangementListe.add(new Renn(verdi[1], verdi[2], datoConvert(verdi[3], verdi[4])));
+                        break;
+                    case "Lop":
+                        arrangementListe.add(new Lop(verdi[1], verdi[2], datoConvert(verdi[3], verdi[4])));
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }*/
     }
 }

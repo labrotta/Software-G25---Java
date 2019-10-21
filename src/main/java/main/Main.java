@@ -1,5 +1,9 @@
 package main;
 
+import Model.ArrangementKlasser.Ritt;
+import Model.ModelBruker;
+import data.DataHandler;
+import data.DataHandlerSQL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +19,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         //Setter den globale variabelen primarystage til å være dette staget
         this.primaryStage = primaryStage;
 
@@ -23,8 +26,8 @@ public class Main extends Application {
         instance = this;
 
         Parent root = FXMLLoader.load(getClass().getResource("../View/ViewFrontPage.fxml"));
-        primaryStage.setTitle("App v0.2a");
-        primaryStage.setScene(new Scene(root, 580, 275));
+        primaryStage.setTitle("App v0.3.1a");
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 
@@ -34,6 +37,7 @@ public class Main extends Application {
                     getClass().getResource(fxml_path)
             );
             primaryStage.getScene().setRoot(pane);
+
         } catch (IOException IOE){
             IOE.printStackTrace();
         }
