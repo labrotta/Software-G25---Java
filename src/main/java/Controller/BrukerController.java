@@ -33,8 +33,6 @@ public class BrukerController {
 
         imgForhand();
 
-
-
         if (innloggetBruker != null){
             valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         }
