@@ -17,7 +17,7 @@ import main.Main;
 public class BrukerController {
 
     @FXML private ComboBox<BrukerType> brukerListe;
-    @FXML private Button brukerLoggInn, skirennButton, lopButton, sykkelrittButton;
+    @FXML private Button brukerLoggInn, KontrollPanelButton, skirennButton, lopButton, sykkelrittButton;
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
 
@@ -34,6 +34,7 @@ public class BrukerController {
         imgForhand();
 
 
+
         if (innloggetBruker != null){
             valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         }
@@ -45,9 +46,16 @@ public class BrukerController {
             innloggetBruker = new InnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
             valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
         });
+
+        KontrollPanelButton.setOnAction(click -> {
+            Main.getInstance().changeScene("../View/KontrollPanelView.fxml");
+        });
+
         skirennButton.setOnAction(getActionEventEventHandler("renn"));
         sykkelrittButton.setOnAction(getActionEventEventHandler("ritt"));
         lopButton.setOnAction(getActionEventEventHandler("lop"));
+
+
     }
 
     private EventHandler<ActionEvent> getActionEventEventHandler(String arrangementType) {
