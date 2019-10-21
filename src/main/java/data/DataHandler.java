@@ -28,6 +28,10 @@ public class DataHandler {
     public static ObservableList<Arrangement> getArrangementer() {
         //Tømmer listen slik at det ikke er igjen gamle arrangementer siden forrige gang listen ble fylt.
         arrangementListe.clear();
+<<<<<<< HEAD
+=======
+
+>>>>>>> remotes/origin/MVP-Rune
         genererArrangementer();
         return arrangementListe;
     }
@@ -39,7 +43,11 @@ public class DataHandler {
     }
 
     private static void genererArrangementer() {
+<<<<<<< HEAD
      /*   //leser fra CSV
+=======
+        //leser fra CSV
+>>>>>>> remotes/origin/MVP-Rune
         try (BufferedReader br = new BufferedReader(new FileReader(fil1))) {
             String linje;
             while ((linje = br.readLine()) != null) {
@@ -58,6 +66,10 @@ public class DataHandler {
             }
         } catch (IOException e) {
             System.out.println(e);
+<<<<<<< HEAD
         }*/
+=======
+        }
+>>>>>>> remotes/origin/MVP-Rune
     }
 }

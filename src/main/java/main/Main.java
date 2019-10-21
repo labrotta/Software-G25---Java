@@ -1,9 +1,12 @@
 package main;
 
+<<<<<<< HEAD
 import Model.ArrangementKlasser.Ritt;
 import Model.ModelBruker;
 import data.DataHandler;
 import data.DataHandlerSQL;
+=======
+>>>>>>> remotes/origin/MVP-Rune
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,7 +29,11 @@ public class Main extends Application {
         instance = this;
 
         Parent root = FXMLLoader.load(getClass().getResource("../View/ViewFrontPage.fxml"));
+<<<<<<< HEAD
         primaryStage.setTitle("App v0.3.1a");
+=======
+        primaryStage.setTitle("App v0.2a");
+>>>>>>> remotes/origin/MVP-Rune
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
