@@ -1,40 +1,23 @@
 package Controller;
 
 import Model.Arrangement;
-import Model.ArrangementKlasser.Lop;
-import Model.ArrangementKlasser.Renn;
-import Model.ArrangementKlasser.Ritt;
 import Model.BrukerType;
-import Model.ModelBruker;
 import data.DataHandlerSQL;
-import data.InnloggetBruker;
-import data.DataHandler;
-import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import main.Main;
-
-import java.awt.event.MouseEvent;
-import java.util.Arrays;
-import java.util.EventListener;
-import java.util.stream.Stream;
 
 public class ArrangementOversiktController {
 
     static String arrangementType;
-    private BrukerType innloggetBruker = BrukerController.getInnloggetBruker().getInnloggetBruker();
+    private BrukerType innloggetBruker = ForsideController.getInnloggetBruker().getInnloggetBruker();
 
     @FXML private TableView<Arrangement> arrangementTableView;
     @FXML private TableColumn<Arrangement, String> stedTableColumn, navnTableColumn, datoTableColumn;
