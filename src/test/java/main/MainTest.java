@@ -16,9 +16,9 @@ import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 @ExtendWith(ApplicationExtension.class)
 
-class MainTest{
+class ArrangementOversiktControllerTest{
     private Stage primaryStage;
-    private static MainTest instance;
+    private static ArrangementOversiktControllerTest instance;
 
     @Start
     public void start(Stage primaryStage) throws Exception {
@@ -28,7 +28,7 @@ class MainTest{
         //Lager en instance slik at vi kan bruke metodene her i andre klasser
         instance = this;
 
-        Parent root = FXMLLoader.load(getClass().getResource("../View/ViewFrontPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/ArrangementOversiktView.fxml"));
         primaryStage.setTitle("App v0.2a");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();

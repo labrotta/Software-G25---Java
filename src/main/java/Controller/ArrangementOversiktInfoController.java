@@ -2,7 +2,8 @@ package Controller;
 
 import Model.ArrangementVisBruker;
 import Model.BrukerType;
-import Data.DataHandlerSQL;
+//import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -14,28 +15,42 @@ import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import main.Main;
 
+import java.sql.SQLException;
+
 
 public class ArrangementOversiktInfoController {
     static String arrangementType;
     private BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
 
-    static String arrangementInfo = "lop";
+    //Sett denne til å sende inn  arrangementnavn fra ArrangemnetOversiktController;
+    private String arrangementInfoPaameldt = "Løp 3";
+
     @FXML
     private TableView<ArrangementVisBruker> arrangementVisBrukerTableView;
-    @FXML private TableColumn<ArrangementVisBruker, String> UnikBrukerNavn, SluttTid, StartTid;
+    @FXML private TableColumn<ArrangementVisBruker, String> stedTableColumn, navnTableColumn, datoTableColumn;
     @FXML private Text arrangementTypeTextField;
-    @FXML private Button tilbakeButton;
+    @FXML private Button tilbakeButton,slettBrukerId;
     @FXML private Label brukerID;
-    public void initialize() {
+    public void initialize() throws SQLException {
         brukerID.setText(innloggetBruker.getForNavn());
-        final ObservableList<ArrangementVisBruker> sqlList = DataHandlerSQL.VisBrukerePrArrangement();
+
+        final ObservableList<ArrangementVisBruker> sqlList = DataHandlerSQL.VisBrukerePrArrangement(arrangementInfoPaameldt);
         for (ArrangementVisBruker liste : sqlList) {
             arrangementVisBrukerTableView.getItems().add(liste);
         }
 
-        StartTid.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getStartTid()));
-        SluttTid.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getSluttTid()));
-        UnikBrukerNavn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getBrukerUnikID()));
+        stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getBrukerUnikID()));
+        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getStartTid()));
+        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getSluttTid()));
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktView.fxml"));
+        slettBrukerId.setOnAction(actionEvent -> {
+            DataHandlerSQL.SlettBrukerArrangement(String.valueOf(innloggetBruker));
+            arrangementVisBrukerTableView.getItems().clear();
+            try {
+                initialize();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
