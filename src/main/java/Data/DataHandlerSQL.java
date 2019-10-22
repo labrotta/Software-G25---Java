@@ -1,19 +1,15 @@
-package data;
+package Data;
 
 import Model.Arrangement;
-import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.StdArrangement;
 import Model.ArrangementVisBruker;
-import Model.ModelBruker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class DataHandlerSQL {
     private static LocalDateTime datoConvert(String datoS, String tidS) {

@@ -2,7 +2,7 @@ package Controller;
 
 import Model.Arrangement;
 import Model.BrukerType;
-import data.DataHandlerSQL;
+import Data.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -17,7 +17,7 @@ import main.Main;
 public class ArrangementOversiktController {
 
     static String arrangementType;
-    private BrukerType innloggetBruker = ForsideController.getInnloggetBruker().getInnloggetBruker();
+    private BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
 
     @FXML private TableView<Arrangement> arrangementTableView;
     @FXML private TableColumn<Arrangement, String> stedTableColumn, navnTableColumn, datoTableColumn;

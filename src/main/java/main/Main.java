@@ -1,9 +1,5 @@
 package main;
 
-import Model.ArrangementKlasser.Ritt;
-import Model.ModelBruker;
-import data.DataHandler;
-import data.DataHandlerSQL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

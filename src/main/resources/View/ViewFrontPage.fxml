@@ -33,6 +33,6 @@
       <Button fx:id="skirennButton" layoutX="28.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="217.0" text="Oversikt - Skirenn" />
       <Button fx:id="sykkelrittButton" layoutX="278.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="228.0" text="Oversikt - Sykkelritt" />
       <Button fx:id="lopButton" layoutX="540.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="235.0" text="Oversikt - Løp" />
-      <Button fx:id="brukerLoggInn1" layoutX="313.0" layoutY="65.0" mnemonicParsing="false" text="Kontrollpanel" />
+      <Button fx:id="KontrollPanelButton" layoutX="313.0" layoutY="65.0" mnemonicParsing="false" text="Kontrollpanel" />
    </children>
 </AnchorPane>

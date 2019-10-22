@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.KontrollPanelController">
+   <children>
+      <Text layoutX="46.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bruker:" />
+      <Label fx:id="BrukerNavnLabel" layoutX="102.0" layoutY="60.0" text="Innlogget bruker" />
+      <Button fx:id="TilbakeButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Tilbake" />
+   </children>
+</AnchorPane>
