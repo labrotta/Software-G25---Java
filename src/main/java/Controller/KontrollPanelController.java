@@ -19,7 +19,7 @@ public class KontrollPanelController {
 
         BrukerNavnLabel.setText("Test");
 
-        BrukerType innloggetBruker = BrukerController.getInnloggetBruker().getInnloggetBruker();
+        BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
 
         BrukerNavnLabel.setText(innloggetBruker.getForNavn());
     }

@@ -1,6 +1,5 @@
 package Controller;
 
-import data.InnloggetBruker;
 import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
@@ -21,28 +20,26 @@ public class ForsideController {
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
 
-    private ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
+    private static ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
 
-    public static InnloggetBruker getInnloggetBruker() {
-        return innloggetBruker;
-    }
+    public static BrukerType getInnloggetBruker(){return innloggetBruker;}
 
-    private static InnloggetBruker innloggetBruker;
+    private static BrukerType innloggetBruker = listeBrukere.get(2); //Setter brukeren til å være bruker
 
     public void initialize() {
 
         imgForhand();
 
         if (innloggetBruker != null){
-            valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
+            valgtBrukerNavnLabel.setText(innloggetBruker.getForNavn());
         }
 
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            innloggetBruker = new InnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
-            valgtBrukerNavnLabel.setText(innloggetBruker.getInnloggetBruker().getForNavn());
+            innloggetBruker = brukerListe.getSelectionModel().getSelectedItem();
+            valgtBrukerNavnLabel.setText(innloggetBruker.getForNavn());
         });
 
         KontrollPanelButton.setOnAction(click -> {
