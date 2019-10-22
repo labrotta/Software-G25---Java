@@ -19,6 +19,11 @@ public class Arrangement {
         this.datoOgTid = datoOgTid;
     }
 
+    public Arrangement(String navn, String sted) {
+        this.navn = navn;
+        this.sted = sted;
+    }
+
     public String getNavn() {
         return navn;
     }

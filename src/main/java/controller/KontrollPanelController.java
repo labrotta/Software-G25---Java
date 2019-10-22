@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import Model.BrukerType;
 import javafx.fxml.FXML;

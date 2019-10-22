@@ -9,7 +9,7 @@
 
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ArrangementOversiktInfoController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ArrangementOversiktInfoController">
     <children>
         <TableView fx:id="arrangementVisBrukerTableView" layoutX="13.0" layoutY="130.0" prefHeight="217.0" prefWidth="763.0">
             <columns>

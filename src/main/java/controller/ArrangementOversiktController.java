@@ -1,10 +1,8 @@
-package Controller;
+package controller;
 
-import Data.DataHandler;
 import Model.Arrangement;
 import Model.BrukerType;
 import Data.*;
-import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -18,11 +16,10 @@ import main.Main;
 
 import java.sql.SQLException;
 
-public class ArrangementOversiktController {
+public class ArrangementOversiktController{
 
     static String arrangementType;
     private BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
-    private String BrukerNavn = String.valueOf(ForsideController.getInnloggetBruker());
 
     @FXML private TableView<Arrangement> arrangementTableView;
     @FXML private TableColumn<Arrangement, String> stedTableColumn, navnTableColumn, datoTableColumn;
@@ -31,15 +28,11 @@ public class ArrangementOversiktController {
     @FXML private Label brukerID;
 
     public void initialize() throws SQLException {
-        //Denne Legger inn en ny bruker til Arrangement bruker String Arrangementnavn og "BrukerID"
-        DataHandlerSQL.PaaMeldingBrukerArrangement("Løp 3",BrukerNavn);
-
         brukerID.setText(innloggetBruker.getForNavn());
-       final ObservableList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
+        final ObservableList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
 
-        for (Arrangement liste : sqlList) {
-            arrangementTableView.getItems().add(liste);
-        }
+        fyllTabellen(sqlList, arrangementTableView);
+
         arrangementTypeTextField.setText(arrangementType);
 
         stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSted()));
@@ -47,5 +40,11 @@ public class ArrangementOversiktController {
         datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getDatoOgTid()));
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         eksArrangementInfo.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml"));
+    }
+
+    public void fyllTabellen(ObservableList<Arrangement> sqlList, TableView<Arrangement> tabell) {
+        for (Arrangement liste : sqlList) {
+            tabell.getItems().add(liste);
+        }
     }
 }
