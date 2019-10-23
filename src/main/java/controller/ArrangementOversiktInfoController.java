@@ -31,7 +31,7 @@ public class ArrangementOversiktInfoController {
     @FXML private Button tilbakeButton,slettBrukerId;
     @FXML private Label brukerID;
     public void initialize() throws SQLException {
-        brukerID.setText(innloggetBruker.getForNavn());
+        brukerID.setText(innloggetBruker.getFornavn());
 
         final ObservableList<ArrangementVisBruker> sqlList = DataHandlerSQL.VisBrukerePrArrangement(arrangementInfoPaameldt);
         for (ArrangementVisBruker liste : sqlList) {

@@ -1,5 +1,7 @@
 package controller;
 
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
@@ -16,7 +18,7 @@ import main.Main;
 public class ForsideController {
 
     @FXML private ComboBox<BrukerType> brukerListe;
-    @FXML private Button brukerLoggInn, KontrollPanelButton, skirennButton, lopButton, sykkelrittButton;
+    @FXML private Button brukerLoggInn, BrukersideButton, skirennButton, lopButton, sykkelrittButton, lagArrangementButton;
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
 
@@ -29,21 +31,35 @@ public class ForsideController {
     public void initialize() {
 
         imgForhand();
+        lagArrangementButton.setVisible(false);
 
         if (innloggetBruker != null){
-            valgtBrukerNavnLabel.setText(innloggetBruker.getForNavn());
+            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
         }
 
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            innloggetBruker = brukerListe.getSelectionModel().getSelectedItem();
-            valgtBrukerNavnLabel.setText(innloggetBruker.getForNavn());
+            BrukerType personSomSkalInnLogges = brukerListe.getSelectionModel().getSelectedItem();
+            loggInn(personSomSkalInnLogges);
+            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
+
+            //Hvis brukeren er administrator eller arrangementansvarlig,
+            // skal han/hun ha muligheten til å lage arrangement
+            if (innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig){
+                lagArrangementButton.setVisible(true);
+            } else {
+                lagArrangementButton.setVisible(false);
+            }
         });
 
-        KontrollPanelButton.setOnAction(click -> {
-            Main.getInstance().changeScene("../View/KontrollPanelView.fxml");
+        BrukersideButton.setOnAction(click -> {
+            Main.getInstance().changeScene("../View/BrukerSideView.fxml");
+        });
+
+        lagArrangementButton.setOnAction(click -> {
+            Main.getInstance().changeScene("../View/OpprettArrangementView.fxml");
         });
 
         skirennButton.setOnAction(getActionEventEventHandler("renn"));
@@ -51,6 +67,10 @@ public class ForsideController {
         lopButton.setOnAction(getActionEventEventHandler("lop"));
 
 
+    }
+
+    public void loggInn(BrukerType bruker) {
+        innloggetBruker = bruker;
     }
 
     private EventHandler<ActionEvent> getActionEventEventHandler(String arrangementType) {

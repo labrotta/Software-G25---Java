@@ -11,14 +11,14 @@ public class TestBrukerType {
     @Test
     public void testAaLageBruker(){
         Bruker testBruker = new Bruker("Test", "Testesen");
-        assertEquals("Test", testBruker.getForNavn());
+        assertEquals("Test", testBruker.getFornavn());
         assertEquals("Testesen", testBruker.getEtternavn());
     }
 
     @Test
     public void testAaLageMedlem(){
         BrukerType testBruker = new Medlem("Test", "Testesen");
-        assertEquals("Test", testBruker.getForNavn());
+        assertEquals("Test", testBruker.getFornavn());
         assertEquals("Testesen", testBruker.getEtternavn());
     }
 }
