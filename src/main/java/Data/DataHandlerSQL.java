@@ -1,9 +1,10 @@
-package Data;
+package data;
 
 import Model.Arrangement;
 import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.StdArrangement;
 import Model.ArrangementVisBruker;
+import data.SQLiteConnect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,6 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import static data.SQLiteConnect.SQLConnect;
+
 public class DataHandlerSQL {
     private static LocalDateTime datoConvert(String datoS, String tidS) {
         LocalDate dato = LocalDate.parse(datoS);
@@ -19,22 +22,10 @@ public class DataHandlerSQL {
         return LocalDateTime.of(dato, tid);
     }
 
-    public static Connection SQLConnect() {
-        Connection conn = null;
-        try {
-            String URL = "jdbc:sqlite:src/main/resources/Data/arrangementer.db";
-            conn = DriverManager.getConnection(URL);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return conn;
-    }
-
     public static  void SlettBrukerArrangement(String brukerUnikId){
         String sql = "DELETE FROM Tider WHERE BrukerUniqeID = ?";
         try {
-            Connection conn = DataHandlerSQL.SQLConnect();
+            Connection conn = SQLConnect();
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, brukerUnikId);
             stmt.executeUpdate();
@@ -48,7 +39,7 @@ public class DataHandlerSQL {
 
         String sql = "INSERT INTO Tider (ArrangementerNavn,BrukerUniqeID,StartTid,StoppTid) VALUES(?,?,?,?)";
         try {
-            Connection conn = DataHandlerSQL.SQLConnect();
+            Connection conn = SQLConnect();
             PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, arrangementernavn);
                 stmt.setString(2, BrukerNavn);
@@ -65,7 +56,7 @@ public class DataHandlerSQL {
         ObservableList<ArrangementVisBruker> VisbrukerArragement = FXCollections.observableArrayList();
         String sql = "SELECT * FROM Tider NATURAL JOIN Arrangementer WHERE ArrangementerNavn = ?";
 
-        Connection conn = DataHandlerSQL.SQLConnect();
+        Connection conn = SQLConnect();
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, ArrangemnetNavn);
         ResultSet rs = stmt.executeQuery();
@@ -87,7 +78,7 @@ public class DataHandlerSQL {
 
         String sql = "SELECT * FROM Arrangementer WHERE TypeFK = ?";
 
-        Connection conn = DataHandlerSQL.SQLConnect();
+        Connection conn = SQLConnect();
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, arrangementType);
         ResultSet rs = stmt.executeQuery();
