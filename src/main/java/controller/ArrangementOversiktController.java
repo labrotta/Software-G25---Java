@@ -29,7 +29,7 @@ public class ArrangementOversiktController{
     @FXML private Label brukerID;
 
     public void initialize() throws SQLException {
-        brukerID.setText(innloggetBruker.getForNavn());
+        brukerID.setText(innloggetBruker.getFornavn());
         final ObservableList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
 
         fyllTabellen(sqlList, arrangementTableView);

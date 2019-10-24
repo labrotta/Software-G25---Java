@@ -12,6 +12,13 @@ import java.time.LocalTime;
 public class Arrangement {
     private String navn, sted;
     private LocalDateTime datoOgTid;
+    private LocalDate dato;
+
+    public Arrangement(String navn, String sted, LocalDate dato) {
+        this.navn = navn;
+        this.sted = sted;
+        this.dato = dato;
+    }
 
     public Arrangement(String navn, String sted, LocalDateTime datoOgTid) {
         this.navn = navn;
@@ -22,6 +29,14 @@ public class Arrangement {
     public Arrangement(String navn, String sted) {
         this.navn = navn;
         this.sted = sted;
+    }
+
+    public LocalDate getDato() {
+        return dato;
+    }
+
+    public void setDato(LocalDate dato) {
+        this.dato = dato;
     }
 
     public String getNavn() {
