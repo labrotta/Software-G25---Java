@@ -6,15 +6,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Time;
 
 public class Main extends Application {
 
     private Stage primaryStage;
     private static Main instance;
 
+    private void copyDB() throws IOException {
+       String source = "src/main/resources/Data/arrangementer.db";
+       String dest = "src/main/resources/Data/arrangementerTest.db";
+       File file = new File(dest);
+       if(file.exists() && file.isFile()){
+           file.delete();
+       }
+       Files.copy(Paths.get(source), Paths.get(dest));
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        copyDB();
         //Setter den globale variabelen primarystage til å være dette staget
         this.primaryStage = primaryStage;
 
