@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OpprettArrangementController">
    <children>
-      <Button fx:id="tilbakeButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Tilbake" />
+      <Button fx:id="tilbakeButton" layoutX="24.0" layoutY="22.0" mnemonicParsing="false" text="Tilbake" />
       <ChoiceBox fx:id="velgTypeArrangementChoiceBox" layoutX="173.0" layoutY="128.0" prefWidth="150.0" />
       <Text layoutX="137.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nytt arrangement">
          <font>
@@ -20,8 +20,12 @@
       <Text layoutX="20.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type arrangement:" />
       <Text layoutX="20.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Navn:" />
       <TextField fx:id="navnTextField" layoutX="173.0" layoutY="173.0" />
-      <DatePicker fx:id="datoDatePicker" layoutX="173.0" layoutY="219.0" />
-      <Text layoutX="20.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dato" />
+      <DatePicker fx:id="datoDatePicker" layoutX="173.0" layoutY="263.0" />
+      <Text layoutX="21.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dato:" />
       <Button fx:id="lagArrangementButton" layoutX="440.0" layoutY="328.0" mnemonicParsing="false" text="Lag Arrangement" />
+      <Text layoutX="21.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sted:" />
+      <TextField fx:id="stedTextField" layoutX="173.0" layoutY="216.0" />
+      <Text layoutX="24.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tid:" />
+      <TextField fx:id="tidTextField" layoutX="173.0" layoutY="301.0" promptText="hh:mm" />
    </children>
 </AnchorPane>

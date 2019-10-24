@@ -1,8 +1,6 @@
 package Data;
 
 import Model.Arrangement;
-import Model.ArrangementKlasser.Lop;
-import Model.ArrangementKlasser.StdArrangement;
 import Model.ArrangementVisBruker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,7 +95,7 @@ public class DataHandlerSQL {
             String Dato = rs.getString(4);
             String Tid = rs.getString(5);
             String Sted = rs.getString(6);
-            arrangementer.add(new StdArrangement(NavnArrangement, Sted, datoConvert(Dato, Tid)));
+            arrangementer.add(new Arrangement(NavnArrangement, Sted, datoConvert(Dato, Tid)));
         }
         conn.close();
         return arrangementer;

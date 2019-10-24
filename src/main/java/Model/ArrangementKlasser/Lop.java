@@ -6,6 +6,10 @@ import javafx.scene.control.Button;
 import java.time.LocalDateTime;
 
 public class Lop extends Arrangement {
+    public Lop(String navn, String sted) {
+        super(navn, sted);
+    }
+
     public Lop(String navn, String sted, LocalDateTime datoOgTid) {
         super(navn, sted, datoOgTid);
     }

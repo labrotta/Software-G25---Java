@@ -2,7 +2,6 @@ package controller;
 
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
-import Model.BrukerKlasser.Bruker;
 import Model.BrukerKlasser.Medlem;
 import Model.BrukerType;
 import de.saxsys.javafx.test.JfxRunner;

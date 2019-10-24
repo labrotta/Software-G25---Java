@@ -1,6 +1,8 @@
 package controller;
 
 import Model.Arrangement;
+import Model.ArrangementKlasser.Renn;
+import Model.ArrangementKlasser.Ritt;
 import de.saxsys.javafx.test.JfxRunner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,9 @@ class ArrangementOversiktControllerTest{
     @Mock
     private ObservableList<Arrangement> list = FXCollections.observableArrayList();
 
+    // Lage mock database
+
+
     @InjectMocks
     private ArrangementOversiktController arrangementOversiktController = new ArrangementOversiktController();
 
@@ -26,7 +31,9 @@ class ArrangementOversiktControllerTest{
     @Test
     void fyllTabellenTest(){
         JFXPanel jfxPanel = new JFXPanel();
-        list.add(new Arrangement("Birken", "Lillehammer"));
+        list.add(new Ritt("Birken", "Lillehammer"));
+        list.add(new Renn("Kulås-sprinten", "Sarpsborg"));
+
         TableView<Arrangement> tabell = new TableView<>();
         arrangementOversiktController.fyllTabellen(list, tabell);
         Assert.assertEquals("Birken", tabell.getItems().get(0).getNavn());

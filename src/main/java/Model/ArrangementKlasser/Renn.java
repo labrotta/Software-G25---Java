@@ -10,5 +10,7 @@ public class Renn extends Arrangement {
         super(navn, sted, datoOgTid);
     }
 
-
+    public Renn(String navn, String sted) {
+        super(navn, sted);
+    }
 }
