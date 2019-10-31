@@ -14,5 +14,8 @@
       <Label fx:id="etternavnLabel" layoutX="131.0" layoutY="107.0" text="Label" />
       <Text layoutX="46.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-post" />
       <Label fx:id="epostLabel" layoutX="131.0" layoutY="157.0" text="Label" />
+      <Button fx:id="redigerFornavnButton" layoutX="264.0" layoutY="52.0" mnemonicParsing="false" text="Rediger" />
+      <Button fx:id="redigerEtternavnButton" layoutX="264.0" layoutY="102.0" mnemonicParsing="false" text="Rediger" />
+      <Button fx:id="redigerEpostButton" layoutX="264.0" layoutY="152.0" mnemonicParsing="false" text="Rediger" />
    </children>
 </AnchorPane>

@@ -1,8 +1,7 @@
-package data;
+package Data;
 
 import Model.Arrangement;
 import Model.ArrangementVisBruker;
-import data.SQLiteConnect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static data.SQLiteConnect.SQLConnect;
+import static Data.SQLiteConnect.SQLConnect;
 
 public class DataHandlerSQL {
     private static LocalDateTime datoConvert(String datoS, String tidS) {

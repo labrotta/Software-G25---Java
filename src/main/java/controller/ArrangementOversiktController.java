@@ -2,8 +2,7 @@ package controller;
 
 import Model.Arrangement;
 import Model.BrukerType;
-import Data.*;
-import data.DataHandlerSQL;
+import Data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;

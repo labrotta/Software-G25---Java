@@ -2,7 +2,7 @@ package controller;
 
 import Model.ArrangementVisBruker;
 import Model.BrukerType;
-import data.DataHandlerSQL;
+import Data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -16,7 +16,7 @@ import main.Main;
 
 import java.sql.SQLException;
 
-import static data.DataHandlerSQL.VisBrukerePrArrangement;
+import static Data.DataHandlerSQL.VisBrukerePrArrangement;
 
 
 public class ArrangementOversiktInfoController {

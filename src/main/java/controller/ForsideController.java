@@ -28,10 +28,11 @@ public class ForsideController {
 
     private static BrukerType innloggetBruker = listeBrukere.get(2); //Setter brukeren til å være bruker
 
-    public void initialize() {
+    public void initialize(){
 
         imgForhand();
         lagArrangementButton.setVisible(false);
+
 
         if (innloggetBruker != null){
             valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
@@ -71,6 +72,8 @@ public class ForsideController {
 
     public void loggInn(BrukerType bruker) {
         innloggetBruker = bruker;
+        valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
+
     }
 
     private EventHandler<ActionEvent> getActionEventEventHandler(String arrangementType) {

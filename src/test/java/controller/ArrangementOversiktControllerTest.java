@@ -37,6 +37,7 @@ class ArrangementOversiktControllerTest{
         TableView<Arrangement> tabell = new TableView<>();
         arrangementOversiktController.fyllTabellen(list, tabell);
         Assert.assertEquals("Birken", tabell.getItems().get(0).getNavn());
+        Assert.assertEquals("Kulås-sprinten", tabell.getItems().get(1).getNavn());
     }
 
 

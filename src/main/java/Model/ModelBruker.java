@@ -12,10 +12,10 @@ public class ModelBruker {
 
     public static ObservableList<BrukerType> listeBruker() {
         brukere.clear();
-        BrukerType admin = new Admin("Admin","");
-        BrukerType arrangementAnsvarlig = new ArrangementAnsvarlig("ArrangementAnsvarlig","");
-        BrukerType bruker = new Bruker("Bruker","");
-        BrukerType medlem = new Medlem("Medlem","");
+        BrukerType admin = new Admin("Ole (admin)","Olsen", "ole@olsen.no");
+        BrukerType arrangementAnsvarlig = new ArrangementAnsvarlig("Peder (arrangementansvarlig)","Pedersen", "peder@pedersen.no");
+        BrukerType bruker = new Bruker("Trond (bruker)","Trondsen", "trond@trondsen.no");
+        BrukerType medlem = new Medlem("Alex (medlem)","Alexandersen", "alex@alexandersen.no");
         brukere.add(admin);
         brukere.add(arrangementAnsvarlig);
         brukere.add(bruker);

@@ -12,7 +12,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import main.Main;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -49,7 +48,7 @@ public class OpprettArrangementController {
         sted = stedTextField.getText();
         LocalDate dato = datoDatePicker.getValue();
         String text = String.valueOf(tidTextField.getText());
-        LocalTime tid = textToLocalTime(text);
+        LocalTime tid = textTilLocalTime(text);
         LocalDateTime datoOgTid = LocalDateTime.of(dato, tid);
 
         if (arrangementType.equals("Skirenn")){
@@ -63,25 +62,35 @@ public class OpprettArrangementController {
         }
     }
 
-    public static LocalTime textToLocalTime(String text) throws FeilTidInput {
+    public static LocalTime textTilLocalTime(String text) throws FeilTidInput {
 
 
         // inputkontroll
         if(text.length() != 5){
             throw new FeilTidInput("For få eller for mange tegn. Bruk: hh:mm");
         }
-        else if (text.substring(2).equals(":")){
+        else if (!isNumeric(text.substring(0,2))){
+            throw new FeilTidInput("Det mangler et tall på rett plass");
+        }
+        else if (!text.substring(2, 3).equals(":")){
             throw new FeilTidInput("Det mangler en \":\" på rett plass");
         }
-        else {
-        for (int i = 0; i < text.length(); i++ ){
-            if ((!Character.isDigit(text.charAt(i)) || (!text.substring(i).equals(":")))){
-                throw new FeilTidInput("Feil type tegn. Bruk: hh:mm");
-            }
+        else if (!isNumeric(text.substring(3,5))){
+            throw new FeilTidInput("Det mangler en et tall på rett plass");
         }
         int timer = Integer.parseInt(text.substring(0, 1));
         int minutter = Integer.parseInt(text.substring(3, 4));
 
         return LocalTime.of(timer, minutter);
     }
-}}
+    public static boolean isNumeric(final String str) {
+
+        // null or empty
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+
+        return str.chars().allMatch(Character::isDigit);
+
+    }
+}
