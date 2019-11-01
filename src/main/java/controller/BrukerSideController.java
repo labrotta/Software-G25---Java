@@ -21,16 +21,14 @@ public class BrukerSideController {
     @FXML
     private Label fornavnLabel, etternavnLabel, epostLabel;
 
-    private final Stage dialog = new Stage();
-
     public void initialize() {
 
         BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
 
         TilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
-        redigerFornavnButton.setOnAction(actionEvent -> rediger("fornavn", fornavnLabel.getText(), innloggetBruker));
-        redigerEtternavnButton.setOnAction(actionEvent -> rediger("etternavn", etternavnLabel.getText(), innloggetBruker));
-        redigerEpostButton.setOnAction(actionEvent -> rediger("epost", epostLabel.getText(),innloggetBruker ));
+        redigerFornavnButton.setOnAction(actionEvent -> rediger(dialog, "fornavn", fornavnLabel.getText(), innloggetBruker));
+        redigerEtternavnButton.setOnAction(actionEvent -> rediger(dialog, "etternavn", etternavnLabel.getText(), innloggetBruker));
+        redigerEpostButton.setOnAction(actionEvent -> rediger(dialog, "epost", epostLabel.getText(),innloggetBruker ));
 
         fornavnLabel.setText("Test");
 
@@ -39,8 +37,9 @@ public class BrukerSideController {
         epostLabel.setText(innloggetBruker.getEpost());
     }
 
-    private void rediger(String hvaSomSkalRedigeres, String originalString, BrukerType bruker) {
+    public void rediger(Stage dialog, String hvaSomSkalRedigeres, String originalString, BrukerType bruker) {
 
+        final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         VBox dialogVbox = new VBox(20);
 
@@ -57,7 +56,7 @@ public class BrukerSideController {
         lagreButton.setOnAction(actionEvent -> lagre(hvaSomSkalRedigeres, nyTekstTextField.getText(), bruker));
     }
 
-    private void lagre(String hvaSomSkalRedigeres, String nyString, BrukerType bruker) {
+    public void lagre(String hvaSomSkalRedigeres, String nyString, BrukerType bruker) {
         switch (hvaSomSkalRedigeres){
             case "fornavn": bruker.setForNavn(nyString);
             avsluttVindu();
