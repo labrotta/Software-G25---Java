@@ -2,21 +2,14 @@ package controller;
 
 import Model.BrukerType;
 import Model.ModelBruker;
-import de.saxsys.javafx.test.JfxRunner;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
-import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(JfxRunner.class)
 class BrukerSideControllerTest {
 
-    @InjectMocks
     private BrukerSideController brukerSideController = new BrukerSideController();
 
     @Test
@@ -29,10 +22,13 @@ class BrukerSideControllerTest {
         BrukerType bruker = listeBrukere.get(2);
         BrukerType medlem = listeBrukere.get(3);
 
-        Stage stage = new Stage();
-
-        brukerSideController.rediger(stage, "fornavn", admin.getFornavn(), admin);
         brukerSideController.lagre("fornavn", "Terje", admin);
+        brukerSideController.lagre("etternavn", "Jonsen", arrangementansvarlig);
+        brukerSideController.lagre("epost", "hei@hade.no", bruker);
+        brukerSideController.lagre("fornavn", "Trond", medlem);
         assertEquals("Terje", admin.getFornavn());
+        assertEquals("Jonsen", arrangementansvarlig.getEtternavn());
+        assertEquals("hei@hade.no", bruker.getEpost());
+        assertEquals("Trond", medlem.getFornavn());
     }
 }

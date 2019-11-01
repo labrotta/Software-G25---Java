@@ -21,25 +21,30 @@ public class BrukerSideController {
     @FXML
     private Label fornavnLabel, etternavnLabel, epostLabel;
 
+    Stage dialog;
+
+
     public void initialize() {
 
         BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
 
         TilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
-        redigerFornavnButton.setOnAction(actionEvent -> rediger(dialog, "fornavn", fornavnLabel.getText(), innloggetBruker));
-        redigerEtternavnButton.setOnAction(actionEvent -> rediger(dialog, "etternavn", etternavnLabel.getText(), innloggetBruker));
-        redigerEpostButton.setOnAction(actionEvent -> rediger(dialog, "epost", epostLabel.getText(),innloggetBruker ));
+        redigerFornavnButton.setOnAction(actionEvent -> rediger(  "fornavn", fornavnLabel.getText(), innloggetBruker));
+        redigerEtternavnButton.setOnAction(actionEvent -> rediger(  "etternavn", etternavnLabel.getText(), innloggetBruker));
+        redigerEpostButton.setOnAction(actionEvent -> rediger(  "epost", epostLabel.getText(),innloggetBruker ));
 
         fornavnLabel.setText("Test");
 
         fornavnLabel.setText(innloggetBruker.getFornavn());
         etternavnLabel.setText(innloggetBruker.getEtternavn());
         epostLabel.setText(innloggetBruker.getEpost());
+
+
     }
 
-    public void rediger(Stage dialog, String hvaSomSkalRedigeres, String originalString, BrukerType bruker) {
+    public void rediger( String hvaSomSkalRedigeres, String originalString, BrukerType bruker) {
 
-        final Stage dialog = new Stage();
+        dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         VBox dialogVbox = new VBox(20);
 
@@ -53,24 +58,29 @@ public class BrukerSideController {
         dialog.setTitle("Rediger " + hvaSomSkalRedigeres);
         dialog.show();
 
-        lagreButton.setOnAction(actionEvent -> lagre(hvaSomSkalRedigeres, nyTekstTextField.getText(), bruker));
+        lagreButton.setOnAction(actionEvent -> lagre( hvaSomSkalRedigeres, nyTekstTextField.getText(), bruker));
     }
 
-    public void lagre(String hvaSomSkalRedigeres, String nyString, BrukerType bruker) {
+    public void lagre( String hvaSomSkalRedigeres, String nyString, BrukerType bruker) {
         switch (hvaSomSkalRedigeres){
             case "fornavn": bruker.setForNavn(nyString);
-            avsluttVindu();
+            oppdaterInfo();
             break;
             case "etternavn": bruker.setEtternavn(nyString);
-            avsluttVindu();
+            oppdaterInfo();
             break;
             case "epost": bruker.setEpost(nyString);
-            avsluttVindu();
+            oppdaterInfo();
             break;
         }
     }
 
-    private void avsluttVindu() {
+    //Denne er laget for å skille GUI og kjernefunksjonalitet. Dermed er
+    //metoden lagre enkel å teste.
+    private void oppdaterInfo() {
+        if (dialog == null) {
+            return;
+        }
         dialog.close();
         initialize();
     }
