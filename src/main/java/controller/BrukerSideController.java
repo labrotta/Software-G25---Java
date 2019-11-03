@@ -76,12 +76,13 @@ public class BrukerSideController {
     }
 
     //Denne er laget for å skille GUI og kjernefunksjonalitet. Dermed er
-    //metoden lagre enkel å teste.
+    //metoden lagre() enkel å teste.
     private void oppdaterInfo() {
         if (dialog == null) {
             return;
+        } else {
+            dialog.close();
+            initialize();
         }
-        dialog.close();
-        initialize();
     }
 }
