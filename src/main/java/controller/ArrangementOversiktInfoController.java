@@ -2,7 +2,7 @@ package controller;
 
 import Model.ArrangementVisBruker;
 import Model.BrukerType;
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -15,9 +15,6 @@ import javafx.scene.text.Text;
 import main.Main;
 
 import java.sql.SQLException;
-
-import static Data.DataHandlerSQL.VisBrukerePrArrangement;
-
 
 public class ArrangementOversiktInfoController {
     static String arrangementType;
@@ -35,7 +32,7 @@ public class ArrangementOversiktInfoController {
     public void initialize() throws SQLException {
         brukerID.setText(innloggetBruker.getFornavn());
 
-        final ObservableList<ArrangementVisBruker> sqlList = VisBrukerePrArrangement(arrangementInfoPaameldt);
+        final ObservableList<ArrangementVisBruker> sqlList = DataHandlerSQL.VisBrukerePrArrangement(arrangementInfoPaameldt);
         for (ArrangementVisBruker liste : sqlList) {
             arrangementVisBrukerTableView.getItems().add(liste);
         }

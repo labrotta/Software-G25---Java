@@ -1,5 +1,7 @@
 package main;
 
+import data.DataHandler;
+import data.DataHandlerDBtoCSV;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,19 +20,12 @@ public class Main extends Application {
     private Stage primaryStage;
     private static Main instance;
 
-    private void copyDB() throws IOException {
-       String source = "src/main/resources/Data/arrangementer.db";
-       String dest = "src/main/resources/Data/arrangementerTest.db";
-       File file = new File(dest);
-       if(file.exists() && file.isFile()){
-           file.delete();
-       }
-       Files.copy(Paths.get(source), Paths.get(dest));
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        copyDB();
+
+        new DataHandlerDBtoCSV().ArrangementerTilCSV();
+        new DataHandlerDBtoCSV().TiderTilCSV();
+        new DataHandlerDBtoCSV().BrukereTilCSV();
         //Setter den globale variabelen primarystage til å være dette staget
         this.primaryStage = primaryStage;
 
