@@ -21,7 +21,7 @@ public class DataHandlerDBtoCSV {
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            String Ar = new StringBuilder().append(rs.getString(2)).append(";").append(rs.getString(3)).append(";").append(rs.getString(4)).append(";").append(rs.getString(5)).append(";").append(rs.getString(6)).append(System.lineSeparator()).toString();
+            String Ar = new StringBuilder().append(rs.getString(2)).append(";").append(rs.getString(6)).append(";").append(rs.getString(4)).append(";").append(rs.getString(5)).append(";").append(rs.getString(3)).append(System.lineSeparator()).toString();
             CVSGenerator(Ar,csv);
         }
     }
@@ -45,7 +45,7 @@ public class DataHandlerDBtoCSV {
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            String Ar = new StringBuilder().append(rs.getString(2)).append(";").append(rs.getString(3)).append(";").append(rs.getString(4)).append(";").append(rs.getString(5)).append(System.lineSeparator()).toString();
+            String Ar = new StringBuilder().append(rs.getString(1)).append(";").append(rs.getString(2)).append(";").append(rs.getString(3)).append(";").append(rs.getString(4)).append(";").append(rs.getString(5)).append(System.lineSeparator()).toString();
             CVSGenerator(Ar,csv);
         }
     }

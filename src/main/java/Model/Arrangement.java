@@ -13,6 +13,7 @@ public class Arrangement {
     private String navn, sted;
     private LocalDateTime datoOgTid;
     private LocalDate dato;
+    private String typeArrangement;
 
     public Arrangement(String navn, String sted, LocalDate dato) {
         this.navn = navn;
@@ -29,6 +30,13 @@ public class Arrangement {
     public Arrangement(String navn, String sted) {
         this.navn = navn;
         this.sted = sted;
+    }
+
+    public Arrangement(String navn, String sted,LocalDateTime datoOgTid,String typeArrangement) {
+        this.navn = navn;
+        this.sted = sted;
+        this.typeArrangement = typeArrangement;
+        this.datoOgTid = datoOgTid;
     }
 
     public LocalDate getDato() {
@@ -63,4 +71,11 @@ public class Arrangement {
         this.datoOgTid = datoOgTid;
     }
 
+    public String getTypeArrangement() {
+        return typeArrangement;
+    }
+
+    public void setTypeArrangement(String typeArrangement) {
+        this.typeArrangement = typeArrangement;
+    }
 }

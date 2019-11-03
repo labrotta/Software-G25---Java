@@ -1,2 +1,0 @@
-Rune;Einan;Medlem;BrukerLop01
-Tore;Einan;Medlem;BrukerLop02
