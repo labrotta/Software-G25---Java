@@ -6,6 +6,8 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -57,9 +59,5 @@ class DataHandlerDBtoCSVTest {
         listArrangement.add(new Arrangement(navnArrangmnet,navnSted,datoConvert(datoStart, klokkeStart),typeArrangment));
         System.out.println("Det er : "+listArrangement.size()+" Etter man legger inn ny");
         Assert.assertEquals(8,listArrangement.size());
-    }
-    @Test
-    public void testOmArrangmentBlirSlettet(){
-
     }
 }

@@ -30,7 +30,7 @@ class ArrangementOversiktControllerTest{
 
     @Test
     void fyllTabellenTest(){
-        JFXPanel jfxPanel = new JFXPanel();
+        //JFXPanel jfxPanel = new JFXPanel();
         list.add(new Ritt("Birken", "Lillehammer"));
         list.add(new Renn("Kulås-sprinten", "Sarpsborg"));
 
