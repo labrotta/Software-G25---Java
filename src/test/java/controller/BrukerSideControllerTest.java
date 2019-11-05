@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BrukerSideControllerTest {
 
-    private BrukerSideController brukerSideController = new BrukerSideController();
+    //private BrukerSideController brukerSideController = new BrukerSideController();
 
     //@Test
     /*public void testAtBrukerFaarEndretInfo() {
@@ -30,5 +30,5 @@ class BrukerSideControllerTest {
         assertEquals("Jonsen", arrangementansvarlig.getEtternavn());
         assertEquals("hei@hade.no", bruker.getEpost());
         assertEquals("Trond", medlem.getFornavn());
-    }
+    }*/
 }

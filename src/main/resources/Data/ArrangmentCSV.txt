@@ -5,3 +5,10 @@ Løp 3;Tønsberg;2018-01-04;17:10:00;Løp
 Sykkel 1;Halden;2018-01-05;17:25:00;Sykkelritt
 Birkebeinere 2019;Trondheim;2018-01-06;17:25:03;Skirenn
 Powerdrag 2019;Sarpsborg;2018-01-06;18:00:00;Skirenn
+Løp 1;Oslo;2018-02-01;17:01:00;Løp
+Ski 1;Frerikstad;2018-03-02;17:02:01;Skirenn
+Løp 2;Halden;2018-01-03;17:03:02;Løp
+Løp 3;Tønsberg;2018-01-04;17:10:00;Løp
+Sykkel 1;Halden;2018-01-05;17:25:00;Sykkelritt
+Birkebeinere 2019;Trondheim;2018-01-06;17:25:03;Skirenn
+Powerdrag 2019;Sarpsborg;2018-01-06;18:00:00;Skirenn

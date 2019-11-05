@@ -10,23 +10,24 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import static org.junit.Assert.assertEquals;
 
-@RunWith(JfxRunner.class)
+
 class ForsideControllerTest {
 
-    @Mock
+
     BrukerType admin = new Admin("Test", "Admin");
     BrukerType medlem = new Medlem("Test", "Medlem");
     BrukerType arrangementansvarlig = new ArrangementAnsvarlig("Test", "Arrangementansvarlig");
 
-    @InjectMocks
+
     ForsideController forsideController = new ForsideController();
 
     @Test
-    void innloggingsTest(){
-        forsideController.loggInn(admin);
-        forsideController.loggInn(medlem);
-        forsideController.loggInn(arrangementansvarlig);
+    public void innloggingsTest(){
+        assertEquals(admin, forsideController.loggInn(admin));
+        assertEquals(medlem, forsideController.loggInn(medlem));
+        assertEquals(arrangementansvarlig, forsideController.loggInn(arrangementansvarlig));
     }
 
     @Test
