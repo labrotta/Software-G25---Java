@@ -1,4 +1,4 @@
-package data;
+package Data;
 
 import Model.Arrangement;
 import javafx.collections.FXCollections;

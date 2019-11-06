@@ -1,10 +1,6 @@
 package controller;
 
-import Model.Arrangement;
-import Model.ArrangementKlasser.Lop;
-import Model.ArrangementKlasser.Renn;
-import Model.ArrangementKlasser.Ritt;
-import data.DataHandlerSQL;
+import Data.DataHandlerSQL;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,7 +10,6 @@ import javafx.scene.control.TextField;
 import main.Main;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class OpprettArrangementController {
