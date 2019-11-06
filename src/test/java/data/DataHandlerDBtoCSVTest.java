@@ -1,63 +1,39 @@
 package data;
 
 import Model.Arrangement;
-import Model.ArrangementKlasser.Ritt;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 class DataHandlerDBtoCSVTest {
     private static List<Arrangement> listArrangement;
     private List<String> listTider;
     private List<String> listBrukere;
+    private int ArrangmenterCSVSize = 7;
 
-    private static LocalDateTime datoConvert(String datoS, String tidS) {
-        LocalDate dato = LocalDate.parse(datoS);
-        LocalTime tid = LocalTime.parse(tidS);
-        return LocalDateTime.of(dato, tid);
-    }
-    @BeforeEach
-    public void setUp() {
-        listArrangement = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/Data/ArrangmentCSV.txt"))) {
-            String linje;
-            while ((linje = br.readLine()) != null) {
-                String[] verdi = linje.split(";");
-                listArrangement.add(new Arrangement(verdi[0], verdi[1],datoConvert(verdi[2], verdi[3]),verdi[4]));
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
+    DataHandlerDBtoCSV test = new DataHandlerDBtoCSV();
 
-    @AfterClass
-    public static void tearDown() {
-        listArrangement.clear();
+    @Test
+    void arrangementerTilCSV() throws IOException, SQLException {
     }
 
     @Test
-        public void testOmArrangmentLagtTil () {
-        System.out.println("Det er : "+listArrangement.size()+" før man legger til");
-        Assert.assertEquals(7   ,listArrangement.size());
-        String navnArrangmnet = "Halden løpet";
-        String navnSted = "Tønsberg";
-        String datoStart = "2019-02-01";
-        String klokkeStart ="17:01:00";
-        String typeArrangment = "Løp";
-        listArrangement.add(new Arrangement(navnArrangmnet,navnSted,datoConvert(datoStart, klokkeStart),typeArrangment));
-        System.out.println("Det er : "+listArrangement.size()+" Etter man legger inn ny");
-        Assert.assertEquals(8,listArrangement.size());
+    void CVSGenerator() {
+        String testTxt = "test";
+        File ArrangementCSV = test.CVSGenerator(testTxt,1);
+        File TiderCSV = test.CVSGenerator(testTxt,2);
+        File Brukere = test.CVSGenerator(testTxt,3);
+        Assert.assertEquals("ArrangmentCSV.csv",ArrangementCSV.getName());
+        Assert.assertEquals("TiderCSV.csv",TiderCSV.getName());
+        Assert.assertEquals("Brukere.csv",Brukere.getName());
     }
 }

@@ -23,9 +23,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        new DataHandlerDBtoCSV().ArrangementerTilCSV();
-        new DataHandlerDBtoCSV().TiderTilCSV();
-        new DataHandlerDBtoCSV().BrukereTilCSV();
+        //new DataHandlerDBtoCSV().ArrangementerTilCSV();
+        //new DataHandlerDBtoCSV().TiderTilCSV();
+        //new DataHandlerDBtoCSV().BrukereTilCSV();
         //Setter den globale variabelen primarystage til å være dette staget
         this.primaryStage = primaryStage;
 

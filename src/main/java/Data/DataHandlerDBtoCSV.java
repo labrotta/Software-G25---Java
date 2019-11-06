@@ -1,7 +1,5 @@
 package data;
 
-import Data.SQLiteConnect;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DataHandlerDBtoCSV {
+
     public void ArrangementerTilCSV() throws SQLException {
         int csv = 1;
         String sql = "SELECT * FROM Arrangementer";
@@ -55,13 +54,13 @@ public class DataHandlerDBtoCSV {
         File fil = null;
         switch (csv) {
             case 1:
-                fil = new File("src/main/resources/Data/ArrangmentCSV.txt");
+                fil = new File("src/main/resources/Data/ArrangmentCSV.csv");
                 break;
             case 2:
-                fil = new File("src/main/resources/Data/TiderCSV.txt");
+                fil = new File("src/main/resources/Data/TiderCSV.csv");
                 break;
             case 3:
-                fil = new File("src/main/resources/Data/Brukere.txt");
+                fil = new File("src/main/resources/Data/Brukere.csv");
                 break;
         }
 

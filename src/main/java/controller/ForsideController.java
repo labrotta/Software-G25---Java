@@ -2,7 +2,6 @@ package controller;
 
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
-import Model.BrukerKlasser.Bruker;
 import Model.BrukerType;
 import Model.ModelBruker;
 import javafx.collections.ObservableList;
@@ -14,7 +13,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import main.Main;
 
 public class ForsideController {
@@ -27,12 +25,14 @@ public class ForsideController {
     private static ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
 
     public static BrukerType getInnloggetBruker(){return innloggetBruker;}
+
     private static BrukerType innloggetBruker = listeBrukere.get(2); //Setter brukeren til å være bruker
 
     public void initialize(){
 
         imgForhand();
         lagArrangementButton.setVisible(false);
+
 
         if (innloggetBruker != null){
             valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
@@ -70,17 +70,10 @@ public class ForsideController {
 
     }
 
-    public BrukerType loggInn(BrukerType bruker) {
+    public void loggInn(BrukerType bruker) {
         innloggetBruker = bruker;
-        endreTekstForInnloggetBruker();
-        return innloggetBruker;
+        valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
 
-    }
-
-    private void endreTekstForInnloggetBruker() {
-        if (valgtBrukerNavnLabel != null){
-            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
-        }
     }
 
     private EventHandler<ActionEvent> getActionEventEventHandler(String arrangementType) {

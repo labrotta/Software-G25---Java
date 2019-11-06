@@ -6,7 +6,6 @@ import Model.ArrangementKlasser.Ritt;
 import de.saxsys.javafx.test.JfxRunner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.TableView;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -22,15 +21,12 @@ class ArrangementOversiktControllerTest{
     private ObservableList<Arrangement> list = FXCollections.observableArrayList();
 
     // Lage mock database
-
-
     @InjectMocks
     private ArrangementOversiktController arrangementOversiktController = new ArrangementOversiktController();
 
 
     @Test
     void fyllTabellenTest(){
-        //JFXPanel jfxPanel = new JFXPanel();
         list.add(new Ritt("Birken", "Lillehammer"));
         list.add(new Renn("Kulås-sprinten", "Sarpsborg"));
 

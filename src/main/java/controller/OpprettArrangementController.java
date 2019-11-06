@@ -4,6 +4,7 @@ import Model.Arrangement;
 import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
+import data.DataHandlerSQL;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,21 +50,12 @@ public class OpprettArrangementController {
         LocalDate dato = datoDatePicker.getValue();
         String text = String.valueOf(tidTextField.getText());
         LocalTime tid = textTilLocalTime(text);
-        LocalDateTime datoOgTid = LocalDateTime.of(dato, tid);
+        //LocalDateTime datoOgTid = LocalDateTime.of(dato, tid);
+        DataHandlerSQL.opprettArrangement(navn,sted,String.valueOf(dato),String.valueOf(tid),arrangementType);
 
-        if (arrangementType.equals("Skirenn")){
-            Arrangement nyttSkiRenn = new Renn(navn, sted, datoOgTid);
-        }
-        else if (arrangementType.equals("SykkelRitt")){
-            Arrangement nyttSykkelRitt = new Ritt(navn, sted, datoOgTid);
-        }
-        else if (arrangementType.equals("Løp")){
-            Arrangement nyttLop = new Lop(navn, sted, datoOgTid);
-        }
     }
 
     public static LocalTime textTilLocalTime(String text) throws FeilTidInput {
-
 
         // inputkontroll
         if(text.length() != 5){
@@ -93,4 +85,5 @@ public class OpprettArrangementController {
         return str.chars().allMatch(Character::isDigit);
 
     }
+
 }
