@@ -2,7 +2,7 @@ package controller;
 
 import Model.Arrangement;
 import Model.BrukerType;
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -45,7 +45,11 @@ public class ArrangementOversiktController{
         paameldingButton.setOnAction(actionEvent -> paameldingDialog(arrangementTableView.getSelectionModel().getSelectedItem()));
 
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
-        eksArrangementInfo.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml"));
+        eksArrangementInfo.setOnAction(actionEvent -> {
+                    ArrangementOversiktInfoController.arrangementInfoPaameldt = arrangementTableView.getSelectionModel().getSelectedItem().getNavn();
+                    Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml");
+                }
+        );
     }
 
     private void paameldingDialog(Arrangement selectedItem) {
@@ -87,7 +91,7 @@ public class ArrangementOversiktController{
         if (dialog == null){
             return;
         }
-        Data.DataHandlerSQL.PaaMeldingBrukerArrangement(selectedItem.getNavn(), innloggetBruker.getFornavn());
+        DataHandlerSQL.PaaMeldingBrukerArrangement(selectedItem.getNavn(), innloggetBruker.getFornavn());
         dialog.close();
     }
 
