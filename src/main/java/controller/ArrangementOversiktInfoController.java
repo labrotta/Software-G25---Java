@@ -1,6 +1,9 @@
 package controller;
 
+import Model.Arrangement;
 import Model.ArrangementVisBruker;
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
 import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -17,18 +20,20 @@ import main.Main;
 import java.sql.SQLException;
 
 public class ArrangementOversiktInfoController {
-    static String arrangementType;
+    static String arrangementInfoPaameldt;
     private BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
-
-    //Sett denne til å sende inn  arrangementnavn fra ArrangemnetOversiktController;
-    private String arrangementInfoPaameldt = "Løp 3";
 
     @FXML
     private TableView<ArrangementVisBruker> arrangementVisBrukerTableView;
-    @FXML private TableColumn<ArrangementVisBruker, String> stedTableColumn, navnTableColumn, datoTableColumn;
-    @FXML private Text arrangementTypeTextField;
-    @FXML private Button tilbakeButton,slettBrukerId;
-    @FXML private Label brukerID;
+    @FXML
+    private TableColumn<ArrangementVisBruker, String> stedTableColumn, navnTableColumn, datoTableColumn;
+    @FXML
+    private Text arrangementTypeTextField;
+    @FXML
+    private Button tilbakeButton, slettBrukerId;
+    @FXML
+    private Label brukerID;
+
     public void initialize() throws SQLException {
         brukerID.setText(innloggetBruker.getFornavn());
 
@@ -37,12 +42,18 @@ public class ArrangementOversiktInfoController {
             arrangementVisBrukerTableView.getItems().add(liste);
         }
 
+        if (innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig){
+            slettBrukerId.setVisible(true);
+        } else {
+            slettBrukerId.setVisible(false);
+        }
+
         stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getBrukerUnikID()));
         navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getStartTid()));
         datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getSluttTid()));
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktView.fxml"));
         slettBrukerId.setOnAction(actionEvent -> {
-            DataHandlerSQL.SlettBrukerArrangement(String.valueOf(innloggetBruker));
+            DataHandlerSQL.SlettBrukerArrangement(arrangementVisBrukerTableView.getSelectionModel().getSelectedItem().getBrukerUnikID());
             arrangementVisBrukerTableView.getItems().clear();
             try {
                 initialize();
