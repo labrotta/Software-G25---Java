@@ -1,6 +1,6 @@
 package controller;
 
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

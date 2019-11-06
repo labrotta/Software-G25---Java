@@ -1,8 +1,11 @@
 package controller;
 
 import Model.Arrangement;
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
+import Model.BrukerKlasser.Medlem;
 import Model.BrukerType;
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -50,11 +53,9 @@ public class ArrangementOversiktController{
 
     private void paameldingDialog(Arrangement selectedItem) {
         if (selectedItem == null){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Velg et " + arrangementType + "!");
-            alert.setHeaderText(null);
-            alert.setContentText("Vennligst velg et " + arrangementType + " du vil melde deg på!");
-            alert.showAndWait();
+            String tittel = "Velg et " + arrangementType + "!";
+            String innhold = "Vennligst velg et " + arrangementType + " du vil melde deg på!";
+            nyAlert(innhold, tittel);
             return;
         }
         dialog = new Stage();
@@ -79,15 +80,26 @@ public class ArrangementOversiktController{
     }
 
     public void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
-        selectedItem.leggTilEnPaamelding(innloggetBruker);
-        leggIDatabase(selectedItem, innloggetBruker);
+        if (innloggetBruker instanceof Medlem || innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig) {
+            selectedItem.leggTilEnPaamelding(innloggetBruker);
+            leggIDatabase(selectedItem, innloggetBruker);
+        } else {
+            avbrytPaameldingen();
+        }
     }
 
-    public void leggIDatabase(Arrangement selectedItem, BrukerType innloggetBruker) {
-        if (dialog == null){
+    private void avbrytPaameldingen() {
+        if (javaFXKjorer()) {
+            nyAlert("Logg inn", "Du er nødt til å logge deg inn før du kan melde deg på.");
+        }
+
+    }
+
+    private void leggIDatabase(Arrangement selectedItem, BrukerType innloggetBruker) {
+        if (javaFXKjorer()){
             return;
         }
-        Data.DataHandlerSQL.PaaMeldingBrukerArrangement(selectedItem.getNavn(), innloggetBruker.getFornavn());
+        data.DataHandlerSQL.PaaMeldingBrukerArrangement(selectedItem.getNavn(), innloggetBruker.getFornavn());
         dialog.close();
     }
 
@@ -95,5 +107,17 @@ public class ArrangementOversiktController{
         for (Arrangement liste : sqlList) {
             tabell.getItems().add(liste);
         }
+    }
+
+    private void nyAlert(String tittel, String innhold) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tittel);
+        alert.setHeaderText(null);
+        alert.setContentText(innhold);
+        alert.showAndWait();
+    }
+
+    private boolean javaFXKjorer(){
+        return dialog != null;
     }
 }
