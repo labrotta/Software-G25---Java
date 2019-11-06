@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 
 public class Arrangement {
@@ -15,21 +16,38 @@ public class Arrangement {
     private LocalDate dato;
     private String typeArrangement;
 
+    public ArrayList<BrukerType> getPaameldinger() {
+        return paameldinger;
+    }
+
+    public void setPaameldinger(ArrayList<BrukerType> paameldinger) {
+        this.paameldinger = paameldinger;
+    }
+
+    public void leggTilEnPaamelding(BrukerType bruker){
+        this.paameldinger.add(bruker);
+    }
+
+    private ArrayList<BrukerType> paameldinger;
+
     public Arrangement(String navn, String sted, LocalDate dato) {
         this.navn = navn;
         this.sted = sted;
         this.dato = dato;
+        this.paameldinger = new ArrayList<>();
     }
 
     public Arrangement(String navn, String sted, LocalDateTime datoOgTid) {
         this.navn = navn;
         this.sted = sted;
         this.datoOgTid = datoOgTid;
+        this.paameldinger = new ArrayList<>();
     }
 
     public Arrangement(String navn, String sted) {
         this.navn = navn;
         this.sted = sted;
+        this.paameldinger = new ArrayList<>();
     }
 
     public Arrangement(String navn, String sted,LocalDateTime datoOgTid,String typeArrangement) {
@@ -37,6 +55,7 @@ public class Arrangement {
         this.sted = sted;
         this.typeArrangement = typeArrangement;
         this.datoOgTid = datoOgTid;
+        this.paameldinger = new ArrayList<>();
     }
 
     public LocalDate getDato() {
