@@ -3,6 +3,8 @@ package controller;
 import Model.Arrangement;
 import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
+import Model.BrukerKlasser.Medlem;
+import Model.BrukerType;
 import de.saxsys.javafx.test.JfxRunner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(JfxRunner.class)
 class ArrangementOversiktControllerTest{
@@ -34,6 +38,16 @@ class ArrangementOversiktControllerTest{
         arrangementOversiktController.fyllTabellen(list, tabell);
         Assert.assertEquals("Birken", tabell.getItems().get(0).getNavn());
         Assert.assertEquals("Kulås-sprinten", tabell.getItems().get(1).getNavn());
+    }
+
+    @Test
+    void medlemKanMeldeSegPaaTest(){
+        Arrangement birkebeineren = new Ritt("Birkebeineren", "Lillehammer");
+        BrukerType jon = new Medlem("Jon", "Jonsen");
+        arrangementOversiktController.paamelding(birkebeineren, jon);
+        assertEquals(jon, birkebeineren.getPaameldinger().get(0));
+
+        //Skal også lage funksjonalitet for å teste at den feiler
     }
 
 

@@ -78,12 +78,12 @@ public class ArrangementOversiktController{
         meldPaaButton.setOnAction(actionEvent -> paamelding(selectedItem, innloggetBruker));
     }
 
-    private void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
+    public void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
         selectedItem.leggTilEnPaamelding(innloggetBruker);
         leggIDatabase(selectedItem, innloggetBruker);
     }
 
-    private void leggIDatabase(Arrangement selectedItem, BrukerType innloggetBruker) {
+    public void leggIDatabase(Arrangement selectedItem, BrukerType innloggetBruker) {
         if (dialog == null){
             return;
         }
