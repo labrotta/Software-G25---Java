@@ -96,8 +96,8 @@ public class ForsideController {
     }
 
     private void imgForhand(){
-        imgLop.setImage(new Image("/img/lop.jpg"));
+        imgSykkel.setImage(new Image("/img/lop.jpg"));
         imgSki.setImage(new Image("/img/ski.jpg"));
-        imgSykkel.setImage(new Image("/img/sykkel.jpg"));
+        imgLop.setImage(new Image("/img/sykkel.jpg"));
     }
 }
