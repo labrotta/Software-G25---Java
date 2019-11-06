@@ -1,4 +1,4 @@
-package Data;
+package data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,4 +18,5 @@ public class SQLiteConnect {
         }
         return conn;
     }
+
 }

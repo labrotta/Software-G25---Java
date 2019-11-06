@@ -2,6 +2,7 @@ package Data;
 
 import Model.Arrangement;
 import Model.ArrangementVisBruker;
+import data.SQLiteConnect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,13 +13,13 @@ import java.time.LocalTime;
 
 
 public class DataHandlerSQL {
-    private static LocalDateTime datoConvert(String datoS, String tidS) {
+    public static LocalDateTime datoConvert(String datoS, String tidS) {
         LocalDate dato = LocalDate.parse(datoS);
         LocalTime tid = LocalTime.parse(tidS);
         return LocalDateTime.of(dato, tid);
     }
 
-    public static  void SlettBrukerArrangement(String brukerUnikId){
+    public static String SlettBrukerArrangement(String brukerUnikId){
         String sql = "DELETE FROM Tider WHERE BrukerUniqeID = ?";
         try {
             Connection conn = SQLiteConnect.SQLConnect();
@@ -27,11 +28,12 @@ public class DataHandlerSQL {
             stmt.executeUpdate();
             conn.close();
         }catch (SQLException e) {
-            System.out.println(e.getMessage());
+           return e.getMessage();
         }
+        return "Bruker slettet";
     }
 
-    public static void PaaMeldingBrukerArrangement(String arrangementernavn,String BrukerNavn){
+    public static DataHandlerSQL PaaMeldingBrukerArrangement(String arrangementernavn, String BrukerNavn){
 
         String sql = "INSERT INTO Tider (ArrangementerNavn,BrukerUniqeID,StartTid,StoppTid) VALUES(?,?,?,?)";
         try {
@@ -46,6 +48,7 @@ public class DataHandlerSQL {
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return null;
     }
 
     public static ObservableList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
@@ -61,7 +64,6 @@ public class DataHandlerSQL {
             Time tidStart = Time.valueOf(rs.getString(1));
             Time tidStopp = Time.valueOf(rs.getString(1));
             String brukerUnikID = rs.getString(4);
-            System.out.println(brukerUnikID);
             VisbrukerArragement.add(new ArrangementVisBruker(brukerUnikID, tidStart, tidStopp));
         }
         conn.close();
@@ -89,7 +91,7 @@ public class DataHandlerSQL {
         conn.close();
         return arrangementer;
     }
-    public static void opprettArrangement(String arrangementernavn,String sted,String dato, String tid,String typeArrangement){
+    public static String opprettArrangement(String arrangementernavn, String sted, String dato, String tid, String typeArrangement){
         String sql = "INSERT INTO Arrangementer (ArrangementerNavn,Sted,Dato,Tid,TypeFk) VALUES(?,?,?,?,?)";
         try {
             Connection conn = SQLiteConnect.SQLConnect();
@@ -102,7 +104,9 @@ public class DataHandlerSQL {
             stmt.executeUpdate();
             conn.close();
         }catch (SQLException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
+
+        return "Velykket";
     }
 }

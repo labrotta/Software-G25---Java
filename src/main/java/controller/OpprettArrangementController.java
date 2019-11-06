@@ -1,6 +1,6 @@
 package controller;
 
-import data.DataHandlerSQL;
+import Data.DataHandlerSQL;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,7 +47,6 @@ public class OpprettArrangementController {
         LocalTime tid = textTilLocalTime(text);
         //LocalDateTime datoOgTid = LocalDateTime.of(dato, tid);
         DataHandlerSQL.opprettArrangement(navn,sted,String.valueOf(dato),String.valueOf(tid),arrangementType);
-
     }
 
     public static LocalTime textTilLocalTime(String text) throws FeilTidInput {
