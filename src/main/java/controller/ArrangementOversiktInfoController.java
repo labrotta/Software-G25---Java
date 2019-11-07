@@ -1,11 +1,11 @@
 package controller;
 
-import Model.Arrangement;
+import Data.DataHandlerSQL;
 import Model.ArrangementVisBruker;
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
-import data.DataHandlerSQL;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
