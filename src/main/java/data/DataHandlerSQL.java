@@ -1,8 +1,6 @@
-package Data;
+package data;
 
-import Model.Arrangement;
-import Model.ArrangementVisBruker;
-import data.SQLiteConnect;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,6 +8,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class DataHandlerSQL {
@@ -17,6 +18,27 @@ public class DataHandlerSQL {
         LocalDate dato = LocalDate.parse(datoS);
         LocalTime tid = LocalTime.parse(tidS);
         return LocalDateTime.of(dato, tid);
+    }
+
+    public static ObservableList<VisResultatBruker> visResultaterBrukerside(BrukerType brukerUniqueID) throws SQLException {
+        String sql = "SELECT * FROM Tider  NATURAL JOIN Arrangementer WHERE BrukerUniqeID = ?";
+        Connection conn = SQLiteConnect.SQLConnect();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, String.valueOf(brukerUniqueID));
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<VisResultatBruker> samleResultat = new ArrayList<>();
+        while (rs.next()) {
+            String NavnArrangement = rs.getString(3);
+            String Dato = rs.getString(8);
+            String Reultat = rs.getString(5);
+            String Sted = rs.getString(10);
+            VisResultatBruker VisResultatBruk = new VisResultatBruker(Dato,Reultat,Sted,NavnArrangement);
+            samleResultat.add(VisResultatBruk);
+        }
+        conn.close();
+        ObservableList<VisResultatBruker> visResultaterBruker = FXCollections.observableArrayList(samleResultat);
+        return visResultaterBruker;
+
     }
 
     public static String SlettBrukerArrangement(String brukerUnikId){
@@ -52,7 +74,6 @@ public class DataHandlerSQL {
     }
 
     public static ObservableList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
-        ObservableList<ArrangementVisBruker> VisbrukerArragement = FXCollections.observableArrayList();
         String sql = "SELECT * FROM Tider NATURAL JOIN Arrangementer WHERE ArrangementerNavn = ?";
 
         Connection conn = SQLiteConnect.SQLConnect();
@@ -60,13 +81,16 @@ public class DataHandlerSQL {
         stmt.setString(1, ArrangemnetNavn);
         ResultSet rs = stmt.executeQuery();
 
+        ArrayList<ArrangementVisBruker> ArrangementVisBruk = new ArrayList<ArrangementVisBruker>();
         while (rs.next()) {
             Time tidStart = Time.valueOf(rs.getString(1));
             Time tidStopp = Time.valueOf(rs.getString(1));
             String brukerUnikID = rs.getString(4);
-            VisbrukerArragement.add(new ArrangementVisBruker(brukerUnikID, tidStart, tidStopp));
+            ArrangementVisBruker ArrangementVisBruker = new ArrangementVisBruker(brukerUnikID, tidStart, tidStopp);
+            ArrangementVisBruk.add(ArrangementVisBruker);
         }
         conn.close();
+        ObservableList<ArrangementVisBruker> VisbrukerArragement = FXCollections.observableArrayList(ArrangementVisBruk);
         return VisbrukerArragement;
     }
 

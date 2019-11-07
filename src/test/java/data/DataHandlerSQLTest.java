@@ -1,6 +1,6 @@
-package Data;
+package data;
 
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import org.junit.Assert;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

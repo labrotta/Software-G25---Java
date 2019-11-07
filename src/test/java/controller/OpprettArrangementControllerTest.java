@@ -51,9 +51,17 @@ class OpprettArrangementControllerTest {
 
     @Test
     void textTilLocalTime() {
+
     }
 
     @Test
     void isNumeric() {
+        {
+
+        }
+    }
+
+    @Test
+    void testLagArrangement() {
     }
 }

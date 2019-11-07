@@ -1,6 +1,6 @@
 package controller;
 
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import Model.Arrangement;
 import Model.BrukerType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
