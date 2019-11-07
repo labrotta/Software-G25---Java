@@ -13,7 +13,7 @@ import static java.lang.Integer.parseInt;
 public class DataHandler {
 
     private final static ObservableList<Arrangement> arrangementListe = FXCollections.observableArrayList();
-    private static String fil1 = "src/main/resources/Data/arrangementer.csv";
+    private static String fil1 = "src/main/resources/data/arrangementer.csv";
 
     public static ObservableList<Arrangement> getArrangementer() {
         //Tømmer listen slik at det ikke er igjen gamle arrangementer siden forrige gang listen ble fylt.
