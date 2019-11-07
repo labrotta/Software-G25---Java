@@ -10,7 +10,7 @@ public class SQLiteConnect {
 
         Connection conn = null;
         try {
-            String URL = "jdbc:sqlite:src/main/resources/Data/arrangementer.db";
+            String URL = "jdbc:sqlite:src/main/resources/data/arrangementer.db";
             conn = DriverManager.getConnection(URL);
 
         } catch (SQLException e) {

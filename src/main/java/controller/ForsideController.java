@@ -21,6 +21,7 @@ public class ForsideController {
     @FXML private Button brukerLoggInn, BrukersideButton, skirennButton, lopButton, sykkelrittButton, lagArrangementButton;
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
+    private boolean javaFXKjorer = false;
 
     private static ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
 
@@ -29,6 +30,8 @@ public class ForsideController {
     private static BrukerType innloggetBruker = listeBrukere.get(2); //Setter brukeren til å være bruker
 
     public void initialize(){
+
+        javaFXKjorer = true;
 
         imgForhand();
         lagArrangementButton.setVisible(false);
@@ -42,13 +45,12 @@ public class ForsideController {
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            BrukerType personSomSkalInnLogges = brukerListe.getSelectionModel().getSelectedItem();
-            loggInn(personSomSkalInnLogges);
+            innloggetBruker = loggInn(brukerListe.getSelectionModel().getSelectedItem());
             valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
 
             //Hvis brukeren er administrator eller arrangementansvarlig,
             // skal han/hun ha muligheten til å lage arrangement
-            if (innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig){
+            if (brukerErAdminEllerArrangementansvarlig(innloggetBruker)){
                 lagArrangementButton.setVisible(true);
             } else {
                 lagArrangementButton.setVisible(false);
@@ -70,10 +72,23 @@ public class ForsideController {
 
     }
 
-    public void loggInn(BrukerType bruker) {
-        innloggetBruker = bruker;
-        valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
+    public boolean brukerErAdminEllerArrangementansvarlig(BrukerType bruker) {
+        if (bruker instanceof Admin || bruker instanceof ArrangementAnsvarlig){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    public BrukerType loggInn(BrukerType bruker) {
+        settNyTekstForInnloggetBruker(bruker);
+        return bruker;
+    }
+
+    private void settNyTekstForInnloggetBruker(BrukerType bruker) {
+        if (javaFXKjorer){
+            valgtBrukerNavnLabel.setText(bruker.getFornavn());
+        }
     }
 
     private EventHandler<ActionEvent> getActionEventEventHandler(String arrangementType) {

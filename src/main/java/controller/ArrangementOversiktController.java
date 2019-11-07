@@ -1,6 +1,6 @@
 package controller;
 
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import Model.Arrangement;
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
@@ -55,7 +55,7 @@ public class ArrangementOversiktController{
         if (selectedItem == null){
             String tittel = "Velg et " + arrangementType + "!";
             String innhold = "Vennligst velg et " + arrangementType + " du vil melde deg på!";
-            nyAlert(innhold, tittel);
+            nyAlert(tittel, innhold);
             return;
         }
         dialog = new Stage();

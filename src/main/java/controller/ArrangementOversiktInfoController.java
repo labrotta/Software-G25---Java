@@ -1,6 +1,6 @@
 package controller;
 
-import Data.DataHandlerSQL;
+import data.DataHandlerSQL;
 import Model.ArrangementVisBruker;
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
