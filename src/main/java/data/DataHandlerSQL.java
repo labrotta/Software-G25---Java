@@ -96,8 +96,8 @@ public class DataHandlerSQL {
 
     //Henter alle arrenmangt og viser disse i Observlist
     public static ObservableList<Arrangement> sjekkSQLType(String arrangementType) throws SQLException {
-        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList();
 
+        ArrayList<Arrangement> opprettArr = new ArrayList<Arrangement>();
         String sql = "SELECT * FROM Arrangementer WHERE TypeFK = ?";
 
         Connection conn = SQLiteConnect.SQLConnect();
@@ -110,9 +110,11 @@ public class DataHandlerSQL {
             String Dato = rs.getString(4);
             String Tid = rs.getString(5);
             String Sted = rs.getString(6);
-            arrangementer.add(new Arrangement(NavnArrangement, Sted, datoConvert(Dato, Tid)));
+            Arrangement opprettArragement = new Arrangement(NavnArrangement, Sted, datoConvert(Dato, Tid));
+            opprettArr.add(opprettArragement);
         }
         conn.close();
+        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList(opprettArr);
         return arrangementer;
     }
     public static String opprettArrangement(String arrangementernavn, String sted, String dato, String tid, String typeArrangement){
@@ -130,7 +132,6 @@ public class DataHandlerSQL {
         }catch (SQLException e) {
             return e.getMessage();
         }
-
         return "Velykket";
     }
 }
