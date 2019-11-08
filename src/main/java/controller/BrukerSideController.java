@@ -8,6 +8,7 @@ import Model.VisResultatBruker;
 import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BrukerSideController {
 
@@ -31,12 +33,13 @@ public class BrukerSideController {
 
     public void initialize() {
         BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
-        ObservableList<VisResultatBruker> listeResultat = null;
+        ArrayList<VisResultatBruker> visResultatBruker = null;
         try {
-            listeResultat = DataHandlerSQL.visResultaterBrukerside(innloggetBruker);
+            visResultatBruker = DataHandlerSQL.visResultaterBrukerside(innloggetBruker);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ObservableList<VisResultatBruker> listeResultat = FXCollections.observableArrayList(visResultatBruker);
 
         TilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         redigerFornavnButton.setOnAction(actionEvent -> rediger(  "fornavn", fornavnLabel.getText(), innloggetBruker));

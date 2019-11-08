@@ -20,7 +20,7 @@ public class DataHandlerSQL {
         return LocalDateTime.of(dato, tid);
     }
 
-    public static ObservableList<VisResultatBruker> visResultaterBrukerside(BrukerType brukerUniqueID) throws SQLException {
+    public static ArrayList<VisResultatBruker> visResultaterBrukerside(BrukerType brukerUniqueID) throws SQLException {
         String sql = "SELECT * FROM Tider  NATURAL JOIN Arrangementer WHERE BrukerUniqeID = ?";
         Connection conn = SQLiteConnect.SQLConnect();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -36,8 +36,7 @@ public class DataHandlerSQL {
             samleResultat.add(VisResultatBruk);
         }
         conn.close();
-        ObservableList<VisResultatBruker> visResultaterBruker = FXCollections.observableArrayList(samleResultat);
-        return visResultaterBruker;
+        return samleResultat;
 
     }
 
@@ -73,7 +72,7 @@ public class DataHandlerSQL {
         return null;
     }
 
-    public static ObservableList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
+    public static ArrayList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
         String sql = "SELECT * FROM Tider NATURAL JOIN Arrangementer WHERE ArrangementerNavn = ?";
 
         Connection conn = SQLiteConnect.SQLConnect();
@@ -90,13 +89,12 @@ public class DataHandlerSQL {
             ArrangementVisBruk.add(ArrangementVisBruker);
         }
         conn.close();
-        ObservableList<ArrangementVisBruker> VisbrukerArragement = FXCollections.observableArrayList(ArrangementVisBruk);
-        return VisbrukerArragement;
+        System.out.println(ArrangementVisBruk);
+        return ArrangementVisBruk;
     }
 
     //Henter alle arrenmangt og viser disse i Observlist
-    public static ObservableList<Arrangement> sjekkSQLType(String arrangementType) throws SQLException {
-
+    public static ArrayList<Arrangement> sjekkSQLType(String arrangementType) throws SQLException {
         ArrayList<Arrangement> opprettArr = new ArrayList<Arrangement>();
         String sql = "SELECT * FROM Arrangementer WHERE TypeFK = ?";
 
@@ -114,8 +112,7 @@ public class DataHandlerSQL {
             opprettArr.add(opprettArragement);
         }
         conn.close();
-        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList(opprettArr);
-        return arrangementer;
+        return opprettArr;
     }
     public static String opprettArrangement(String arrangementernavn, String sted, String dato, String tid, String typeArrangement){
         String sql = "INSERT INTO Arrangementer (ArrangementerNavn,Sted,Dato,Tid,TypeFk) VALUES(?,?,?,?,?)";

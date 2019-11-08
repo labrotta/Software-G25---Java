@@ -8,6 +8,7 @@ import Model.BrukerKlasser.Medlem;
 import Model.BrukerType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ArrangementOversiktController{
 
@@ -35,9 +37,10 @@ public class ArrangementOversiktController{
 
     public void initialize() throws SQLException {
         brukerID.setText(innloggetBruker.getFornavn());
-        final ObservableList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
 
-        fyllTabellen(sqlList, arrangementTableView);
+        ArrayList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
+        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList(sqlList);
+        fyllTabellen(arrangementer, arrangementTableView);
 
         arrangementTypeTextField.setText(arrangementType);
 
@@ -48,8 +51,14 @@ public class ArrangementOversiktController{
         paameldingButton.setOnAction(actionEvent -> paameldingDialog(arrangementTableView.getSelectionModel().getSelectedItem()));
 
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
-        eksArrangementInfo.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml"));
+        eksArrangementInfo.setOnAction(actionEvent -> {
+                    ArrangementOversiktInfoController.arrangementInfoPaameldt = arrangementTableView.getSelectionModel().getSelectedItem().getNavn();
+                    Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml");
+                }
+        );
     }
+
+
 
     private void paameldingDialog(Arrangement selectedItem) {
         if (selectedItem == null){
