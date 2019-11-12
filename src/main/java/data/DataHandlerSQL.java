@@ -1,6 +1,9 @@
 package data;
 
 import Model.*;
+import Model.ArrangementKlasser.Lop;
+import Model.ArrangementKlasser.Renn;
+import Model.ArrangementKlasser.Ritt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -96,8 +99,8 @@ public class DataHandlerSQL {
 
     //Henter alle arrenmangt og viser disse i Observlist
     public static ObservableList<Arrangement> sjekkSQLType(String arrangementType) throws SQLException {
+        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList();
 
-        ArrayList<Arrangement> opprettArr = new ArrayList<Arrangement>();
         String sql = "SELECT * FROM Arrangementer WHERE TypeFK = ?";
 
         Connection conn = SQLiteConnect.SQLConnect();
@@ -110,11 +113,14 @@ public class DataHandlerSQL {
             String Dato = rs.getString(4);
             String Tid = rs.getString(5);
             String Sted = rs.getString(6);
-            Arrangement opprettArragement = new Arrangement(NavnArrangement, Sted, datoConvert(Dato, Tid));
-            opprettArr.add(opprettArragement);
+            if (arrangementType.equals("Skirenn"))
+            arrangementer.add(new Renn(NavnArrangement, Sted, datoConvert(Dato, Tid)));
+            else if (arrangementType.equals("Sykkelritt"))
+                arrangementer.add(new Ritt(NavnArrangement, Sted, datoConvert(Dato, Tid)));
+            else
+                arrangementer.add(new Lop(NavnArrangement, Sted, datoConvert(Dato, Tid)));
         }
         conn.close();
-        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList(opprettArr);
         return arrangementer;
     }
     public static String opprettArrangement(String arrangementernavn, String sted, String dato, String tid, String typeArrangement){
@@ -132,6 +138,7 @@ public class DataHandlerSQL {
         }catch (SQLException e) {
             return e.getMessage();
         }
+
         return "Velykket";
     }
 }

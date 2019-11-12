@@ -1,5 +1,8 @@
 package controller;
 
+import Model.ArrangementKlasser.Lop;
+import Model.ArrangementKlasser.Renn;
+import Model.ArrangementKlasser.Ritt;
 import data.DataHandlerSQL;
 import Model.Arrangement;
 import Model.BrukerKlasser.Admin;
@@ -37,7 +40,7 @@ public class ArrangementOversiktController{
         brukerID.setText(innloggetBruker.getFornavn());
         final ObservableList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
 
-        fyllTabellen(sqlList, arrangementTableView);
+        fyllTabellen(sqlList, arrangementTableView, arrangementType);
 
         arrangementTypeTextField.setText(arrangementType);
 
@@ -103,9 +106,29 @@ public class ArrangementOversiktController{
         dialog.close();
     }
 
-    public void fyllTabellen(ObservableList<Arrangement> sqlList, TableView<Arrangement> tabell) {
-        for (Arrangement liste : sqlList) {
-            tabell.getItems().add(liste);
+    public void fyllTabellen(ObservableList<Arrangement> sqlList, TableView<Arrangement> tabell, String arrangementType) {
+        switch (arrangementType){
+            case "Skirenn": {
+                for (Arrangement arrangement : sqlList) {
+                    if (arrangement instanceof Renn) {
+                        tabell.getItems().add(arrangement);
+                    }
+                }
+            }
+            case "Sykkelritt" : {
+                for (Arrangement arrangement : sqlList) {
+                    if (arrangement instanceof Ritt) {
+                        tabell.getItems().add(arrangement);
+                    }
+                }
+            }
+            case "Løp": {
+                for (Arrangement arrangement : sqlList) {
+                    if (arrangement instanceof Lop) {
+                        tabell.getItems().add(arrangement);
+                    }
+                }
+            }
         }
     }
 

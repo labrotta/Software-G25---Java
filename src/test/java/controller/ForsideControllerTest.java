@@ -4,11 +4,7 @@ import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerKlasser.Medlem;
 import Model.BrukerType;
-import de.saxsys.javafx.test.JfxRunner;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import static org.junit.Assert.assertEquals;
 
