@@ -1,9 +1,6 @@
 package data;
 
 import Model.*;
-import Model.ArrangementKlasser.Lop;
-import Model.ArrangementKlasser.Renn;
-import Model.ArrangementKlasser.Ritt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,7 +20,7 @@ public class DataHandlerSQL {
         return LocalDateTime.of(dato, tid);
     }
 
-    public static ObservableList<VisResultatBruker> visResultaterBrukerside(BrukerType brukerUniqueID) throws SQLException {
+    public static ArrayList<VisResultatBruker> visResultaterBrukerside(BrukerType brukerUniqueID) throws SQLException {
         String sql = "SELECT * FROM Tider  NATURAL JOIN Arrangementer WHERE BrukerUniqeID = ?";
         Connection conn = SQLiteConnect.SQLConnect();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -39,8 +36,7 @@ public class DataHandlerSQL {
             samleResultat.add(VisResultatBruk);
         }
         conn.close();
-        ObservableList<VisResultatBruker> visResultaterBruker = FXCollections.observableArrayList(samleResultat);
-        return visResultaterBruker;
+        return samleResultat;
 
     }
 
@@ -76,7 +72,7 @@ public class DataHandlerSQL {
         return null;
     }
 
-    public static ObservableList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
+    public static ArrayList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
         String sql = "SELECT * FROM Tider NATURAL JOIN Arrangementer WHERE ArrangementerNavn = ?";
 
         Connection conn = SQLiteConnect.SQLConnect();
@@ -93,14 +89,13 @@ public class DataHandlerSQL {
             ArrangementVisBruk.add(ArrangementVisBruker);
         }
         conn.close();
-        ObservableList<ArrangementVisBruker> VisbrukerArragement = FXCollections.observableArrayList(ArrangementVisBruk);
-        return VisbrukerArragement;
+        System.out.println(ArrangementVisBruk);
+        return ArrangementVisBruk;
     }
 
     //Henter alle arrenmangt og viser disse i Observlist
-    public static ObservableList<Arrangement> sjekkSQLType(String arrangementType) throws SQLException {
-        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList();
-
+    public static ArrayList<Arrangement> sjekkSQLType(String arrangementType) throws SQLException {
+        ArrayList<Arrangement> opprettArr = new ArrayList<Arrangement>();
         String sql = "SELECT * FROM Arrangementer WHERE TypeFK = ?";
 
         Connection conn = SQLiteConnect.SQLConnect();
@@ -113,15 +108,11 @@ public class DataHandlerSQL {
             String Dato = rs.getString(4);
             String Tid = rs.getString(5);
             String Sted = rs.getString(6);
-            if (arrangementType.equals("Skirenn"))
-            arrangementer.add(new Renn(NavnArrangement, Sted, datoConvert(Dato, Tid)));
-            else if (arrangementType.equals("Sykkelritt"))
-                arrangementer.add(new Ritt(NavnArrangement, Sted, datoConvert(Dato, Tid)));
-            else
-                arrangementer.add(new Lop(NavnArrangement, Sted, datoConvert(Dato, Tid)));
+            Arrangement opprettArragement = new Arrangement(NavnArrangement, Sted, datoConvert(Dato, Tid));
+            opprettArr.add(opprettArragement);
         }
         conn.close();
-        return arrangementer;
+        return opprettArr;
     }
     public static String opprettArrangement(String arrangementernavn, String sted, String dato, String tid, String typeArrangement){
         String sql = "INSERT INTO Arrangementer (ArrangementerNavn,Sted,Dato,Tid,TypeFk) VALUES(?,?,?,?,?)";
@@ -138,7 +129,6 @@ public class DataHandlerSQL {
         }catch (SQLException e) {
             return e.getMessage();
         }
-
         return "Velykket";
     }
 }
