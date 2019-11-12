@@ -3,6 +3,7 @@ package controller;
 import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
+import Model.paamelding_resultat.Resultat_Paamelding;
 import data.DataHandlerSQL;
 import Model.Arrangement;
 import Model.BrukerKlasser.Admin;
@@ -109,7 +110,7 @@ public class ArrangementOversiktController{
 
     public void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
         if (innloggetBruker instanceof Medlem || innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig) {
-            selectedItem.leggTilEnPaamelding(innloggetBruker);
+            selectedItem.setPaameldinger(new Resultat_Paamelding(innloggetBruker));
             leggIDatabase(selectedItem, innloggetBruker);
         } else {
             avbrytPaameldingen();

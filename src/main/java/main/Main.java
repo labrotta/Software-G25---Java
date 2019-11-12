@@ -21,8 +21,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        ArrayList<BrukerType> brukere= DataHandlerSQL.hentBrukere();
-        System.out.println(brukere);
+        ArrayList<Arrangement> arrangementer= DataHandlerSQL.hentArrangementerMedPaameldinger();
+        System.out.println(arrangementer);
+        System.out.println(arrangementer.get(0).getPaameldinger().get(0).getUtoover().getFornavn());
+        System.out.println(arrangementer.get(0).getPaameldinger().get(0));
         //new DataHandlerDBtoCSV().ArrangementerTilCSV();
         //new DataHandlerDBtoCSV().TiderTilCSV();
         //new DataHandlerDBtoCSV().BrukereTilCSV();

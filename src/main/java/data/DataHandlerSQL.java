@@ -6,18 +6,14 @@ import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
-import Model.BrukerKlasser.Bruker;
 import Model.BrukerKlasser.Medlem;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import Model.paamelding_resultat.Resultat_Paamelding;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class DataHandlerSQL {
@@ -118,6 +114,48 @@ public class DataHandlerSQL {
         return brukere;
     }
 
+    public static ArrayList<Arrangement> hentArrangementerMedPaameldinger(){
+
+        ArrayList<Arrangement> arrangementer = hentArrangementer();
+        ArrayList<BrukerType> brukere = hentBrukere();
+
+        try {
+            String sporring = "SELECT * FROM TiderPaameldinger";
+
+            Connection connection = SQLiteConnect.SQLConnect();
+            PreparedStatement preparedStatement = connection.prepareStatement(sporring);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int arrangementID = resultSet.getInt(3);
+                int brukerID = resultSet.getInt(4);
+
+                for (BrukerType bruker : brukere){
+                    if (bruker.getId() == brukerID){
+                        for (Arrangement arrangement : arrangementer){
+                            if (arrangement.getId() == arrangementID){
+                                //Resultat_Paamelding betyr i denne settingen "påmelding"
+                                Resultat_Paamelding paamelding = new Resultat_Paamelding(bruker);
+                                arrangement.setPaameldinger(paamelding);
+                                if (resultSet.getBoolean(6)){
+
+                                    LocalTime start = LocalTime.parse(resultSet.getString(1));
+                                    LocalTime slutt = LocalTime.parse(resultSet.getString(2));
+                                    Resultat_Paamelding resultatPaamelding = paamelding;
+                                    resultatPaamelding.setStarttid(start);
+                                    resultatPaamelding.setSlutttid(slutt);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+        return arrangementer;
+    }
 
     public static ArrayList<Arrangement> hentArrangementer(){
 
@@ -172,7 +210,7 @@ public class DataHandlerSQL {
         stmt.setString(1, ArrangemnetNavn);
         ResultSet rs = stmt.executeQuery();
 
-        ArrayList<ArrangementVisBruker> ArrangementVisBruk = new ArrayList<ArrangementVisBruker>();
+        ArrayList<ArrangementVisBruker> ArrangementVisBruk = new ArrayList<>();
         while (rs.next()) {
             Time tidStart = Time.valueOf(rs.getString(1));
             Time tidStopp = Time.valueOf(rs.getString(1));

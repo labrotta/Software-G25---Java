@@ -1,12 +1,10 @@
 package Model;
 
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import Model.paamelding_resultat.Resultat_Paamelding;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -17,19 +15,19 @@ public class Arrangement {
     private LocalDate dato;
     private String typeArrangement;
 
-    public ArrayList<BrukerType> getPaameldinger() {
+    public ArrayList<Resultat_Paamelding> getPaameldinger() {
         return paameldinger;
     }
 
-    public void setPaameldinger(ArrayList<BrukerType> paameldinger) {
+    public void setPaameldinger(ArrayList<Resultat_Paamelding> paameldinger) {
         this.paameldinger = paameldinger;
     }
 
-    public void leggTilEnPaamelding(BrukerType bruker){
-        this.paameldinger.add(bruker);
+    public void setPaameldinger(Resultat_Paamelding resultatPaamelding){
+        this.paameldinger.add(resultatPaamelding);
     }
 
-    private ArrayList<BrukerType> paameldinger;
+    private ArrayList<Resultat_Paamelding> paameldinger;
 
     public Arrangement(String navn, String sted, LocalDate dato) {
         this.navn = navn;
