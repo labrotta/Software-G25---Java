@@ -1,5 +1,8 @@
 package controller;
 
+import Model.ArrangementKlasser.Lop;
+import Model.ArrangementKlasser.Renn;
+import Model.ArrangementKlasser.Ritt;
 import data.DataHandlerSQL;
 import Model.Arrangement;
 import Model.BrukerKlasser.Admin;
@@ -38,9 +41,10 @@ public class ArrangementOversiktController{
     public void initialize() throws SQLException {
         brukerID.setText(innloggetBruker.getFornavn());
 
-        ArrayList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
-        ObservableList<Arrangement> arrangementer = FXCollections.observableArrayList(sqlList);
-        fyllTabellen(arrangementer, arrangementTableView);
+        ArrayList<Arrangement> arrangementer = DataHandlerSQL.hentArrangementer();
+        arrangementer = filtrerArrangementerEtterType(arrangementer, arrangementType);
+        ObservableList<Arrangement> arrangementerObserveableList = FXCollections.observableArrayList(arrangementer);
+        fyllTabellen(arrangementerObserveableList, arrangementTableView);
 
         arrangementTypeTextField.setText(arrangementType);
 
@@ -58,6 +62,21 @@ public class ArrangementOversiktController{
         );
     }
 
+    private ArrayList<Arrangement> filtrerArrangementerEtterType(ArrayList<Arrangement> arrangementer, String type) {
+        ArrayList<Arrangement> arrangementerMedRiktigType = new ArrayList<>();
+        for (Arrangement arrangement : arrangementer){
+            if (type.equals("Sykkelritt") && arrangement instanceof Ritt){
+                arrangementerMedRiktigType.add(arrangement);
+            }
+            if (type.equals("Skirenn") && arrangement instanceof Renn){
+                arrangementerMedRiktigType.add(arrangement);
+            }
+            if (type.equals("Løp") && arrangement instanceof Lop){
+                arrangementerMedRiktigType.add(arrangement);
+            }
+        }
+        return arrangementerMedRiktigType;
+    }
 
 
     private void paameldingDialog(Arrangement selectedItem) {

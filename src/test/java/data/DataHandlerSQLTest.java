@@ -41,14 +41,15 @@ class DataHandlerSQLTest {
     void slettBrukerArrangement() {
        Assert.assertEquals("Bruker slettet",DataHandlerSQL.SlettBrukerArrangement("Db_Test_User"));
     }
-
+/*
     @Test
     @Order(5)
+
     void sjekkSQLType() throws SQLException {
         Assert.assertEquals("Løp",DataHandlerSQL.sjekkSQLType("Løp").get(1).getTypeArrangement());
         Assert.assertEquals("Skirenn",DataHandlerSQL.sjekkSQLType("Skirenn"));
         Assert.assertEquals("Sykkel",DataHandlerSQL.sjekkSQLType("Sykkel"));
-    }
+    }*/
     @Test
     @Order(6)
     void dateconvert(){{

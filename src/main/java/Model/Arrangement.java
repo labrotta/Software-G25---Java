@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 
 public class Arrangement {
+    private int id;
     private String navn, sted;
     private LocalDateTime datoOgTid;
     private LocalDate dato;
@@ -37,7 +38,8 @@ public class Arrangement {
         this.paameldinger = new ArrayList<>();
     }
 
-    public Arrangement(String navn, String sted, LocalDateTime datoOgTid) {
+    public Arrangement(int id, String navn, String sted, LocalDateTime datoOgTid) {
+        this.id = id;
         this.navn = navn;
         this.sted = sted;
         this.datoOgTid = datoOgTid;
@@ -45,17 +47,27 @@ public class Arrangement {
     }
 
     public Arrangement(String navn, String sted) {
+        int id;
         this.navn = navn;
         this.sted = sted;
         this.paameldinger = new ArrayList<>();
     }
 
     public Arrangement(String navn, String sted,LocalDateTime datoOgTid,String typeArrangement) {
+
         this.navn = navn;
         this.sted = sted;
         this.typeArrangement = typeArrangement;
         this.datoOgTid = datoOgTid;
         this.paameldinger = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getDato() {

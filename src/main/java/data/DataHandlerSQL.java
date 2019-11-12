@@ -1,6 +1,13 @@
 package data;
 
 import Model.*;
+import Model.ArrangementKlasser.Lop;
+import Model.ArrangementKlasser.Renn;
+import Model.ArrangementKlasser.Ritt;
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
+import Model.BrukerKlasser.Bruker;
+import Model.BrukerKlasser.Medlem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -14,6 +21,7 @@ import java.util.List;
 
 
 public class DataHandlerSQL {
+
     public static LocalDateTime datoConvert(String datoS, String tidS) {
         LocalDate dato = LocalDate.parse(datoS);
         LocalTime tid = LocalTime.parse(tidS);
@@ -21,7 +29,7 @@ public class DataHandlerSQL {
     }
 
     public static ArrayList<VisResultatBruker> visResultaterBrukerside(BrukerType brukerUniqueID) throws SQLException {
-        String sql = "SELECT * FROM Tider  NATURAL JOIN Arrangementer WHERE BrukerUniqeID = ?";
+        String sql = "SELECT * FROM TiderPaameldinger  NATURAL JOIN Arrangementer WHERE BrukerUniqeID = ?";
         Connection conn = SQLiteConnect.SQLConnect();
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, String.valueOf(brukerUniqueID));
@@ -41,7 +49,7 @@ public class DataHandlerSQL {
     }
 
     public static String SlettBrukerArrangement(String brukerUnikId){
-        String sql = "DELETE FROM Tider WHERE BrukerUniqeID = ?";
+        String sql = "DELETE FROM TiderPaameldinger WHERE BrukerUniqeID = ?";
         try {
             Connection conn = SQLiteConnect.SQLConnect();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -56,14 +64,12 @@ public class DataHandlerSQL {
 
     public static DataHandlerSQL PaaMeldingBrukerArrangement(String arrangementernavn, String BrukerNavn){
 
-        String sql = "INSERT INTO Tider (ArrangementerNavn,BrukerUniqeID,StartTid,StoppTid) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO TiderPaameldinger (ArrangementerNavn,BrukerUniqeID,StartTid,StoppTid) VALUES(?,?,?,?)";
         try {
             Connection conn = SQLiteConnect.SQLConnect();
             PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, arrangementernavn);
                 stmt.setString(2, BrukerNavn);
-                stmt.setString(3, "00:00:00");
-                stmt.setString(4, "00:00:00");
                 stmt.executeUpdate();
                 conn.close();
         }catch (SQLException e) {
@@ -72,8 +78,94 @@ public class DataHandlerSQL {
         return null;
     }
 
+    public static ArrayList<BrukerType> hentBrukere(){
+        ArrayList<BrukerType> brukere = new ArrayList<>();
+
+        try {
+            String sporring = "SELECT * FROM Brukere";
+
+            Connection connection = SQLiteConnect.SQLConnect();
+            PreparedStatement preparedStatement = connection.prepareStatement(sporring);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int id = resultSet.getInt(1);
+                String fornavn = resultSet.getString(2);
+                String etternavn = resultSet.getString(3);
+                String rettighetsNivaa = resultSet.getString(4);
+
+                switch (rettighetsNivaa){
+                    case "admin": {
+                        BrukerType admin = new Admin(id, fornavn, etternavn);
+                        brukere.add(admin);
+                        break;
+                    }case "aa": {
+                        BrukerType arrangementAnsvarlig = new ArrangementAnsvarlig(id, fornavn, etternavn);
+                        brukere.add(arrangementAnsvarlig);
+                        break;
+                    }case "medlem": {
+                        BrukerType medlem = new Medlem(id, fornavn, etternavn);
+                        brukere.add(medlem);
+                        break;
+                    }
+                }
+            }
+
+        } catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+        return brukere;
+    }
+
+
+    public static ArrayList<Arrangement> hentArrangementer(){
+
+        ArrayList<Arrangement> arrangementer = new ArrayList<>();
+
+        try {
+
+            String sporring = "SELECT * FROM Arrangementer";
+
+            Connection connection = SQLiteConnect.SQLConnect();
+            PreparedStatement preparedStatement = connection.prepareStatement(sporring);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int id = resultSet.getInt(1);
+                String navn = resultSet.getString(2);
+                String type = resultSet.getString(3);
+                String dato = resultSet.getString(4);
+                String tid = resultSet.getString(5);
+                String sted = resultSet.getString(6);
+
+                switch (type) {
+                    case "Sykkelritt":{
+                        Arrangement ritt = new Ritt(id, navn, sted, datoConvert(dato, tid));
+                        arrangementer.add(ritt);
+                        break;
+                    }
+                    case "Skirenn":{
+                        Arrangement renn = new Renn(id, navn, sted, datoConvert(dato, tid));
+                        arrangementer.add(renn);
+                        break;
+                    }
+                    case "Lop":{
+                        Arrangement lop = new Lop(id, navn, sted, datoConvert(dato, tid));
+                        arrangementer.add(lop);
+                        break;
+                    }
+                }
+            }
+        } catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+        return arrangementer;
+    }
+
     public static ArrayList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
-        String sql = "SELECT * FROM Tider NATURAL JOIN Arrangementer WHERE ArrangementerNavn = ?";
+        String sql = "SELECT * FROM TiderPaameldinger NATURAL JOIN Arrangementer WHERE ArrangementerNavn = ?";
 
         Connection conn = SQLiteConnect.SQLConnect();
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -93,27 +185,6 @@ public class DataHandlerSQL {
         return ArrangementVisBruk;
     }
 
-    //Henter alle arrenmangt og viser disse i Observlist
-    public static ArrayList<Arrangement> sjekkSQLType(String arrangementType) throws SQLException {
-        ArrayList<Arrangement> opprettArr = new ArrayList<Arrangement>();
-        String sql = "SELECT * FROM Arrangementer WHERE TypeFK = ?";
-
-        Connection conn = SQLiteConnect.SQLConnect();
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, arrangementType);
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            String NavnArrangement = rs.getString(2);
-            String Dato = rs.getString(4);
-            String Tid = rs.getString(5);
-            String Sted = rs.getString(6);
-            Arrangement opprettArragement = new Arrangement(NavnArrangement, Sted, datoConvert(Dato, Tid));
-            opprettArr.add(opprettArragement);
-        }
-        conn.close();
-        return opprettArr;
-    }
     public static String opprettArrangement(String arrangementernavn, String sted, String dato, String tid, String typeArrangement){
         String sql = "INSERT INTO Arrangementer (ArrangementerNavn,Sted,Dato,Tid,TypeFk) VALUES(?,?,?,?,?)";
         try {

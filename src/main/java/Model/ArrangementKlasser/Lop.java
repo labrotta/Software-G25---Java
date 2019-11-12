@@ -10,7 +10,7 @@ public class Lop extends Arrangement {
         super(navn, sted);
     }
 
-    public Lop(String navn, String sted, LocalDateTime datoOgTid) {
-        super(navn, sted, datoOgTid);
+    public Lop(int id, String navn, String sted, LocalDateTime datoOgTid) {
+        super(id, navn, sted, datoOgTid);
     }
 }

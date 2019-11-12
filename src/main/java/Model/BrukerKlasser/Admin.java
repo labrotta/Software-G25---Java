@@ -7,6 +7,10 @@ public class Admin extends BrukerType {
         super(forNavn, etternavn, epost);
     }
 
+    public Admin(int id, String fornavn, String etternavn) {
+        super(id, fornavn, etternavn);
+    }
+
     public Admin(String fornavn, String etternavn) {
         super(fornavn, etternavn);
     }

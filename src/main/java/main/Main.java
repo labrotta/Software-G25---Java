@@ -1,5 +1,9 @@
 package main;
 
+import Model.Arrangement;
+import Model.BrukerType;
+import data.DataHandler;
+import data.DataHandlerSQL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -16,6 +21,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        ArrayList<BrukerType> brukere= DataHandlerSQL.hentBrukere();
+        System.out.println(brukere);
         //new DataHandlerDBtoCSV().ArrangementerTilCSV();
         //new DataHandlerDBtoCSV().TiderTilCSV();
         //new DataHandlerDBtoCSV().BrukereTilCSV();
