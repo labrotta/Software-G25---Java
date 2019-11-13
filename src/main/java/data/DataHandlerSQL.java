@@ -122,9 +122,11 @@ public class DataHandlerSQL {
 
                                     LocalTime start = LocalTime.parse(resultSet.getString(1));
                                     LocalTime slutt = LocalTime.parse(resultSet.getString(2));
-                                    Resultat_Paamelding resultatPaamelding = paamelding;
-                                    resultatPaamelding.setStarttid(start);
-                                    resultatPaamelding.setSlutttid(slutt);
+                                    int plassering = resultSet.getInt(5);
+                                    Resultat_Paamelding resultat = paamelding;
+                                    resultat.setPlassering(plassering);
+                                    resultat.setStarttid(start);
+                                    resultat.setSlutttid(slutt);
                                 }
                             }
                         }
@@ -154,23 +156,23 @@ public class DataHandlerSQL {
                 int id = resultSet.getInt(1);
                 String navn = resultSet.getString(2);
                 String type = resultSet.getString(3);
-                String dato = resultSet.getString(4);
-                String tid = resultSet.getString(5);
+                LocalDate dato = LocalDate.parse(resultSet.getString(4));
+                LocalTime tid = LocalTime.parse(resultSet.getString(5));
                 String sted = resultSet.getString(6);
 
                 switch (type) {
                     case "Sykkelritt":{
-                        Arrangement ritt = new Ritt(id, navn, sted, datoConvert(dato, tid));
+                        Arrangement ritt = new Ritt(id, navn, sted, dato, tid);
                         arrangementer.add(ritt);
                         break;
                     }
                     case "Skirenn":{
-                        Arrangement renn = new Renn(id, navn, sted, datoConvert(dato, tid));
+                        Arrangement renn = new Renn(id, navn, sted, dato, tid);
                         arrangementer.add(renn);
                         break;
                     }
-                    case "Lop":{
-                        Arrangement lop = new Lop(id, navn, sted, datoConvert(dato, tid));
+                    case "Løp":{
+                        Arrangement lop = new Lop(id, navn, sted, dato, tid);
                         arrangementer.add(lop);
                         break;
                     }

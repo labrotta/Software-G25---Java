@@ -16,7 +16,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BrukerSideController {
 
@@ -49,9 +51,10 @@ public class BrukerSideController {
             resultatTableView.getItems().add(liste);
         }
 
-        //datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getArrangement().getDato().toString()));
-        StedTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getArrangement().getSted()));
-        brukerSideTabellArrangment.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getArrangement().getSted()));
+        final DateFormat df = DateFormat.getDateInstance();
+        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getArrangement().getDato().toString()));
+        StedTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getPlassering()));
+        brukerSideTabellArrangment.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getArrangement().getNavn()));
     }
 
 

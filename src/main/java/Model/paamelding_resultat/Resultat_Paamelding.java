@@ -10,15 +10,25 @@ public class Resultat_Paamelding {
     //Denne klassen er for både resultat og påmelding
     private BrukerType utoover;
     private LocalTime starttid, slutttid;
+    private int plassering;
     //Det kan noen ganger være nyttig å ta med arrangementet slik at vi vet hvilket arrangement
     //et resultat tilhører.
     private Arrangement arrangement;
 
-    public Resultat_Paamelding(BrukerType utoover, LocalTime starttid, LocalTime slutttid) {
+    public Resultat_Paamelding(BrukerType utoover, LocalTime starttid, LocalTime slutttid, int plassering) {
         this.utoover = utoover;
         this.starttid = starttid;
         this.slutttid = slutttid;
+        this.plassering = plassering;
         Arrangement arrangement;
+    }
+
+    public int getPlassering() {
+        return plassering;
+    }
+
+    public void setPlassering(int plassering) {
+        this.plassering = plassering;
     }
 
     public Resultat_Paamelding(BrukerType utoover) {

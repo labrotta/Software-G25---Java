@@ -43,7 +43,7 @@ public class ArrangementOversiktController{
         brukerID.setText(innloggetBruker.getFornavn());
 
         ArrayList<Arrangement> arrangementer = DataHandlerSQL.hentArrangementerMedPaameldinger();
-        arrangementer = filtrerArrangementerEtterType(arrangementer, arrangementType);
+        arrangementer = Arrangement.filtrerArrangementerEtterType(arrangementer, arrangementType);
         ObservableList<Arrangement> arrangementerObserveableList = FXCollections.observableArrayList(arrangementer);
         fyllTabellen(arrangementerObserveableList, arrangementTableView);
 
@@ -51,7 +51,7 @@ public class ArrangementOversiktController{
 
         stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSted()));
         navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNavn()));
-        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getDatoOgTid()));
+        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getDato().toString()));
 
         paameldingButton.setOnAction(actionEvent -> paameldingDialog(arrangementTableView.getSelectionModel().getSelectedItem()));
 
@@ -61,22 +61,6 @@ public class ArrangementOversiktController{
                     Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml");
                 }
         );
-    }
-
-    private ArrayList<Arrangement> filtrerArrangementerEtterType(ArrayList<Arrangement> arrangementer, String type) {
-        ArrayList<Arrangement> arrangementerMedRiktigType = new ArrayList<>();
-        for (Arrangement arrangement : arrangementer){
-            if (type.equals("Sykkelritt") && arrangement instanceof Ritt){
-                arrangementerMedRiktigType.add(arrangement);
-            }
-            if (type.equals("Skirenn") && arrangement instanceof Renn){
-                arrangementerMedRiktigType.add(arrangement);
-            }
-            if (type.equals("Løp") && arrangement instanceof Lop){
-                arrangementerMedRiktigType.add(arrangement);
-            }
-        }
-        return arrangementerMedRiktigType;
     }
 
 
