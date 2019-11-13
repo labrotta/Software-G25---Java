@@ -42,7 +42,7 @@ public class ArrangementOversiktController{
     public void initialize() throws SQLException {
         brukerID.setText(innloggetBruker.getFornavn());
 
-        ArrayList<Arrangement> arrangementer = DataHandlerSQL.hentArrangementer();
+        ArrayList<Arrangement> arrangementer = DataHandlerSQL.hentArrangementerMedPaameldinger();
         arrangementer = filtrerArrangementerEtterType(arrangementer, arrangementType);
         ObservableList<Arrangement> arrangementerObserveableList = FXCollections.observableArrayList(arrangementer);
         fyllTabellen(arrangementerObserveableList, arrangementTableView);
@@ -57,7 +57,7 @@ public class ArrangementOversiktController{
 
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         eksArrangementInfo.setOnAction(actionEvent -> {
-                    ArrangementOversiktInfoController.arrangementInfoPaameldt = arrangementTableView.getSelectionModel().getSelectedItem().getNavn();
+                    ArrangementOversiktInfoController.valgtArrangement = arrangementTableView.getSelectionModel().getSelectedItem();
                     Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml");
                 }
         );

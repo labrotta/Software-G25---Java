@@ -1,5 +1,10 @@
 package Model;
 
+import Model.BrukerKlasser.Bruker;
+import Model.paamelding_resultat.Resultat_Paamelding;
+
+import java.util.ArrayList;
+
 public class BrukerType {
     private int id;
     private String fornavn;
@@ -21,6 +26,26 @@ public class BrukerType {
         this.fornavn = fornavn;
         this.etternavn = etternavn;
         this.epost = epost;
+    }
+
+    public ArrayList<Resultat_Paamelding> hentResultaterForBruker(ArrayList<Arrangement> arrangementer){
+        ArrayList<Resultat_Paamelding> resultaterForBrukeren = new ArrayList<>();
+        for (Arrangement etArrangement : arrangementer){
+            for (Resultat_Paamelding etResultat : etArrangement.getPaameldinger()){
+                if (this == etResultat.getUtoover()){
+                    System.out.println("hei");
+                }
+                if (this.getId() == etResultat.getUtoover().getId()){
+                    Arrangement arrangement = new Arrangement(
+                            etArrangement.getNavn(),
+                            etArrangement.getSted(),
+                            etArrangement.getDato());
+                    etResultat.setArrangement(arrangement);
+                    resultaterForBrukeren.add(etResultat);
+                }
+            }
+        }
+        return resultaterForBrukeren;
     }
 
     public int getId() {

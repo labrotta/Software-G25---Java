@@ -2,6 +2,7 @@ package controller;
 
 import Model.Arrangement;
 import Model.ArrangementKlasser.Ritt;
+import Model.paamelding_resultat.Resultat_Paamelding;
 import data.DataHandlerSQL;
 import Model.ArrangementVisBruker;
 import Model.BrukerKlasser.Admin;
@@ -25,13 +26,13 @@ import java.util.ArrayList;
 import java.util.stream.Collector;
 
 public class ArrangementOversiktInfoController {
-    static String arrangementInfoPaameldt;
+    public static Arrangement valgtArrangement;
     private BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
 
     @FXML
-    private TableView<ArrangementVisBruker> arrangementVisBrukerTableView;
+    private TableView<Resultat_Paamelding> arrangementVisBrukerTableView;
     @FXML
-    private TableColumn<ArrangementVisBruker, String> stedTableColumn, navnTableColumn, datoTableColumn;
+    private TableColumn<Resultat_Paamelding, String> stedTableColumn, navnTableColumn, datoTableColumn;
     @FXML
     private Text arrangementTypeTextField;
     @FXML
@@ -39,14 +40,16 @@ public class ArrangementOversiktInfoController {
     @FXML
     private Label brukerID;
 
-    public void initialize() throws SQLException {
+    public void initialize(){
         brukerID.setText(innloggetBruker.getFornavn());
 
-        ArrayList<ArrangementVisBruker> sqlList = DataHandlerSQL.VisBrukerePrArrangement(arrangementInfoPaameldt);
-        ObservableList<ArrangementVisBruker> VisbrukerArragement = FXCollections.observableArrayList(sqlList);
+        ObservableList<Resultat_Paamelding> resultaterArrayList = FXCollections.observableArrayList(valgtArrangement.getPaameldinger());
 
-        for (ArrangementVisBruker liste : VisbrukerArragement) {
-            arrangementVisBrukerTableView.getItems().add(liste);
+
+
+
+        for (Resultat_Paamelding etResultat : resultaterArrayList) {
+            arrangementVisBrukerTableView.getItems().add(etResultat);
         }
 
 
@@ -56,18 +59,14 @@ public class ArrangementOversiktInfoController {
             slettBrukerId.setVisible(false);
         }
 
-        stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getBrukerUnikID()));
-        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getStartTid()));
-        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getSluttTid()));
+        stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getUtoover().getFornavn()));
+        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getStarttid()));
+        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getSlutttid()));
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktView.fxml"));
         slettBrukerId.setOnAction(actionEvent -> {
-            DataHandlerSQL.SlettBrukerArrangement(arrangementVisBrukerTableView.getSelectionModel().getSelectedItem().getBrukerUnikID());
+            DataHandlerSQL.SlettBrukerArrangement(arrangementVisBrukerTableView.getSelectionModel().getSelectedItem().getUtoover().getId());
             arrangementVisBrukerTableView.getItems().clear();
-            try {
-                initialize();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            initialize();
         });
     }
 }

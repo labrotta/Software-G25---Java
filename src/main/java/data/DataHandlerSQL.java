@@ -24,32 +24,12 @@ public class DataHandlerSQL {
         return LocalDateTime.of(dato, tid);
     }
 
-    public static ArrayList<VisResultatBruker> visResultaterBrukerside(BrukerType brukerUniqueID) throws SQLException {
-        String sql = "SELECT * FROM TiderPaameldinger  NATURAL JOIN Arrangementer WHERE BrukerUniqeID = ?";
-        Connection conn = SQLiteConnect.SQLConnect();
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, String.valueOf(brukerUniqueID));
-        ResultSet rs = stmt.executeQuery();
-        ArrayList<VisResultatBruker> samleResultat = new ArrayList<>();
-        while (rs.next()) {
-            String NavnArrangement = rs.getString(3);
-            String Dato = rs.getString(8);
-            String Reultat = rs.getString(5);
-            String Sted = rs.getString(10);
-            VisResultatBruker VisResultatBruk = new VisResultatBruker(Dato,Reultat,Sted,NavnArrangement);
-            samleResultat.add(VisResultatBruk);
-        }
-        conn.close();
-        return samleResultat;
-
-    }
-
-    public static String SlettBrukerArrangement(String brukerUnikId){
+    public static String SlettBrukerArrangement(int brukerUnikId){
         String sql = "DELETE FROM TiderPaameldinger WHERE BrukerUniqeID = ?";
         try {
             Connection conn = SQLiteConnect.SQLConnect();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, brukerUnikId);
+            stmt.setInt(1, brukerUnikId);
             stmt.executeUpdate();
             conn.close();
         }catch (SQLException e) {

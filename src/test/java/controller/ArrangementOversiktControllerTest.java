@@ -9,9 +9,8 @@ import de.saxsys.javafx.test.JfxRunner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.*;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -36,8 +35,8 @@ class ArrangementOversiktControllerTest{
 
         TableView<Arrangement> tabell = new TableView<>();
         arrangementOversiktController.fyllTabellen(list, tabell);
-        Assert.assertEquals("Birken", tabell.getItems().get(0).getNavn());
-        Assert.assertEquals("Kulås-sprinten", tabell.getItems().get(1).getNavn());
+        assertEquals("Birken", tabell.getItems().get(0).getNavn());
+        assertEquals("Kulås-sprinten", tabell.getItems().get(1).getNavn());
     }
 
     @Test

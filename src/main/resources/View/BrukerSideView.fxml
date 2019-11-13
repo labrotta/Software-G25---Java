@@ -21,10 +21,10 @@
       <Button fx:id="redigerFornavnButton" layoutX="264.0" layoutY="52.0" mnemonicParsing="false" text="Rediger" />
       <Button fx:id="redigerEtternavnButton" layoutX="264.0" layoutY="102.0" mnemonicParsing="false" text="Rediger" />
       <Button fx:id="redigerEpostButton" layoutX="264.0" layoutY="152.0" mnemonicParsing="false" text="Rediger" />
-      <TableView fx:id="brukerSideTabell" layoutX="20.0" layoutY="194.0" prefHeight="200.0" prefWidth="536.0">
+      <TableView fx:id="resultatTableView" layoutX="20.0" layoutY="194.0" prefHeight="200.0" prefWidth="536.0">
         <columns>
-          <TableColumn fx:id="brukerSideTabellDato" prefWidth="104.0" text="Dato" />
-            <TableColumn fx:id="brukerSidePlassering" prefWidth="94.0" text="Plassering" />
+          <TableColumn fx:id="datoTableColumn" prefWidth="104.0" text="Dato" />
+            <TableColumn fx:id="StedTableColumn" prefWidth="94.0" text="Plassering" />
           <TableColumn fx:id="brukerSideTabellArrangment" prefWidth="337.0" text="Arrangment" />
         </columns>
       </TableView>

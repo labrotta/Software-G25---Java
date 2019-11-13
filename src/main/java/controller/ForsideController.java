@@ -4,6 +4,8 @@ import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
 import Model.ModelBruker;
+import data.DataHandlerSQL;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +25,7 @@ public class ForsideController {
     @FXML private ImageView imgSki,imgSykkel,imgLop;
     private boolean javaFXKjorer = false;
 
-    private static ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
+    private static ObservableList<BrukerType> listeBrukere = FXCollections.observableArrayList(DataHandlerSQL.hentBrukere());
 
     public static BrukerType getInnloggetBruker(){return innloggetBruker;}
 
@@ -46,7 +48,7 @@ public class ForsideController {
 
         brukerLoggInn.setOnAction(actionEvent -> {
             innloggetBruker = loggInn(brukerListe.getSelectionModel().getSelectedItem());
-            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
+            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn() + " (" + innloggetBruker.getClass().getSimpleName() + ")");
 
             //Hvis brukeren er administrator eller arrangementansvarlig,
             // skal han/hun ha muligheten til å lage arrangement

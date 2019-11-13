@@ -33,7 +33,6 @@ public class Arrangement {
         this.navn = navn;
         this.sted = sted;
         this.dato = dato;
-        this.paameldinger = new ArrayList<>();
     }
 
     public Arrangement(int id, String navn, String sted, LocalDateTime datoOgTid) {

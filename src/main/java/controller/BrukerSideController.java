@@ -1,10 +1,8 @@
 package controller;
 
 import Model.Arrangement;
-import Model.ArrangementVisBruker;
-import Model.BrukerKlasser.Bruker;
 import Model.BrukerType;
-import Model.VisResultatBruker;
+import Model.paamelding_resultat.Resultat_Paamelding;
 import data.DataHandlerSQL;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -14,32 +12,28 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BrukerSideController {
 
     @FXML private Button TilbakeButton, redigerFornavnButton, redigerEtternavnButton, redigerEpostButton;
     @FXML private Label fornavnLabel, etternavnLabel, epostLabel;
-    @FXML private TableView brukerSideTabell;
-    @FXML private TableColumn<VisResultatBruker, String>brukerSideTabellDato, brukerSidePlassering, brukerSideTabellArrangment;
+    @FXML private TableView<Resultat_Paamelding> resultatTableView;
+    @FXML private TableColumn<Resultat_Paamelding, String> datoTableColumn, StedTableColumn, brukerSideTabellArrangment;
 
     Stage dialog;
 
     public void initialize() {
         BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
-        ArrayList<VisResultatBruker> visResultatBruker = null;
-        try {
-            visResultatBruker = DataHandlerSQL.visResultaterBrukerside(innloggetBruker);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        ObservableList<VisResultatBruker> listeResultat = FXCollections.observableArrayList(visResultatBruker);
+
+        ArrayList<Arrangement> arrangementer= DataHandlerSQL.hentArrangementerMedPaameldinger();
+        ArrayList<Resultat_Paamelding> resultaterForBruker = innloggetBruker.hentResultaterForBruker(arrangementer);
+
+        ObservableList<Resultat_Paamelding> listeResultat = FXCollections.observableArrayList(resultaterForBruker);
 
         TilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         redigerFornavnButton.setOnAction(actionEvent -> rediger(  "fornavn", fornavnLabel.getText(), innloggetBruker));
@@ -51,15 +45,14 @@ public class BrukerSideController {
         etternavnLabel.setText(innloggetBruker.getEtternavn());
         epostLabel.setText(innloggetBruker.getEpost());
 
-        for (VisResultatBruker liste : listeResultat) {
-            brukerSideTabell.getItems().add(liste);
+        for (Resultat_Paamelding liste : listeResultat) {
+            resultatTableView.getItems().add(liste);
         }
 
-        brukerSideTabellDato.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDato()));
-        brukerSidePlassering.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getSted()));
-        brukerSideTabellArrangment.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getPlass()));
+        //datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getArrangement().getDato().toString()));
+        StedTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getArrangement().getSted()));
+        brukerSideTabellArrangment.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getArrangement().getSted()));
     }
-
 
 
     public void rediger( String hvaSomSkalRedigeres, String originalString, BrukerType bruker) {

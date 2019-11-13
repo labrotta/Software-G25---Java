@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 
 import static junit.framework.TestCase.assertNull;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class DataHandlerSQLTest {
@@ -21,7 +21,7 @@ class DataHandlerSQLTest {
         String dato = "2019-01-18";
         String tid = "17:00";
         String type = "Sykkelritt";
-        Assert.assertEquals("Velykket", DataHandlerSQL.opprettArrangement(navn,sted,dato,tid,type));
+        assertEquals("Velykket", DataHandlerSQL.opprettArrangement(navn,sted,dato,tid,type));
     }
 
     @Test
@@ -33,13 +33,13 @@ class DataHandlerSQLTest {
     @Test
     @Order(3)
     void visBrukerePrArrangement() throws SQLException {
-        Assert.assertNotNull(DataHandlerSQL.VisBrukerePrArrangement("test Arrangement"));
+        assertNotNull(DataHandlerSQL.VisBrukerePrArrangement("test Arrangement"));
     }
 
     @Test
     @Order(4)
     void slettBrukerArrangement() {
-       Assert.assertEquals("Bruker slettet",DataHandlerSQL.SlettBrukerArrangement("Db_Test_User"));
+       assertEquals("Bruker slettet",DataHandlerSQL.SlettBrukerArrangement(2));
     }
 /*
     @Test
@@ -55,7 +55,7 @@ class DataHandlerSQLTest {
     void dateconvert(){{
         String dato = "2019-03-12";
         String Tid = "17:00";
-        Assert.assertEquals("2019-03-12T17:00",String.valueOf(DataHandlerSQL.datoConvert(dato,Tid)));
+        assertEquals("2019-03-12T17:00",String.valueOf(DataHandlerSQL.datoConvert(dato,Tid)));
 
 
     }
