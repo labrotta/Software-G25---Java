@@ -30,7 +30,11 @@ public class Resultat_Paamelding {
     }
 
     public Long hentTidBrukt(){
-        return Duration.between(this.starttid, this.slutttid).toMinutes();
+        if (this.starttid != null){
+            return Duration.between(this.starttid, this.slutttid).toMinutes();
+        } else {
+            return Long.valueOf(0);
+        }
     }
 
     public int getPlassering() {
