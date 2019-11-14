@@ -31,6 +31,10 @@ public class Arrangement {
         this.paameldinger.add(resultatPaamelding);
     }
 
+    public void setResultat(Resultat_Paamelding resultat){
+        this.paameldinger.add(resultat);
+    }
+
     private ArrayList<Resultat_Paamelding> paameldinger;
 
     public Arrangement(String navn, String sted, LocalDate dato) {

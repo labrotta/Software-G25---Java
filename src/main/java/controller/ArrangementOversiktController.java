@@ -1,8 +1,5 @@
 package controller;
 
-import Model.ArrangementKlasser.Lop;
-import Model.ArrangementKlasser.Renn;
-import Model.ArrangementKlasser.Ritt;
 import Model.paamelding_resultat.Resultat_Paamelding;
 import data.DataHandlerSQL;
 import Model.Arrangement;
@@ -39,7 +36,7 @@ public class ArrangementOversiktController{
 
     Stage dialog;
 
-    public void initialize() throws SQLException {
+    public void initialize() {
         brukerID.setText(innloggetBruker.getFornavn());
 
         ArrayList<Arrangement> arrangementer = DataHandlerSQL.hentArrangementerMedPaameldinger();
@@ -57,8 +54,8 @@ public class ArrangementOversiktController{
 
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         eksArrangementInfo.setOnAction(actionEvent -> {
-                    ArrangementOversiktInfoController.valgtArrangement = arrangementTableView.getSelectionModel().getSelectedItem();
-                    Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml");
+                    ResultatListeController.valgtArrangement = arrangementTableView.getSelectionModel().getSelectedItem();
+                    Main.getInstance().changeScene("../View/ResultatListeView.fxml");
                 }
         );
     }
@@ -94,8 +91,9 @@ public class ArrangementOversiktController{
 
     public void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
         if (innloggetBruker instanceof Medlem || innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig) {
-            selectedItem.setPaameldinger(new Resultat_Paamelding(innloggetBruker));
-            leggIDatabase(selectedItem, innloggetBruker);
+            Resultat_Paamelding resultat_paamelding = new Resultat_Paamelding(innloggetBruker);
+            selectedItem.setPaameldinger(resultat_paamelding);
+            leggIDatabase(selectedItem, resultat_paamelding);
         } else {
             avbrytPaameldingen();
         }
@@ -108,11 +106,11 @@ public class ArrangementOversiktController{
 
     }
 
-    private void leggIDatabase(Arrangement selectedItem, BrukerType innloggetBruker) {
+    private void leggIDatabase(Arrangement selectedItem, Resultat_Paamelding resultat_paamelding) {
         if (javaFXKjorer()){
             return;
         }
-        data.DataHandlerSQL.PaaMeldingBrukerArrangement(selectedItem.getNavn(), innloggetBruker.getFornavn());
+        data.DataHandlerSQL.leggInnPaamelding(selectedItem.getId(), resultat_paamelding);
         dialog.close();
     }
 
