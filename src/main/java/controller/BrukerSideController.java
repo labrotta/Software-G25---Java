@@ -25,7 +25,7 @@ public class BrukerSideController {
     @FXML private Button TilbakeButton, redigerFornavnButton, redigerEtternavnButton, redigerEpostButton;
     @FXML private Label fornavnLabel, etternavnLabel, epostLabel;
     @FXML private TableView<Resultat_Paamelding> resultatTableView;
-    @FXML private TableColumn<Resultat_Paamelding, String> datoTableColumn, StedTableColumn, brukerSideTabellArrangment;
+    @FXML private TableColumn<Resultat_Paamelding, String> datoTableColumn, StedTableColumn, brukerSideTabellArrangment, tidTableColumn;
 
     Stage dialog;
 
@@ -55,6 +55,7 @@ public class BrukerSideController {
         datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getArrangement().getDato().toString()));
         StedTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getPlassering()));
         brukerSideTabellArrangment.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getArrangement().getNavn()));
+        tidTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().hentTidBrukt()));
     }
 
 

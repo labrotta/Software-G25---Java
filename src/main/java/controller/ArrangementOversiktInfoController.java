@@ -9,6 +9,7 @@ import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
 
+import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -32,7 +33,7 @@ public class ArrangementOversiktInfoController {
     @FXML
     private TableView<Resultat_Paamelding> arrangementVisBrukerTableView;
     @FXML
-    private TableColumn<Resultat_Paamelding, String> stedTableColumn, navnTableColumn, datoTableColumn;
+    private TableColumn<Resultat_Paamelding, String> stedTableColumn, navnTableColumn, datoTableColumn, tidTableColumn;
     @FXML
     private Text arrangementTypeTextField;
     @FXML
@@ -59,9 +60,10 @@ public class ArrangementOversiktInfoController {
             slettBrukerId.setVisible(false);
         }
 
-        stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getUtoover().getFornavn()));
-        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getStarttid()));
-        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getSlutttid()));
+        //stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getArrangement().getNavn()));
+        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getUtoover().getFornavn()));
+        //datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().));
+        tidTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().hentTidBrukt()));
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktView.fxml"));
         slettBrukerId.setOnAction(actionEvent -> {
             DataHandlerSQL.SlettBrukerArrangement(arrangementVisBrukerTableView.getSelectionModel().getSelectedItem().getUtoover().getId());

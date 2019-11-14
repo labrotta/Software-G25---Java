@@ -3,7 +3,12 @@ package Model.paamelding_resultat;
 import Model.Arrangement;
 import Model.BrukerType;
 
+import java.time.Duration;
 import java.time.LocalTime;
+import static java.time.temporal.ChronoUnit.MINUTES;
+
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 
 public class Resultat_Paamelding {
@@ -21,6 +26,10 @@ public class Resultat_Paamelding {
         this.slutttid = slutttid;
         this.plassering = plassering;
         Arrangement arrangement;
+    }
+
+    public Long hentTidBrukt(){
+        return Duration.between(this.starttid, this.slutttid).toMinutes();
     }
 
     public int getPlassering() {

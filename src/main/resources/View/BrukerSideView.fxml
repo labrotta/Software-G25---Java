@@ -23,7 +23,8 @@
         <columns>
           <TableColumn fx:id="datoTableColumn" prefWidth="104.0" text="Dato" />
             <TableColumn fx:id="StedTableColumn" prefWidth="94.0" text="Plassering" />
-          <TableColumn fx:id="brukerSideTabellArrangment" prefWidth="337.0" text="Arrangment" />
+          <TableColumn fx:id="brukerSideTabellArrangment" prefWidth="100.0" text="Arrangment" />
+            <TableColumn fx:id="tidTableColumn" prefWidth="100" text="Tid" />
         </columns>
       </TableView>
    </children>

@@ -15,7 +15,8 @@
             <columns>
                 <TableColumn fx:id="navnTableColumn" prefWidth="164.0" text="Navn" />
                 <TableColumn fx:id="stedTableColumn" prefWidth="155.0" text="Sted" />
-                <TableColumn fx:id="datoTableColumn" prefWidth="168.0" text="Dato" />
+                <TableColumn fx:id="datoTableColumn" prefWidth="100.0" text="Dato" />
+                <TableColumn fx:id="tidTableColumn" prefWidth="100" text="Tid" />
             </columns>
         </TableView>
         <Text fx:id="arrangementTypeTextField" layoutX="12.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrangement oversikt" wrappingWidth="775.0">
