@@ -54,6 +54,10 @@ public class ArrangementOversiktController{
 
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         eksArrangementInfo.setOnAction(actionEvent -> {
+                    if (arrangementTableView.getSelectionModel().getSelectedItem() == null){
+                        nyAlert("Velg et arrangement", "Vennligst velg et arrangement");
+                        return;
+                    }
                     ResultatListeController.valgtArrangement = arrangementTableView.getSelectionModel().getSelectedItem();
                     Main.getInstance().changeScene("../View/ResultatListeView.fxml");
                 }
