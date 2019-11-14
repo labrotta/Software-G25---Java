@@ -26,7 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Collector;
 
-public class ArrangementOversiktInfoController {
+public class ResultatListeController {
     public static Arrangement valgtArrangement;
     private BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
 
@@ -37,7 +37,7 @@ public class ArrangementOversiktInfoController {
     @FXML
     private Text arrangementTypeTextField;
     @FXML
-    private Button tilbakeButton, slettBrukerId;
+    private Button tilbakeButton, leggInnResultatButton;
     @FXML
     private Label brukerID;
 
@@ -46,29 +46,25 @@ public class ArrangementOversiktInfoController {
 
         ObservableList<Resultat_Paamelding> resultaterArrayList = FXCollections.observableArrayList(valgtArrangement.getPaameldinger());
 
-
-
-
         for (Resultat_Paamelding etResultat : resultaterArrayList) {
             arrangementVisBrukerTableView.getItems().add(etResultat);
         }
 
-
-        if (innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig){
-            slettBrukerId.setVisible(true);
+        if (innloggetBruker.erAdminEllerAA()){
+            leggInnResultatButton.setVisible(true);
         } else {
-            slettBrukerId.setVisible(false);
+            leggInnResultatButton.setVisible(false);
         }
 
         //stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getArrangement().getNavn()));
-        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getUtoover().getFornavn()));
+        navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getUtoover().toString()));
         //datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().));
         tidTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().hentTidBrukt()));
+
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ArrangementOversiktView.fxml"));
-        slettBrukerId.setOnAction(actionEvent -> {
-            DataHandlerSQL.SlettBrukerArrangement(arrangementVisBrukerTableView.getSelectionModel().getSelectedItem().getUtoover().getId());
-            arrangementVisBrukerTableView.getItems().clear();
-            initialize();
+
+        leggInnResultatButton.setOnAction(actionEvent -> {
+            Main.getInstance().changeScene("../View/NyttResultatView.fxml");
         });
     }
 }

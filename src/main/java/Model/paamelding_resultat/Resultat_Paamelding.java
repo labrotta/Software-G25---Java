@@ -17,15 +17,16 @@ public class Resultat_Paamelding {
     private LocalTime starttid, slutttid;
     private int plassering;
     //Det kan noen ganger være nyttig å ta med arrangementet slik at vi vet hvilket arrangement
-    //et resultat tilhører.
+    //et resultat tilhører. Faren er at det blir en evig loop
+    //med arrangement->påmelding->arrangement->påmel.......
     private Arrangement arrangement;
+
 
     public Resultat_Paamelding(BrukerType utoover, LocalTime starttid, LocalTime slutttid, int plassering) {
         this.utoover = utoover;
         this.starttid = starttid;
         this.slutttid = slutttid;
         this.plassering = plassering;
-        Arrangement arrangement;
     }
 
     public Long hentTidBrukt(){

@@ -1,5 +1,7 @@
 package Model;
 
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerKlasser.Bruker;
 import Model.paamelding_resultat.Resultat_Paamelding;
 
@@ -85,5 +87,8 @@ public class BrukerType {
         return (this.fornavn + " " + this.etternavn);
     }
 
+    public boolean erAdminEllerAA() {
+        return (this instanceof Admin || this instanceof ArrangementAnsvarlig);
+    }
 }
 

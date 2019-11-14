@@ -38,14 +38,33 @@ public class DataHandlerSQL {
         return "Bruker slettet";
     }
 
-    public static DataHandlerSQL PaaMeldingBrukerArrangement(String arrangementernavn, String BrukerNavn){
+    public static String leggInnPaamelding(int arrangementID, Resultat_Paamelding resultat_paamelding){
+        String sql = "INSERT INTO TiderPaameldinger (ArrangementID, BrukerID, ErResultat) VALUES(?,?,?)";
 
-        String sql = "INSERT INTO TiderPaameldinger (ArrangementerNavn,BrukerUniqeID,StartTid,StoppTid) VALUES(?,?,?,?)";
+        try {
+            Connection connection = SQLiteConnect.SQLConnect();
+            PreparedStatement streng = connection.prepareStatement(sql);
+                    streng.setInt(1, arrangementID);
+                    streng.setInt(2, resultat_paamelding.getUtoover().getId());
+                    streng.setBoolean(3, false);
+        } catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+        return "Påmelding lagt inn";
+    }
+
+    public static DataHandlerSQL leggInnResultat(int arrangementID, Resultat_Paamelding resultat_paamelding){
+
+        String sql = "INSERT INTO TiderPaameldinger (StartTid,StoppTid,ArrangementID, BrukerID, Plasseringer, ErResultat) VALUES(?,?,?,?,?,?)";
         try {
             Connection conn = SQLiteConnect.SQLConnect();
             PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, arrangementernavn);
-                stmt.setString(2, BrukerNavn);
+                stmt.setString(1, resultat_paamelding.getStarttid().toString());
+                stmt.setString(2, resultat_paamelding.getSlutttid().toString());
+                stmt.setInt(3, arrangementID);
+                stmt.setInt(4, resultat_paamelding.getUtoover().getId());
+                stmt.setInt(5, resultat_paamelding.getPlassering());
+                stmt.setBoolean(6, true);
                 stmt.executeUpdate();
                 conn.close();
         }catch (SQLException e) {

@@ -1,7 +1,8 @@
 package data;
 
-import data.DataHandlerSQL;
-import org.junit.Assert;
+import Model.Arrangement;
+import Model.BrukerType;
+import Model.paamelding_resultat.Resultat_Paamelding;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,9 @@ class DataHandlerSQLTest {
     @Test
     @Order(2)
     void paaMeldingBrukerArrangement() {
-        DataHandlerSQL.PaaMeldingBrukerArrangement("test Arrangement","Db_Test_User");
+        BrukerType brukerType = new BrukerType("Hans", "Hansen");
+        Resultat_Paamelding resultat_paamelding = new Resultat_Paamelding(brukerType);
+        assertEquals("Paamelding lagt inn", DataHandlerSQL.leggInnPaamelding(23,resultat_paamelding));
     }
 
     @Test
