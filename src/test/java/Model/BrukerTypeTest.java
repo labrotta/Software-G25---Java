@@ -5,11 +5,10 @@ import Model.BrukerKlasser.Medlem;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class TestBrukerType {
+public class BrukerTypeTest {
     Bruker bruker = new Bruker("Test", "Testesen", "test@testesen.no");
     BrukerType medlem = new Medlem("Test", "Testesen", "test@testesen.no");
 
@@ -29,5 +28,15 @@ public class TestBrukerType {
     void erAdminEllerAA() {
         assertFalse(bruker.erAdminEllerAA());
         assertFalse(medlem.erAdminEllerAA());
+    }
+
+    @Test
+    void brukerErMedlemTest(){
+
+        BrukerType medlem = new Medlem("Roger", "Johnser");
+        BrukerType bruker = new Bruker("Frode", "Pedersen");
+
+        assertTrue(medlem.brukerErMedlem());
+        assertFalse(bruker.brukerErMedlem());
     }
 }

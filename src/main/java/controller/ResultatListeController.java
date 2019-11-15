@@ -1,17 +1,10 @@
 package controller;
 
 import Model.Arrangement;
-import Model.ArrangementKlasser.Ritt;
 import Model.paamelding_resultat.Resultat_Paamelding;
-import data.DataHandlerSQL;
-import Model.ArrangementVisBruker;
-import Model.BrukerKlasser.Admin;
-import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
 
-import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,10 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import main.Main;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.stream.Collector;
 
 public class ResultatListeController {
     public static Arrangement valgtArrangement;

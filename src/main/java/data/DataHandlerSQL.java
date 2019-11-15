@@ -38,7 +38,7 @@ public class DataHandlerSQL {
         return "Bruker slettet";
     }
 
-    public static String leggInnPaamelding(int arrangementID, Resultat_Paamelding resultat_paamelding){
+    public static String leggInnPaameldingDB(int arrangementID, Resultat_Paamelding resultat_paamelding){
         String sql = "INSERT INTO TiderPaameldinger (ArrangementID, BrukerID, ErResultat) VALUES(?,?,?)";
 
         try {
@@ -50,7 +50,7 @@ public class DataHandlerSQL {
         } catch (SQLException sqle){
             sqle.printStackTrace();
         }
-        return "Påmelding lagt inn";
+        return "OK";
     }
 
     public static DataHandlerSQL leggInnResultat(int arrangementID, Resultat_Paamelding resultat_paamelding){
@@ -203,27 +203,6 @@ public class DataHandlerSQL {
         return arrangementer;
     }
 
-    public static ArrayList<ArrangementVisBruker> VisBrukerePrArrangement(String ArrangemnetNavn) throws SQLException {
-        String sql = "SELECT * FROM TiderPaameldinger NATURAL JOIN Arrangementer WHERE ArrangementerNavn = ?";
-
-        Connection conn = SQLiteConnect.SQLConnect();
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, ArrangemnetNavn);
-        ResultSet rs = stmt.executeQuery();
-
-        ArrayList<ArrangementVisBruker> ArrangementVisBruk = new ArrayList<>();
-        while (rs.next()) {
-            Time tidStart = Time.valueOf(rs.getString(1));
-            Time tidStopp = Time.valueOf(rs.getString(1));
-            String brukerUnikID = rs.getString(4);
-            ArrangementVisBruker ArrangementVisBruker = new ArrangementVisBruker(brukerUnikID, tidStart, tidStopp);
-            ArrangementVisBruk.add(ArrangementVisBruker);
-        }
-        conn.close();
-        System.out.println(ArrangementVisBruk);
-        return ArrangementVisBruk;
-    }
-
     public static String opprettArrangement(String arrangementernavn, String sted, String dato, String tid, String typeArrangement){
         String sql = "INSERT INTO Arrangementer (ArrangementerNavn,Sted,Dato,Tid,TypeFk) VALUES(?,?,?,?,?)";
         try {
@@ -239,6 +218,6 @@ public class DataHandlerSQL {
         }catch (SQLException e) {
             return e.getMessage();
         }
-        return "Velykket";
+        return "OK";
     }
 }

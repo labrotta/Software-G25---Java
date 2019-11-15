@@ -3,6 +3,7 @@ package Model;
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerKlasser.Bruker;
+import Model.BrukerKlasser.Medlem;
 import Model.paamelding_resultat.Resultat_Paamelding;
 
 import java.util.ArrayList;
@@ -48,6 +49,13 @@ public class BrukerType {
             }
         }
         return resultaterForBrukeren;
+    }
+
+    public boolean brukerErMedlem(){
+            return this instanceof Medlem
+                    || this instanceof ArrangementAnsvarlig
+                    || this instanceof Admin;
+
     }
 
     public int getId() {

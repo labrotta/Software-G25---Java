@@ -4,6 +4,9 @@ package Model;
 import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
+import Model.BrukerKlasser.Medlem;
 import Model.paamelding_resultat.Resultat_Paamelding;
 
 import java.time.LocalDate;
@@ -31,6 +34,16 @@ public class Arrangement {
         this.paameldinger.add(resultatPaamelding);
     }
 
+    public Resultat_Paamelding meldPaaEnBruker(BrukerType bruker){
+        if (bruker.brukerErMedlem()){
+            return null;
+        }
+        Resultat_Paamelding resultat_paamelding = new Resultat_Paamelding(bruker);
+        this.setPaameldinger(resultat_paamelding);
+        return resultat_paamelding;
+    }
+
+
     public void setResultat(Resultat_Paamelding resultat){
         this.paameldinger.add(resultat);
     }
@@ -53,7 +66,6 @@ public class Arrangement {
     }
 
     public Arrangement(String navn, String sted) {
-        int id;
         this.navn = navn;
         this.sted = sted;
         this.paameldinger = new ArrayList<>();

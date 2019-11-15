@@ -3,7 +3,6 @@ package controller;
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
-import Model.ModelBruker;
 import data.DataHandlerSQL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

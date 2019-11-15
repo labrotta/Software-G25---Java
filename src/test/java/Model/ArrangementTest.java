@@ -3,6 +3,9 @@ package Model;
 import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.Renn;
 import Model.ArrangementKlasser.Ritt;
+import Model.BrukerKlasser.Bruker;
+import Model.BrukerKlasser.Medlem;
+import Model.paamelding_resultat.Resultat_Paamelding;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +21,9 @@ class ArrangementTest {
     ArrayList<LocalDate> datoer = new ArrayList<>();
     ArrayList<LocalTime> tider = new ArrayList<>();
     ArrayList<Arrangement> arrangementer = new ArrayList<>();
+    BrukerType brukerType = new BrukerType("Helge", "Helgesen");
+    Resultat_Paamelding resultat_paamelding = new Resultat_Paamelding(brukerType);
+    ArrayList<Resultat_Paamelding> resultat_paameldingListe = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -37,6 +43,7 @@ class ArrangementTest {
         tider.add(tid4);
 
         Arrangement skirenn = new Renn(1, "RennTest1", "Testborg", dato1, tid1);
+        skirenn.setPaameldinger(resultat_paamelding);
         Arrangement sykkelritt = new Ritt(2, "RittTest1", "Testborg", dato1, tid2);
         Arrangement lop = new Lop(3, "RennTest1", "Testborg", dato2, tid1);
         Arrangement skirenn2 = new Renn(4, "RennTest1", "Testborg", dato2, tid2);
@@ -44,6 +51,8 @@ class ArrangementTest {
         arrangementer.add(sykkelritt);
         arrangementer.add(lop);
         arrangementer.add(skirenn2);
+
+        resultat_paameldingListe.add(resultat_paamelding);
     }
 
     @Test
@@ -60,4 +69,20 @@ class ArrangementTest {
         assertEquals(arrangement2, filtrerArrangementerEtterType(arrangementer, "Sykkelritt"));
         assertEquals(arrangement3, filtrerArrangementerEtterType(arrangementer, "Løp"));
     }
+
+    @Test
+    void getPaameldingerTest() {
+        assertEquals(resultat_paamelding, arrangementer.get(0).getPaameldinger().get(0));
+    }
+    @Test
+    void setResultatTest() {
+        arrangementer.get(1).setResultat(resultat_paamelding);
+        assertEquals(resultat_paamelding, arrangementer.get(1).getPaameldinger().get(0));
+    }
+    @Test
+    void meldPaaEnBrukerTest() {
+        arrangementer.get(2).meldPaaEnBruker(brukerType);
+        assertEquals(brukerType, arrangementer.get(2).getPaameldinger().get(0).getUtoover());
+    }
+
 }

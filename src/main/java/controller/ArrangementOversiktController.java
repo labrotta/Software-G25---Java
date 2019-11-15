@@ -3,9 +3,6 @@ package controller;
 import Model.paamelding_resultat.Resultat_Paamelding;
 import data.DataHandlerSQL;
 import Model.Arrangement;
-import Model.BrukerKlasser.Admin;
-import Model.BrukerKlasser.ArrangementAnsvarlig;
-import Model.BrukerKlasser.Medlem;
 import Model.BrukerType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -20,8 +17,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static data.DataHandlerSQL.leggInnPaameldingDB;
 
 public class ArrangementOversiktController{
 
@@ -94,29 +92,16 @@ public class ArrangementOversiktController{
     }
 
     public void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
-        if (innloggetBruker instanceof Medlem || innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig) {
-            Resultat_Paamelding resultat_paamelding = new Resultat_Paamelding(innloggetBruker);
-            selectedItem.setPaameldinger(resultat_paamelding);
-            leggIDatabase(selectedItem, resultat_paamelding);
-        } else {
-            avbrytPaameldingen();
-        }
+        Resultat_Paamelding resultat_paamelding = selectedItem.meldPaaEnBruker(innloggetBruker);
+        leggInnPaameldingDB(selectedItem.getId(), resultat_paamelding);
     }
-
+/*
     private void avbrytPaameldingen() {
         if (javaFXKjorer()) {
             nyAlert("Logg inn", "Du er nødt til å logge deg inn før du kan melde deg på.");
         }
 
-    }
-
-    private void leggIDatabase(Arrangement selectedItem, Resultat_Paamelding resultat_paamelding) {
-        if (javaFXKjorer()){
-            return;
-        }
-        data.DataHandlerSQL.leggInnPaamelding(selectedItem.getId(), resultat_paamelding);
-        dialog.close();
-    }
+    }*/
 
     public void fyllTabellen(ObservableList<Arrangement> sqlList, TableView<Arrangement> tabell) {
         for (Arrangement liste : sqlList) {

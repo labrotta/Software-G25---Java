@@ -27,7 +27,7 @@ class ArrangementOversiktControllerTest{
     @InjectMocks
     private ArrangementOversiktController arrangementOversiktController = new ArrangementOversiktController();
 
-
+/*
     @Test
     void fyllTabellenTest(){
         list.add(new Ritt("Birken", "Lillehammer"));
@@ -47,7 +47,7 @@ class ArrangementOversiktControllerTest{
         assertEquals(jon, birkebeineren.getPaameldinger().get(0));
 
         //Skal også lage funksjonalitet for å teste at den feiler
-    }
+    }*/
 
 
 }

@@ -1,13 +1,14 @@
-package Model;
+package data;
 
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerKlasser.Bruker;
 import Model.BrukerKlasser.Medlem;
+import Model.BrukerType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ModelBruker {
+public class LagBrukere {
     private final static ObservableList<BrukerType> brukere = FXCollections.observableArrayList();
 
     public static ObservableList<BrukerType> listeBruker() {

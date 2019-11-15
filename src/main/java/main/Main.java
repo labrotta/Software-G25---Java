@@ -1,8 +1,6 @@
 package main;
 
 import Model.Arrangement;
-import Model.BrukerType;
-import data.DataHandler;
 import data.DataHandlerSQL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
