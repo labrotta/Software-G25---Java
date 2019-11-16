@@ -42,7 +42,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:13" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.openjfx:javafx:13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
   </component>
 </module>

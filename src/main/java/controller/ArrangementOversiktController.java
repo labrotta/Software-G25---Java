@@ -50,6 +50,8 @@ public class ArrangementOversiktController{
 
         paameldingButton.setOnAction(actionEvent -> paameldingDialog(arrangementTableView.getSelectionModel().getSelectedItem()));
 
+        arrangementTableView.getSelectionModel().selectFirst();
+
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         eksArrangementInfo.setOnAction(actionEvent -> {
                     if (arrangementTableView.getSelectionModel().getSelectedItem() == null){
@@ -68,6 +70,10 @@ public class ArrangementOversiktController{
             String tittel = "Velg et " + arrangementType + "!";
             String innhold = "Vennligst velg et " + arrangementType + " du vil melde deg på!";
             nyAlert(tittel, innhold);
+            return;
+        }
+        if (innloggetBruker == null){
+            nyAlert("Logg inn", "Du er nødt til å logge deg inn før du kan melde deg på.");
             return;
         }
         dialog = new Stage();
@@ -95,13 +101,6 @@ public class ArrangementOversiktController{
         Resultat_Paamelding resultat_paamelding = selectedItem.meldPaaEnBruker(innloggetBruker);
         leggInnPaameldingDB(selectedItem.getId(), resultat_paamelding);
     }
-/*
-    private void avbrytPaameldingen() {
-        if (javaFXKjorer()) {
-            nyAlert("Logg inn", "Du er nødt til å logge deg inn før du kan melde deg på.");
-        }
-
-    }*/
 
     public void fyllTabellen(ObservableList<Arrangement> sqlList, TableView<Arrangement> tabell) {
         for (Arrangement liste : sqlList) {
@@ -115,9 +114,5 @@ public class ArrangementOversiktController{
         alert.setHeaderText(null);
         alert.setContentText(innhold);
         alert.showAndWait();
-    }
-
-    private boolean javaFXKjorer(){
-        return dialog != null;
     }
 }
