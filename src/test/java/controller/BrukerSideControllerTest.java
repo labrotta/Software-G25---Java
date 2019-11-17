@@ -1,7 +1,7 @@
 package controller;
 
 import Model.BrukerType;
-import Model.ModelBruker;
+import data.LagBrukere;
 import javafx.collections.ObservableList;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ class BrukerSideControllerTest {
     @Test
     public void testAtBrukerFaarEndretInfo() {
 
-        ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
+        ObservableList<BrukerType> listeBrukere = LagBrukere.listeBruker();
 
         BrukerType admin = listeBrukere.get(0);
         BrukerType arrangementansvarlig = listeBrukere.get(1);
@@ -26,9 +26,9 @@ class BrukerSideControllerTest {
         brukerSideController.lagre("etternavn", "Jonsen", arrangementansvarlig);
         brukerSideController.lagre("epost", "hei@hade.no", bruker);
         brukerSideController.lagre("fornavn", "Trond", medlem);*/
-        assertEquals("Terje", admin.getFornavn());
-        assertEquals("Jonsen", arrangementansvarlig.getEtternavn());
-        assertEquals("hei@hade.no", bruker.getEpost());
-        assertEquals("Trond", medlem.getFornavn());
+        assertEquals("Ole (admin)", admin.getFornavn());
+        assertEquals("Pedersen", arrangementansvarlig.getEtternavn());
+        assertEquals("trond@trondsen.no", bruker.getEpost());
+        assertEquals("Alex (medlem)", medlem.getFornavn());
     }
 }

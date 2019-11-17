@@ -1,10 +1,12 @@
 package controller;
 
-import Data.DataHandlerSQL;
+import Model.paamelding_resultat.Resultat_Paamelding;
+import data.DataHandlerSQL;
 import Model.Arrangement;
 import Model.BrukerType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -15,7 +17,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
+
+import static data.DataHandlerSQL.leggInnPaameldingDB;
 
 public class ArrangementOversiktController{
 
@@ -30,35 +34,46 @@ public class ArrangementOversiktController{
 
     Stage dialog;
 
-    public void initialize() throws SQLException {
+    public void initialize() {
         brukerID.setText(innloggetBruker.getFornavn());
-        final ObservableList<Arrangement> sqlList = DataHandlerSQL.sjekkSQLType(arrangementType);
 
-        fyllTabellen(sqlList, arrangementTableView);
+        ArrayList<Arrangement> arrangementer = DataHandlerSQL.hentArrangementerMedPaameldinger();
+        arrangementer = Arrangement.filtrerArrangementerEtterType(arrangementer, arrangementType);
+        ObservableList<Arrangement> arrangementerObserveableList = FXCollections.observableArrayList(arrangementer);
+        fyllTabellen(arrangementerObserveableList, arrangementTableView);
 
         arrangementTypeTextField.setText(arrangementType);
 
         stedTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSted()));
         navnTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNavn()));
-        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getDatoOgTid()));
+        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getDato().toString()));
 
         paameldingButton.setOnAction(actionEvent -> paameldingDialog(arrangementTableView.getSelectionModel().getSelectedItem()));
 
+        arrangementTableView.getSelectionModel().selectFirst();
+
         tilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         eksArrangementInfo.setOnAction(actionEvent -> {
-                    ArrangementOversiktInfoController.arrangementInfoPaameldt = arrangementTableView.getSelectionModel().getSelectedItem().getNavn();
-                    Main.getInstance().changeScene("../View/ArrangementOversiktViewInfo.fxml");
+                    if (arrangementTableView.getSelectionModel().getSelectedItem() == null){
+                        nyAlert("Velg et arrangement", "Vennligst velg et arrangement");
+                        return;
+                    }
+                    ResultatListeController.valgtArrangement = arrangementTableView.getSelectionModel().getSelectedItem();
+                    Main.getInstance().changeScene("../View/ResultatListeView.fxml");
                 }
         );
     }
 
+
     private void paameldingDialog(Arrangement selectedItem) {
         if (selectedItem == null){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Velg et " + arrangementType + "!");
-            alert.setHeaderText(null);
-            alert.setContentText("Vennligst velg et " + arrangementType + " du vil melde deg på!");
-            alert.showAndWait();
+            String tittel = "Velg et " + arrangementType + "!";
+            String innhold = "Vennligst velg et " + arrangementType + " du vil melde deg på!";
+            nyAlert(tittel, innhold);
+            return;
+        }
+        if (innloggetBruker == null){
+            nyAlert("Logg inn", "Du er nødt til å logge deg inn før du kan melde deg på.");
             return;
         }
         dialog = new Stage();
@@ -83,21 +98,21 @@ public class ArrangementOversiktController{
     }
 
     public void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
-        selectedItem.leggTilEnPaamelding(innloggetBruker);
-        leggIDatabase(selectedItem, innloggetBruker);
-    }
-
-    public void leggIDatabase(Arrangement selectedItem, BrukerType innloggetBruker) {
-        if (dialog == null){
-            return;
-        }
-        DataHandlerSQL.PaaMeldingBrukerArrangement(selectedItem.getNavn(), innloggetBruker.getFornavn());
-        dialog.close();
+        Resultat_Paamelding resultat_paamelding = selectedItem.meldPaaEnBruker(innloggetBruker);
+        leggInnPaameldingDB(selectedItem.getId(), resultat_paamelding);
     }
 
     public void fyllTabellen(ObservableList<Arrangement> sqlList, TableView<Arrangement> tabell) {
         for (Arrangement liste : sqlList) {
             tabell.getItems().add(liste);
         }
+    }
+
+    private void nyAlert(String tittel, String innhold) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tittel);
+        alert.setHeaderText(null);
+        alert.setContentText(innhold);
+        alert.showAndWait();
     }
 }

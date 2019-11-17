@@ -1,9 +1,8 @@
 package controller;
 
-import Model.BrukerKlasser.Admin;
-import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
-import Model.ModelBruker;
+import data.DataHandlerSQL;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,34 +20,37 @@ public class ForsideController {
     @FXML private Button brukerLoggInn, BrukersideButton, skirennButton, lopButton, sykkelrittButton, lagArrangementButton;
     @FXML private Label valgtBrukerNavnLabel;
     @FXML private ImageView imgSki,imgSykkel,imgLop;
+    private boolean javaFXKjorer = false;
 
-    private static ObservableList<BrukerType> listeBrukere = ModelBruker.listeBruker();
+    private static ObservableList<BrukerType> listeBrukere = FXCollections.observableArrayList(DataHandlerSQL.hentBrukere());
 
     public static BrukerType getInnloggetBruker(){return innloggetBruker;}
 
-    private static BrukerType innloggetBruker = listeBrukere.get(2); //Setter brukeren til å være bruker
+    private static BrukerType innloggetBruker; //Setter brukeren til å være bruker
 
     public void initialize(){
+
+        javaFXKjorer = true;
 
         imgForhand();
         lagArrangementButton.setVisible(false);
 
-
-        if (innloggetBruker != null){
-            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
+        if (innloggetBruker == null){
+            innloggetBruker = listeBrukere.get(0);
         }
+
+        valgtBrukerNavnLabel.setText(innloggetBruker.hentNavnOgType());
 
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            BrukerType personSomSkalInnLogges = brukerListe.getSelectionModel().getSelectedItem();
-            loggInn(personSomSkalInnLogges);
-            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
+            innloggetBruker = brukerListe.getSelectionModel().getSelectedItem();
+            valgtBrukerNavnLabel.setText(innloggetBruker.hentNavnOgType());
 
             //Hvis brukeren er administrator eller arrangementansvarlig,
             // skal han/hun ha muligheten til å lage arrangement
-            if (innloggetBruker instanceof Admin || innloggetBruker instanceof ArrangementAnsvarlig){
+            if (innloggetBruker.erAdminEllerAA()){
                 lagArrangementButton.setVisible(true);
             } else {
                 lagArrangementButton.setVisible(false);
@@ -67,12 +69,6 @@ public class ForsideController {
         sykkelrittButton.setOnAction(getActionEventEventHandler("ritt"));
         lopButton.setOnAction(getActionEventEventHandler("lop"));
 
-
-    }
-
-    public void loggInn(BrukerType bruker) {
-        innloggetBruker = bruker;
-        valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
 
     }
 

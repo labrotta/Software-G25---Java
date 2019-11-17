@@ -1,32 +1,41 @@
 package controller;
 
-import Model.BrukerKlasser.Bruker;
+import Model.Arrangement;
 import Model.BrukerType;
+import Model.paamelding_resultat.Resultat_Paamelding;
+import data.DataHandlerSQL;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class BrukerSideController {
 
-    @FXML
-    private Button TilbakeButton, redigerFornavnButton, redigerEtternavnButton, redigerEpostButton;
-
-    @FXML
-    private Label fornavnLabel, etternavnLabel, epostLabel;
+    @FXML private Button TilbakeButton, redigerFornavnButton, redigerEtternavnButton, redigerEpostButton;
+    @FXML private Label fornavnLabel, etternavnLabel, epostLabel;
+    @FXML private TableView<Resultat_Paamelding> resultatTableView;
+    @FXML private TableColumn<Resultat_Paamelding, String> datoTableColumn, StedTableColumn, brukerSideTabellArrangment, tidTableColumn;
 
     Stage dialog;
 
-
     public void initialize() {
-
         BrukerType innloggetBruker = ForsideController.getInnloggetBruker();
+
+        ArrayList<Arrangement> arrangementer= DataHandlerSQL.hentArrangementerMedPaameldinger();
+        ArrayList<Resultat_Paamelding> resultaterForBruker = innloggetBruker.hentResultaterForBruker(arrangementer);
+
+        ObservableList<Resultat_Paamelding> listeResultat = FXCollections.observableArrayList(resultaterForBruker);
 
         TilbakeButton.setOnAction(actionEvent -> Main.getInstance().changeScene("../View/ViewFrontPage.fxml"));
         redigerFornavnButton.setOnAction(actionEvent -> rediger(  "fornavn", fornavnLabel.getText(), innloggetBruker));
@@ -34,13 +43,21 @@ public class BrukerSideController {
         redigerEpostButton.setOnAction(actionEvent -> rediger(  "epost", epostLabel.getText(),innloggetBruker ));
 
         fornavnLabel.setText("Test");
-
         fornavnLabel.setText(innloggetBruker.getFornavn());
         etternavnLabel.setText(innloggetBruker.getEtternavn());
         epostLabel.setText(innloggetBruker.getEpost());
 
+        for (Resultat_Paamelding liste : listeResultat) {
+            resultatTableView.getItems().add(liste);
+        }
 
+        final DateFormat df = DateFormat.getDateInstance();
+        datoTableColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getArrangement().getDato().toString()));
+        StedTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getPlassering()));
+        brukerSideTabellArrangment.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getArrangement().getNavn()));
+        tidTableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper(cellData.getValue().hentTidBrukt()));
     }
+
 
     public void rediger( String hvaSomSkalRedigeres, String originalString, BrukerType bruker) {
 
