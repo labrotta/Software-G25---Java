@@ -52,10 +52,12 @@ public class BrukerType {
     }
 
     public boolean brukerErMedlem(){
-            return this instanceof Medlem
-                    || this instanceof ArrangementAnsvarlig
-                    || this instanceof Admin;
+            return this instanceof Medlem || this instanceof ArrangementAnsvarlig || this instanceof Admin;
 
+    }
+
+    public String hentNavnOgType(){
+        return this.fornavn + " (" + this.getClass().getSimpleName() + ")";
     }
 
     public int getId() {

@@ -1,7 +1,5 @@
 package controller;
 
-import Model.BrukerKlasser.Admin;
-import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerType;
 import data.DataHandlerSQL;
 import javafx.collections.FXCollections;
@@ -28,7 +26,7 @@ public class ForsideController {
 
     public static BrukerType getInnloggetBruker(){return innloggetBruker;}
 
-    private static BrukerType innloggetBruker = listeBrukere.get(2); //Setter brukeren til å være bruker
+    private static BrukerType innloggetBruker; //Setter brukeren til å være bruker
 
     public void initialize(){
 
@@ -37,21 +35,22 @@ public class ForsideController {
         imgForhand();
         lagArrangementButton.setVisible(false);
 
-
-        if (innloggetBruker != null){
-            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn());
+        if (innloggetBruker == null){
+            innloggetBruker = listeBrukere.get(0);
         }
+
+        valgtBrukerNavnLabel.setText(innloggetBruker.hentNavnOgType());
 
         brukerListe.setItems(listeBrukere);
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            innloggetBruker = loggInn(brukerListe.getSelectionModel().getSelectedItem());
-            valgtBrukerNavnLabel.setText(innloggetBruker.getFornavn() + " (" + innloggetBruker.getClass().getSimpleName() + ")");
+            innloggetBruker = brukerListe.getSelectionModel().getSelectedItem();
+            valgtBrukerNavnLabel.setText(innloggetBruker.hentNavnOgType());
 
             //Hvis brukeren er administrator eller arrangementansvarlig,
             // skal han/hun ha muligheten til å lage arrangement
-            if (brukerErAdminEllerArrangementansvarlig(innloggetBruker)){
+            if (innloggetBruker.erAdminEllerAA()){
                 lagArrangementButton.setVisible(true);
             } else {
                 lagArrangementButton.setVisible(false);
@@ -71,25 +70,6 @@ public class ForsideController {
         lopButton.setOnAction(getActionEventEventHandler("lop"));
 
 
-    }
-
-    public boolean brukerErAdminEllerArrangementansvarlig(BrukerType bruker) {
-        if (bruker instanceof Admin || bruker instanceof ArrangementAnsvarlig){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public BrukerType loggInn(BrukerType bruker) {
-        settNyTekstForInnloggetBruker(bruker);
-        return bruker;
-    }
-
-    private void settNyTekstForInnloggetBruker(BrukerType bruker) {
-        if (javaFXKjorer){
-            valgtBrukerNavnLabel.setText(bruker.getFornavn());
-        }
     }
 
     private EventHandler<ActionEvent> getActionEventEventHandler(String arrangementType) {

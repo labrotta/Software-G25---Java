@@ -39,4 +39,9 @@ public class BrukerTypeTest {
         assertTrue(medlem.brukerErMedlem());
         assertFalse(bruker.brukerErMedlem());
     }
+
+    @Test
+    void hentNavnOgTypeTest() {
+        assertEquals("Test (Medlem)", medlem.hentNavnOgType());
+    }
 }
