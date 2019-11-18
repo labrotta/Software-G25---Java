@@ -99,6 +99,7 @@ public class ArrangementOversiktController{
 
     public void paamelding(Arrangement selectedItem, BrukerType innloggetBruker) {
         Resultat_Paamelding resultat_paamelding = selectedItem.meldPaaEnBruker(innloggetBruker);
+        System.out.println(resultat_paamelding);
         leggInnPaameldingDB(selectedItem.getId(), resultat_paamelding);
     }
 

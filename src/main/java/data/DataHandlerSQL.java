@@ -39,14 +39,17 @@ public class DataHandlerSQL {
     }
 
     public static String leggInnPaameldingDB(int arrangementID, Resultat_Paamelding resultat_paamelding){
-        String sql = "INSERT INTO TiderPaameldinger (ArrangementID, BrukerID, ErResultat) VALUES(?,?,?)";
-
+        String sql = "INSERT INTO TiderPaameldinger (ArrangementID, BrukerID, Plasseringer,ErResultat) VALUES(?,?,?,?)";
+        System.out.println(arrangementID+" "+resultat_paamelding);
         try {
             Connection connection = SQLiteConnect.SQLConnect();
             PreparedStatement streng = connection.prepareStatement(sql);
                     streng.setInt(1, arrangementID);
                     streng.setInt(2, resultat_paamelding.getUtoover().getId());
-                    streng.setBoolean(3, false);
+                    streng.setInt(3,0);
+                    streng.setBoolean(4, false);
+                    streng.execute();
+                    streng.close();
         } catch (SQLException sqle){
             sqle.printStackTrace();
         }
