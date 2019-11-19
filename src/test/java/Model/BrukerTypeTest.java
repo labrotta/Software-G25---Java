@@ -2,6 +2,7 @@ package Model;
 
 import Model.ArrangementKlasser.Lop;
 import Model.ArrangementKlasser.Renn;
+import Model.ArrangementKlasser.Ritt;
 import Model.BrukerKlasser.Admin;
 import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerKlasser.Bruker;
@@ -97,5 +98,15 @@ public class BrukerTypeTest {
         detEneResultatet.add(resultat2);
 
         assertEquals(detEneResultatet, bruker.hentResultaterForBruker(arrangementer));
+    }
+
+    @Test
+    void enAASkalKunneOppretteArrangementTest(){
+        //Tester først om brukeren er arrangementansvalig
+        assertTrue(arrangementansvarlig.erAdminEllerAA());
+
+        //Så tester vi om det går an å lage et arrangement
+        Arrangement styrkeproven = new Ritt("StyrkePrøven", "Halden", LocalDate.of(2017, 5, 5));
+        assertEquals("StyrkePrøven", styrkeproven.getNavn());
     }
 }
