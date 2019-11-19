@@ -1,47 +1,73 @@
 package Model;
 
+import Model.BrukerKlasser.Admin;
+import Model.BrukerKlasser.ArrangementAnsvarlig;
 import Model.BrukerKlasser.Bruker;
 import Model.BrukerKlasser.Medlem;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BrukerTypeTest {
-    Bruker bruker = new Bruker("Test", "Testesen", "test@testesen.no");
-    BrukerType medlem = new Medlem("Test", "Testesen", "test@testesen.no");
+    BrukerType bruker = new Bruker("Reidar", "Reidarsen", "test@testesen.no");
+    BrukerType medlem = new Medlem("Arne", "Arntsen", "test@testesen.no");
+    BrukerType admin = new Admin("Rune", "Runarsen");
+    BrukerType arrangementansvarlig = new ArrangementAnsvarlig("John", "Fredriksen");
 
     @Test
     public void testAaLageBruker(){
-        assertEquals("Test", bruker.getFornavn());
-        assertEquals("Testesen", bruker.getEtternavn());
+        assertEquals("Reidar", bruker.getFornavn());
+        assertEquals("Reidarsen", bruker.getEtternavn());
     }
 
     @Test
     public void testAaLageMedlem(){
-        assertEquals("Test", medlem.getFornavn());
-        assertEquals("Testesen", medlem.getEtternavn());
+        assertEquals("Arne", medlem.getFornavn());
+        assertEquals("Arntsen", medlem.getEtternavn());
     }
 
     @Test
-    void erAdminEllerAA() {
+    void erAdminEllerAATest() {
         assertFalse(bruker.erAdminEllerAA());
         assertFalse(medlem.erAdminEllerAA());
+        assertTrue(admin.erAdminEllerAA());
     }
 
     @Test
     void brukerErMedlemTest(){
 
-        BrukerType medlem = new Medlem("Roger", "Johnser");
-        BrukerType bruker = new Bruker("Frode", "Pedersen");
-
-        assertTrue(medlem.brukerErMedlem());
         assertFalse(bruker.brukerErMedlem());
+        assertTrue(medlem.brukerErMedlem());
+        assertTrue(arrangementansvarlig.brukerErMedlem());
+        assertTrue(admin.brukerErMedlem());
     }
 
     @Test
     void hentNavnOgTypeTest() {
-        assertEquals("Test (Medlem)", medlem.hentNavnOgType());
+        assertEquals("Arne (Medlem)", medlem.hentNavnOgType());
+    }
+
+    @Test
+    void setFornavnTest(){
+        medlem.setForNavn("Per");
+        assertEquals("Per", medlem.getFornavn());
+    }
+
+    @Test
+    void setEtternavnTest(){
+        medlem.setEtternavn("Hansen");
+        assertEquals("Hansen", medlem.getEtternavn());
+    }
+
+    @Test
+    void setEpostTest(){
+        medlem.setEpost("per@hansen.no");
+        assertEquals("per@hansen.no", medlem.getEpost());
+    }
+
+    @Test
+    void hentResultaterForBrukerTest(){
+
     }
 }

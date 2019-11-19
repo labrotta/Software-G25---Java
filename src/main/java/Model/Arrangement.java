@@ -35,7 +35,7 @@ public class Arrangement {
     }
 
     public Resultat_Paamelding meldPaaEnBruker(BrukerType bruker){
-        if (bruker.brukerErMedlem()){
+        if (!bruker.brukerErMedlem()){
             return null;
         }
         Resultat_Paamelding resultat_paamelding = new Resultat_Paamelding(bruker);

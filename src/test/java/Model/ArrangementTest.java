@@ -21,7 +21,7 @@ class ArrangementTest {
     ArrayList<LocalDate> datoer = new ArrayList<>();
     ArrayList<LocalTime> tider = new ArrayList<>();
     ArrayList<Arrangement> arrangementer = new ArrayList<>();
-    BrukerType brukerType = new BrukerType("Helge", "Helgesen");
+    BrukerType brukerType = new Medlem("Helge", "Helgesen");
     Resultat_Paamelding resultat_paamelding = new Resultat_Paamelding(brukerType);
     ArrayList<Resultat_Paamelding> resultat_paameldingListe = new ArrayList<>();
 
@@ -81,8 +81,8 @@ class ArrangementTest {
     }
     @Test
     void meldPaaEnBrukerTest() {
-        arrangementer.get(2).meldPaaEnBruker(brukerType);
-        assertEquals(brukerType, arrangementer.get(2).getPaameldinger().get(0).getUtoover());
+        arrangementer.get(1).meldPaaEnBruker(brukerType);
+        assertEquals(brukerType, arrangementer.get(1).getPaameldinger().get(0).getUtoover());
     }
 
 }

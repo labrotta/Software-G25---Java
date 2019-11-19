@@ -24,9 +24,13 @@ public class ForsideController {
 
     private static ObservableList<BrukerType> listeBrukere = FXCollections.observableArrayList(DataHandlerSQL.hentBrukere());
 
+    private static BrukerType innloggetBruker; //Setter brukeren til å være bruker
+
     public static BrukerType getInnloggetBruker(){return innloggetBruker;}
 
-    private static BrukerType innloggetBruker; //Setter brukeren til å være bruker
+    public static void setInnloggetBruker(BrukerType brukerType){
+        innloggetBruker = brukerType;
+    }
 
     public void initialize(){
 
@@ -36,7 +40,7 @@ public class ForsideController {
         lagArrangementButton.setVisible(false);
 
         if (innloggetBruker == null){
-            innloggetBruker = listeBrukere.get(0);
+            setInnloggetBruker(listeBrukere.get(0));
         }
 
         valgtBrukerNavnLabel.setText(innloggetBruker.hentNavnOgType());
@@ -45,7 +49,7 @@ public class ForsideController {
         brukerListe.getSelectionModel().selectFirst();
 
         brukerLoggInn.setOnAction(actionEvent -> {
-            innloggetBruker = brukerListe.getSelectionModel().getSelectedItem();
+            setInnloggetBruker(brukerListe.getSelectionModel().getSelectedItem());
             valgtBrukerNavnLabel.setText(innloggetBruker.hentNavnOgType());
 
             //Hvis brukeren er administrator eller arrangementansvarlig,
