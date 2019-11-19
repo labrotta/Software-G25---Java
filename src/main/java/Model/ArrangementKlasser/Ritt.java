@@ -13,4 +13,8 @@ public class Ritt extends Arrangement {
     }
 
     public Ritt(String navn, String sted) {super(navn, sted);}
+
+    public Ritt(String navn, String sted, LocalDate dato) {
+        super(navn, sted, dato);
+    }
 }

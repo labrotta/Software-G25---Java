@@ -101,6 +101,7 @@ public class ArrangementOversiktController{
         Resultat_Paamelding resultat_paamelding = selectedItem.meldPaaEnBruker(innloggetBruker);
         System.out.println(resultat_paamelding);
         leggInnPaameldingDB(selectedItem.getId(), resultat_paamelding);
+        dialog.close();
     }
 
     public void fyllTabellen(ObservableList<Arrangement> sqlList, TableView<Arrangement> tabell) {

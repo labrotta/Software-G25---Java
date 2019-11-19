@@ -21,6 +21,9 @@ public class Resultat_Paamelding {
     //med arrangement->påmelding->arrangement->påmel.......
     private Arrangement arrangement;
 
+    public Resultat_Paamelding(BrukerType utoover) {
+        this.utoover = utoover;
+    }
 
     public Resultat_Paamelding(BrukerType utoover, LocalTime starttid, LocalTime slutttid, int plassering) {
         this.utoover = utoover;
@@ -45,9 +48,6 @@ public class Resultat_Paamelding {
         this.plassering = plassering;
     }
 
-    public Resultat_Paamelding(BrukerType utoover) {
-        this.utoover = utoover;
-    }
 
     public Arrangement getArrangement() {
         return arrangement;

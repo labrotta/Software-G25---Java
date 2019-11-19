@@ -15,4 +15,8 @@ public class Renn extends Arrangement {
     public Renn(String navn, String sted) {
         super(navn, sted);
     }
+
+    public Renn(String navn, String sted, LocalDate dato) {
+        super(navn, sted, dato);
+    }
 }

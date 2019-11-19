@@ -65,10 +65,7 @@ public class MainTest {
         brukere.add(medlem);
         brukere.add(bruker);
 
-        Resultat_Paamelding resultat1 = new Resultat_Paamelding(aa, tid3, tid4, 3);
-        Resultat_Paamelding resultat2 = new Resultat_Paamelding(medlem, tid3, tid4, 1);
-        paameldingerOgResultater.add(resultat1);
-        paameldingerOgResultater.add(resultat2);
+
 
 
 

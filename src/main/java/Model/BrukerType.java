@@ -36,9 +36,6 @@ public class BrukerType {
         for (Arrangement etArrangement : arrangementer){
             for (Resultat_Paamelding etResultat : etArrangement.getPaameldinger()){
                 if (this == etResultat.getUtoover()){
-                    System.out.println("hei");
-                }
-                if (this.getId() == etResultat.getUtoover().getId()){
                     Arrangement arrangement = new Arrangement(
                             etArrangement.getNavn(),
                             etArrangement.getSted(),
